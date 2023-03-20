@@ -1,7 +1,5 @@
 #include <stdio.h> // Not normally used in c++
-//#include "test.cuh"
 
-//extern "C" void say_hello_cpp(void); // it seems that this must be included to work using .cpp files
 extern void say_hello_cuda();
 
 void say_hello_cpp(){

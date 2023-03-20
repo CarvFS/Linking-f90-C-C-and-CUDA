@@ -1,5 +1,4 @@
 #include <stdio.h>
-//#include "test.cuh"
 
 __global__ void test(){
     printf("Hello from thread %d at block %d!\n", threadIdx.x, blockIdx.x);

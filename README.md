@@ -1,8 +1,26 @@
 # First steps in linking FORTRAN code with C++ and CUDA
 
+## Running .cpp program taht calls CUDA
+
+This procedure involves the files `cpp_caller.cpp` and `test_cuda_c.cu`. Give the following commands:
+
+- nvcc -c test_cuda_c.cu
+- g++ -o cppcall -L/usr/local/cuda/lib64 -lcuda -lcudart cpp_caller.cpp  test_cuda_c.o
+
+By running `./cppcall` one must get the following output:
+
+  ```
+  Hello from C++!
+  Hello from thread 0 at block 0!
+  Hello from thread 1 at block 0!
+  Hello from thread 0 at block 1!
+  Hello from thread 1 at block 1!
+  The end...
+  ```
+
 ## Running .f90 program that calls C++, which calls CUDA
 
-Give the following commands:
+This procedure involves the files `test_Cpp_c.cpp`, `test_C_c.c`, `test_cuda_c.cu` and `test.f90`. Give the following commands:
 
 - nvcc -c test_cuda_c.cu
 - g++ -c test_Cpp_c.cpp

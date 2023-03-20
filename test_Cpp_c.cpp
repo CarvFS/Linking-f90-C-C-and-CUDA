@@ -1,12 +1,11 @@
 // Working along with .90 code
-#include <stdio.h> // Not normally used in c++
-#include "test.cuh"
+#include <stdio.h> // Not normally used in c++, but it is working
 
-extern "C" void say_hello_cpp(void); // it seems that this must be included to work using .cpp files
-extern "C" void calling_cuda();
-extern void say_hello_cuda();
+extern "C" void say_hello_cpp(); // Let FORTRAN know about this function
+extern "C" void calling_cuda(); // Let FORTRAN know about this function
+extern void say_hello_cuda(); // Let FORTRAN and C++ know about this function
 
-void say_hello_cpp(void){
+void say_hello_cpp(){
     printf("Hello from C++!\n");
 }
 
