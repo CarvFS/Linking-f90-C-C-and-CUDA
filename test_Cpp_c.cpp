@@ -3,14 +3,15 @@
 #include "test.cuh"
 
 extern "C" void say_hello_cpp(void); // it seems that this must be included to work using .cpp files
-extern "C" void wrapperfunction(void);
+extern "C" void calling_cuda();
+extern void say_hello_cuda();
 
 void say_hello_cpp(void){
     printf("Hello from C++!\n");
 }
 
-void say_hello_cuda(void){
-    void wrapperfunction();
+void calling_cuda(){
+    say_hello_cuda();
 }
 
 
