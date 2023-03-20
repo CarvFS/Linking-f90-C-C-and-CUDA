@@ -14,7 +14,7 @@ program main
 !            integer(c_int), value :: the_answer
         end subroutine say_hello_cpp
 
-        subroutine say_hello_cuda() bind(C, name = "say_hello_cuda")
+        subroutine say_hello_cuda() bind(C, name = "calling_cuda")
 !
         end subroutine say_hello_cuda
 
@@ -27,3 +27,5 @@ program main
     call say_hello_cpp()
 
     call say_hello_cuda()
+
+end program

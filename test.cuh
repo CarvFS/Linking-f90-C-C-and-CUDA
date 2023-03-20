@@ -1,2 +1,2 @@
 #include <stdio.h>
-void wrapperfunction();
+void say_hello_cuda();
