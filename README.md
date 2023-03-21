@@ -1,5 +1,22 @@
 # First steps in linking FORTRAN code with C++ and CUDA
 
+## Calling fortran function and subrouting (located in a module) from C++
+
+This procedure involves the files `test_module.F90`, `test_module_func.F90` and `main_test_module.cpp`. Give the following commands:
+
+- gfortran -c test_module.F90
+- gfortran -c test_module_func.F90
+- g++ -o main main_test_module.cpp test_module.o test_module_func.o -lgfortran
+
+By running `./main` one must get the following output:
+
+  ```
+  Calling fortran function from C++!
+  3
+  Calling fortran subroutine from C++
+     3.0000000000000000
+  ```
+
 ## Running .cpp program taht calls CUDA
 
 This procedure involves the files `cpp_caller.cpp` and `test_cuda_c.cu`. Give the following commands:
