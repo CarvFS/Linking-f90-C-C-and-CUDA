@@ -4,9 +4,9 @@
 
 To do:
 
-<input type="checkbox"> access class variables from fortran
+- [ ] access class variables from fortran
 
-<input type="checkbox"> modify class variables from fortran
+- [ ] modify class variables from fortran
 
 This procedure involves the files `rism1d.F90` and `rism1d_c.cpp`. Give the following commands:
 
