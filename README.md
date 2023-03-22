@@ -1,5 +1,24 @@
 # First steps in linking FORTRAN code with C++ and CUDA
 
+## Calling function from c++ class from fortran
+
+To do:
+
+<input type="checkbox"> access class variables from fortran
+
+<input type="checkbox"> modify class variables from fortran
+
+This procedure involves the files `rism1d.F90` and `rism1d_c.cpp`. Give the following commands:
+
+- g++ -c rism1d_c.cpp
+- gfortran -o testrism1d rism1d.F90 rism1d_c.o -lstdc++
+
+By running `./testrism1d` one must get the following output:
+
+  ```
+  kh
+  ```
+
 ## Calling fortran function and subrouting (located in a module) from C++
 
 This procedure involves the files `test_module.F90`, `test_module_func.F90` and `main_test_module.cpp`. Give the following commands:
