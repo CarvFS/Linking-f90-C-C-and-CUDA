@@ -1,8 +1,0 @@
-# the compiler: gcc for C program, define as g++ for C++
-CC = g++
-
-main_program: rism1d_c.o
-
-#rism1d.o:ris1d.cpp
-
-	$(CC) -c rism1d_c.cpp
