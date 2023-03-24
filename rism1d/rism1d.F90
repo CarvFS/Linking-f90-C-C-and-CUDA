@@ -4,7 +4,8 @@ program rism1d_main
     implicit none 
 
     type, bind(C) :: rism1d
-        integer(C_int) :: extra_precision
+        integer(C_int) :: extra_precision, Mdiis_vec
+        character(kind = C_char), dimension(3) :: savefile
     end type rism1d
 
     interface
@@ -22,7 +23,7 @@ program rism1d_main
 
     call calling(r1d)
 
-    write(*,*) r1d%extra_precision
+    write(*,*) "extra_precision = ", r1d%extra_precision, "Mdis_vec = ", r1d%Mdiis_vec, "savefile = ", r1d%savefile
 
     
 
