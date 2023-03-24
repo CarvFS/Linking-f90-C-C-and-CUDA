@@ -1,0 +1,12 @@
+CC = gfortran
+
+OBJS = rism1d_c.o
+PROG = sysstatd
+LDLIBS  = -lstdc++
+
+all: $(PROG)
+
+$(PROG): $(OBJS)
+	$(CC) $(OBJS) -o test rism1d.F90 $(LDLIBS)
+
+rism1d_c.o: rism1d_c.h
