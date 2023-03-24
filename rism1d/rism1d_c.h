@@ -6,7 +6,7 @@
 #include <cstring>
 using namespace std;
 
-class rism1d{
+class RISM1D{
 // uncomment here will cause strange behavior
   private:
     void new_();
@@ -21,7 +21,7 @@ class rism1d{
 //    int maxep0 = 4;
 
   public:
-    rism1d();
+    RISM1D();
     int extra_precision;
     int Mdiis_vec;
     int mdiis_method;
@@ -39,7 +39,7 @@ class rism1d{
 
     void self_test();
 
-    double rism1d_getInvDebyeLen();
+    double getInvDebyeLen();
     double rism1d_getCompressibility();
     double rism1d_getCompressibility_dT();
     double rism1d_get3DRISMbackground();
@@ -69,32 +69,34 @@ class rism1d{
     void rism1d_readNBFixtsf();
 
 };
+// based on https://stackoverflow.com/questions/14815274/how-to-call-a-c-method-from-c
+extern "C" double rism1d_getInvDebyeLen(RISM1D*);
 
-extern "C" rism1d *cplusplus_callback_function(rism1d*);
+extern "C" RISM1D *cplusplus_callback_function(RISM1D*);
 //extern "C" void assign_char;
 
 /*
 #ifdef __cplusplus
-  class rism1d{
+  class RISM1D{
     public:
-        rism1d();
+        RISM1D();
         int extra_precision;
     };
 #else
   typedef
-    struct rism1d {
+    struct RISM1D {
       int extra_precision;
     }
-      rism1d;
+      RISM1D;
 #endif
 #ifdef __cplusplus
 
 extern "C" {
 #endif
 #if defined(__STDC__) || defined(__cplusplus)
-  extern rism1d *cplusplus_callback_function(rism1d*);
+  extern RISM1D *cplusplus_callback_function(RISM1D*);
 #else
-  extern rism1d *cplusplus_callback_function();
+  extern RISM1D *cplusplus_callback_function();
 #endif
 #ifdef __cplusplus
 }
