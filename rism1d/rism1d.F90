@@ -6,7 +6,7 @@ program rism1d_main
   type(rism1d) :: r1d
 
   !integer(C_int) :: o_form = 1
-  character(2, C_char) :: o_form = "PR"
+  character(256, C_char) :: o_form = "PR"//char(0)
   
   !call calling(r1d)
   
