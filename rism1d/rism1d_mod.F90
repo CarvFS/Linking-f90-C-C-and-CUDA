@@ -3,19 +3,40 @@ module rism1d_mod
   implicit none 
 
   type, bind(C) :: rism1d
-     !integer(C_int) :: extra_precision, Mdiis_vec, mdiis_method
-     !character(kind = C_char), dimension(16) :: savefile
-     !character(kind = C_char), dimension(8) :: closureID
+     integer(C_int) :: extra_precision, Mdiis_vec, mdiis_method
+     character(C_char) :: savefile(256)
+     character(C_char) :: closureID(256)
   end type rism1d
+
+  type, bind(C) :: solvMDL
+     integer(C_int) :: test = 123
+     double precision :: test2 = 1.23
+  end type solvMDL
 
   interface
 
-     subroutine calling(r1d) bind(C, name="cplusplus_callback_function")
+     !subroutine calling(r1d) bind(C, name="cplusplus_callback_function")
+     !  import :: rism1d
+     !
+     !  type(rism1d) :: r1d
+     !
+     !end subroutine calling
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+     subroutine rism1d_addSpecies(this, mdl, density) bind(C, name = "rism1d_addSpecies")
+       use iso_c_binding
        import :: rism1d
+       
+       !import :: solvMDL
+       !type(solvMDL) :: mdl
 
-       type(rism1d) :: r1d
+       type(rism1d) :: this
+       type(c_ptr), intent(in) :: mdl
 
-     end subroutine calling
+       integer(C_int), value :: density
+
+     end subroutine rism1d_addSpecies
 
      function rism1d_getInvDebyeLen(this) bind(C, name = "rism1d_getInvDebyeLen")
        import :: rism1d

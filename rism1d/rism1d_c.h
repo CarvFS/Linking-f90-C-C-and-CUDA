@@ -26,15 +26,16 @@ class RISM1D{
     int Mdiis_vec;
     int mdiis_method;
 
-    char savefile[16];
-    char closureID[8];
+    char savefile[256];
+    char closureID[256];
 
     void assign_char();
     void assign_values();
 
-    void rism1d_addSpecies();
+    ////////////////////////////////////////////////////////
+    void addSpecies(void* mdl, int density);
 
-    double rism1d_solve(); // will need to be changed...
+    double rism1d_solve();
     double rism1d_dt_solve();
 
     void self_test();
@@ -71,6 +72,8 @@ class RISM1D{
 };
 // based on https://stackoverflow.com/questions/14815274/how-to-call-a-c-method-from-c
 extern "C" {
+void rism1d_addSpecies(RISM1D*, void* mdl, int density);
+
 double rism1d_getInvDebyeLen(RISM1D*);
 double rism1d_getCompressibility(RISM1D*);
 double rism1d_getCompressibility_dT(RISM1D*);

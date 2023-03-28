@@ -5,6 +5,14 @@ using namespace std;
 
 RISM1D :: RISM1D() {}
 
+void RISM1D :: addSpecies(void* mdl, int density){
+  cout << "Seems to be working... " << "Density is: " << density << endl;
+  cout << mdl << endl; // must print values defined at mdl in fortran... need to figure out how
+}
+void rism1d_addSpecies(RISM1D* rism1d, void* mdl, int density){
+  static_cast<RISM1D*>(rism1d)->addSpecies(mdl, density);
+}
+
 double RISM1D :: getInvDebyeLen(){
   cout << "getInvDebyeLen" << endl;
   return 1.0;
@@ -187,19 +195,19 @@ double rism1d_bvv(RISM1D* rism1d){
 }
 
 
-
-
-
-
-
-
-
-
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 void RISM1D :: assign_char(){
     strcpy(savefile, "rism.sav");
-    strcpy(closureID, "");
+    strcpy(closureID, " ");
+    // Filling vector with spaces...
+    for(int i = strlen(savefile); i < 256; i++){
+      savefile[i] = ' ';
+    }
+
+    for(int i = strlen(closureID); i < 256; i++){
+      closureID[i] = ' ';
+    }
 }
 
 void RISM1D :: assign_values(){
