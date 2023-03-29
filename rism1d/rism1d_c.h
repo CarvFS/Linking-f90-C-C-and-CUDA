@@ -11,6 +11,11 @@ extern "C" struct MDL{
   double test2;
 };
 
+extern "C" struct mdiis{
+  int test;
+  double test2;
+};
+
 class RISM1D{
 // uncomment here will cause strange behavior
   private:
@@ -38,39 +43,39 @@ class RISM1D{
     void assign_values();
 
     ////////////////////////////////////////////////////////
-    void addSpecies(MDL* mdl, int density);
+    void addSpecies(MDL* mdl, int density); // "done"
 
     double rism1d_solve();
     double rism1d_dt_solve();
 
     void self_test();
 
-    double getInvDebyeLen();
-    double getCompressibility();
-    double getCompressibility_dT();
-    double get3DRISMbackground();
-    double getDelHvLimit();
-    double getDelHvLimit_dT();
-    double getSusceptibility();
-    double getSusceptibility_dT();
-    double getExNumber();
-    double getStructFactor();
-    double getRunExNumber();
-    double getRunNumber();
-    double getPressureVirial();
-    double getPressureFE();
-    double getFreeEnergy();
-    double getPMV();
-    double getExChem(char *o_form);
-    double getExChemIon();
-    double getSolvene();
-    double bvv();
+    double getInvDebyeLen(); // "done"
+    double getCompressibility(); // "done"
+    double getCompressibility_dT(); // "done"
+    double get3DRISMbackground(); // "done"
+    double getDelHvLimit(); // "done"
+    double getDelHvLimit_dT(); // "done"
+    double getSusceptibility(); // "done"
+    double getSusceptibility_dT(); // "done"
+    double getExNumber(); // "done"
+    double getStructFactor(); // "done"
+    double getRunExNumber(); // "done"
+    double getRunNumber(); // "done"
+    double getPressureVirial(); // "done"
+    double getPressureFE(); // "done"
+    double getFreeEnergy(); // "done"
+    double getPMV(); // "done"
+    double getExChem(char *o_form); // "done"
+    double getExChemIon(); // "done"
+    double getSolvene(); // "done"
+    double bvv(); // "done"
 
     void rism1d_destroy();
 
-    double solve3DRISM_dT();
+    double solve3DRISM_dT(int ksave, int progress, int maxstep, double tolerance); // "done"
 
-    void single3DRISMsolution_dT();
+    void single3DRISMsolution_dT(double *xvv, double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o);
     void rism1d_readNBFix();
     void rism1d_readNBFixtsf();
 
@@ -78,6 +83,7 @@ class RISM1D{
 // based on https://stackoverflow.com/questions/14815274/how-to-call-a-c-method-from-c
 extern "C" {
 void rism1d_addSpecies(RISM1D*, MDL* mdl, int density);
+void rism1d_single3DRISMsolution_dT(RISM1D*, double *xvv, double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o);
 
 double rism1d_getInvDebyeLen(RISM1D*);
 double rism1d_getCompressibility(RISM1D*);
@@ -99,6 +105,8 @@ double rism1d_getExChem(RISM1D*, char *o_form);
 double rism1d_getExChemIon(RISM1D*);
 double rism1d_getSolvene(RISM1D*);
 double rism1d_bvv(RISM1D*);
+
+double rism1d_solve3DRISM_dT(RISM1D*, int ksave, int progress, int maxstep, double tolerance);
 }
 
 

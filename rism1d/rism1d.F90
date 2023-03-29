@@ -4,9 +4,30 @@ program rism1d_main
   implicit none
   
   type(rism1d) :: r1d
-  type(solvMDL) :: mdl ! define target object
-  
+  type(solvMDL) :: mdl
+  type(mdiis) :: mdiis_o
+
   character(256, C_char) :: o_form = "PR"//char(0)
+
+  !real(C_double) :: xvv_o(2,2,2)
+  real(C_double) :: xvv_o(5)
+  double precision :: residual
+  double precision :: tolerance
+  logical(C_bool) :: start
+  logical(C_bool) :: converged
+
+  integer :: i,j,k
+!  do i=1,2
+!    do j=1,2
+!      do k=1,2
+!        xvv_o(i,j,k) = 1.0
+!      end do
+!    end do
+!  end do
+
+  do i=1,5
+    xvv_o(i) = i
+  end do
 
 !  subroutine c_opaque_alloc(c_obj)
 !    use rism1d_mod
@@ -47,5 +68,17 @@ program rism1d_main
   write(*,*)
 
   call rism1d_addSpecies(r1d, mdl, 123)
+  write(*,*)
+
+  write(*,*) "rism1d_solve3DRISM_dT", rism1d_solve3DRISM_dT(r1d, -1, 2, 10000, 1d-4)
+  write(*,*)
+
+  residual = 1.2
+  tolerance = 1d-4
+  start = .TRUE.
+  converged = .FALSE.
+  write(*,*) "print xvv_o array: ", xvv_o
+  call rism1d_single3DRISMsolution_dT(r1d,xvv_o,residual,tolerance,start,converged,mdiis_o)
+
 
 end program rism1d_main

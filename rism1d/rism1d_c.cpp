@@ -15,6 +15,17 @@ void rism1d_addSpecies(RISM1D* rism1d, MDL* mdl, int density){
   static_cast<RISM1D*>(rism1d)->addSpecies(mdl, density);
 }
 
+void RISM1D :: single3DRISMsolution_dT(double *xvv, double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o){
+  cout << "residual = "<< residual << endl;
+  cout << "tolerance = " << tolerance << endl;
+  cout << "start: " << start << endl;
+  cout << "converged: " << converged << endl;
+  cout << xvv[0] << endl;
+}
+void rism1d_single3DRISMsolution_dT(RISM1D* rism1d, double *xvv, double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o){
+  static_cast<RISM1D*>(rism1d)->single3DRISMsolution_dT(xvv, residual, tolerance, start, converged, mdiis_o);
+}
+
 double RISM1D :: getInvDebyeLen(){
   cout << "getInvDebyeLen" << endl;
   return 1.0;
@@ -197,6 +208,16 @@ double rism1d_bvv(RISM1D* rism1d){
   return static_cast<RISM1D*>(rism1d)->bvv();
 }
 
+double RISM1D :: solve3DRISM_dT(int ksave, int progress, int maxstep, double tolerance){
+  cout << "ksave = " << ksave << endl;
+  cout << "progress = " << progress << endl;
+  cout << "maxstep = " << maxstep << endl;
+  cout << "tolerance = " << tolerance << endl;
+  return 21.0;
+}
+double rism1d_solve3DRISM_dT(RISM1D* rism1d, int ksave, int progress, int maxstep, double tolerance){
+  return static_cast<RISM1D*>(rism1d)->solve3DRISM_dT(ksave, progress, maxstep, tolerance);
+}
 
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////

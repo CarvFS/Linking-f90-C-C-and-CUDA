@@ -8,10 +8,21 @@ module rism1d_mod
      character(C_char) :: closureID(256)
   end type rism1d
 
+!!! For future use: 
+!!! https://stackoverflow.com/questions/28543180/fortran-derived-types-containing-pointers-to-be-accessible-from-c  
+!!! https://ieeexplore.ieee.org/document/4548209
+!!! https://stackoverflow.com/questions/68364975/how-do-i-pass-a-pointer-to-a-variable-using-iso-c-binding
+!!! https://pavanakumar.github.io/post/fortran-types/
+
   type, bind(C) :: solvMDL
      integer(C_int) :: test = 123
-     double precision :: test2 = 1.23
+     real(C_double) :: test2 = 1.23
   end type solvMDL
+
+  type, bind(C) :: mdiis
+    integer(C_int) :: test = 123
+    real(C_double) :: test2 = 1.23
+  end type mdiis
 
   interface
 
@@ -35,6 +46,22 @@ module rism1d_mod
        integer(C_int), value :: density
 
      end subroutine rism1d_addSpecies
+
+     subroutine rism1d_single3DRISMsolution_dT(this,xvv,residual,tolerance,start,converged,mdiis_o) &
+     bind(C, name = "rism1d_single3DRISMsolution_dT")
+
+       use iso_c_binding
+       import :: rism1d
+       import :: mdiis
+       
+       type(mdiis) :: mdiis_o
+       type(rism1d) :: this
+
+       real(C_double), value :: residual, tolerance
+       logical(C_bool), value ::  start, converged
+       real(C_double),DIMENSION(*) :: xvv
+
+     end subroutine rism1d_single3DRISMsolution_dT
 
      function rism1d_getInvDebyeLen(this) bind(C, name = "rism1d_getInvDebyeLen")
        import :: rism1d
@@ -110,6 +137,15 @@ module rism1d_mod
       character(C_char),  dimension(*), intent(in) :: o_form
       double precision :: rism1d_getExChem
     end function rism1d_getExChem
+
+    function rism1d_solve3DRISM_dT(this, ksave, progress, maxstep, tolerance) bind(C, name = "rism1d_solve3DRISM_dT")
+      use iso_c_binding
+      import :: rism1d
+      type(rism1d) :: this
+      integer(C_int), value :: ksave, progress, maxstep ! passing integer by value
+      real(C_double), value :: tolerance
+      double precision :: rism1d_solve3DRISM_dT
+    end function rism1d_solve3DRISM_dT
 
   end interface
 end module rism1d_mod
