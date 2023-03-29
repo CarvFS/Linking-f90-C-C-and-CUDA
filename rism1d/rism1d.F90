@@ -4,12 +4,16 @@ program rism1d_main
   implicit none
   
   type(rism1d) :: r1d
-  type(solvMDL), target :: mdl ! define target object
+  type(solvMDL) :: mdl ! define target object
   
   character(256, C_char) :: o_form = "PR"//char(0)
 
-  type(C_PTR) :: p ! create a pointer
-  p = C_LOC(mdl) ! p = C address of object mdl
+!  subroutine c_opaque_alloc(c_obj)
+!    use rism1d_mod
+!    implicit none
+!    type(solvMDL) :: c_obj
+!    allocate(c_obj%test)
+!  end subroutine c_opaque_alloc
   
   !call calling(r1d)
   
@@ -42,6 +46,6 @@ program rism1d_main
   write(*,*) "rism1d_getExChem", rism1d_getExChem(r1d, o_form)
   write(*,*)
 
-  call rism1d_addSpecies(r1d, p, 123) ! pass mdl object address to subroutine
+  call rism1d_addSpecies(r1d, mdl, 123)
 
 end program rism1d_main

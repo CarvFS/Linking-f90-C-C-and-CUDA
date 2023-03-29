@@ -27,12 +27,10 @@ module rism1d_mod
      subroutine rism1d_addSpecies(this, mdl, density) bind(C, name = "rism1d_addSpecies")
        use iso_c_binding
        import :: rism1d
+       import :: solvMDL
        
-       !import :: solvMDL
-       !type(solvMDL) :: mdl
-
+       type(solvMDL) :: mdl
        type(rism1d) :: this
-       type(c_ptr), intent(in) :: mdl
 
        integer(C_int), value :: density
 

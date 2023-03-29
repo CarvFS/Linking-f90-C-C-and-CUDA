@@ -5,11 +5,13 @@ using namespace std;
 
 RISM1D :: RISM1D() {}
 
-void RISM1D :: addSpecies(void* mdl, int density){
-  cout << "Seems to be working... " << "Density is: " << density << endl;
-  cout << mdl << endl; // must print values defined at mdl in fortran... need to figure out how
+void RISM1D :: addSpecies(MDL* mdl, int density){
+  cout << "Density is: " << density << endl;
+  cout << "Accessing members of mdl... (no pointers or allocatables, but enough to test)" << endl;
+  cout << "Print test: " << mdl->test << endl;
+  cout << "Print test2: " << mdl->test2 << endl;
 }
-void rism1d_addSpecies(RISM1D* rism1d, void* mdl, int density){
+void rism1d_addSpecies(RISM1D* rism1d, MDL* mdl, int density){
   static_cast<RISM1D*>(rism1d)->addSpecies(mdl, density);
 }
 
@@ -159,7 +161,8 @@ double rism1d_getPMV(RISM1D* rism1d){
 //double RISM1D :: getExChem(int o_form, char *c_form){
 double RISM1D :: getExChem(char *o_form){
   cout << "getExChem" << endl;
-  cout << "o_form = " << o_form << "... end";
+  cout << "Accessing char argument..." << endl;
+  cout << "o_form = " << o_form << "... end" << endl;
   return 17.0;
 }
 //double rism1d_getExChem(RISM1D* rism1d, int o_form, char *c_form){
@@ -221,4 +224,4 @@ RISM1D *cplusplus_callback_function(RISM1D *r1d){
     r1d -> assign_values();
     
     return r1d;
-}
+  }

@@ -6,6 +6,11 @@
 #include <cstring>
 using namespace std;
 
+extern "C" struct MDL{
+  int test;
+  double test2;
+};
+
 class RISM1D{
 // uncomment here will cause strange behavior
   private:
@@ -33,7 +38,7 @@ class RISM1D{
     void assign_values();
 
     ////////////////////////////////////////////////////////
-    void addSpecies(void* mdl, int density);
+    void addSpecies(MDL* mdl, int density);
 
     double rism1d_solve();
     double rism1d_dt_solve();
@@ -72,7 +77,7 @@ class RISM1D{
 };
 // based on https://stackoverflow.com/questions/14815274/how-to-call-a-c-method-from-c
 extern "C" {
-void rism1d_addSpecies(RISM1D*, void* mdl, int density);
+void rism1d_addSpecies(RISM1D*, MDL* mdl, int density);
 
 double rism1d_getInvDebyeLen(RISM1D*);
 double rism1d_getCompressibility(RISM1D*);
@@ -98,7 +103,6 @@ double rism1d_bvv(RISM1D*);
 
 
 extern "C" RISM1D *cplusplus_callback_function(RISM1D*);
-
 
 //extern "C" void assign_char;
 
