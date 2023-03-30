@@ -26,15 +26,32 @@ module rism1d_mod
 
   interface
 
-     !subroutine calling(r1d) bind(C, name="cplusplus_callback_function")
-     !  import :: rism1d
-     !
-     !  type(rism1d) :: r1d
-     !
-     !end subroutine calling
+     subroutine calling(r1d) bind(C, name="cplusplus_callback_function")
+       import :: rism1d
+     
+       type(rism1d) :: r1d
+     
+     end subroutine calling
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     subroutine rism1d_readNBFix(this, nbfix) bind(C, name = "rism1d_readNBFix")
+      use iso_c_binding
+      import :: rism1d
+      type(rism1d) :: this
+      character(C_char),  dimension(*), intent(in) :: nbfix
 
+     end subroutine rism1d_readNBFix
+
+     subroutine rism1d_selftest(this, filename, o_all) bind(C, name = "rism1d_selftest")
+      use iso_c_binding
+      import :: rism1d
+
+      type(rism1d) :: this
+      character(C_char),  dimension(*), intent(in) :: filename
+      logical(C_bool), value :: o_all
+
+     end subroutine rism1d_selftest
+     
      subroutine rism1d_addSpecies(this, mdl, density) bind(C, name = "rism1d_addSpecies")
        use iso_c_binding
        import :: rism1d
@@ -59,7 +76,7 @@ module rism1d_mod
 
        real(C_double), value :: residual, tolerance
        logical(C_bool), value ::  start, converged
-       real(C_double),DIMENSION(*) :: xvv
+       real(C_double), dimension(*) :: xvv
 
      end subroutine rism1d_single3DRISMsolution_dT
 

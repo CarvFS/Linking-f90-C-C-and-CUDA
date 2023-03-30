@@ -1,8 +1,13 @@
 # Instructions
 
-Compile makefiles's in the following order:
+Compile as:
 
 ```
-make -f makefile.txt
-make -f makefile2.txt
+make
+```
+
+and run:
+
+```
+./rism1d
 ```

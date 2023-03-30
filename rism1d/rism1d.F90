@@ -8,37 +8,28 @@ program rism1d_main
   type(mdiis) :: mdiis_o
 
   character(256, C_char) :: o_form = "PR"//char(0)
+  character(256, C_char) :: filename = "name of the file"//char(0)
+  character(256, C_char) :: nbfix = "nbfix_me"//char(0)
 
-  !real(C_double) :: xvv_o(2,2,2)
-  real(C_double) :: xvv_o(5)
+  real(C_double) :: xvv_o(3,3,3)
+  !real(C_double) :: xvv_o(5)
   double precision :: residual
   double precision :: tolerance
-  logical(C_bool) :: start
-  logical(C_bool) :: converged
+  logical(C_bool) :: start,converged,o_all
 
-  integer :: i,j,k
-!  do i=1,2
-!    do j=1,2
-!      do k=1,2
-!        xvv_o(i,j,k) = 1.0
-!      end do
-!    end do
-!  end do
-
-  do i=1,5
-    xvv_o(i) = i
+  integer :: i,j,k,ndim
+  ndim = 3
+  do i=1,ndim
+    do j=1,ndim
+      do k=1,ndim
+        xvv_o(i,j,k) = 1.23+i+k+j
+      end do
+    end do
   end do
 
-!  subroutine c_opaque_alloc(c_obj)
-!    use rism1d_mod
-!    implicit none
-!    type(solvMDL) :: c_obj
-!    allocate(c_obj%test)
-!  end subroutine c_opaque_alloc
+  call calling(r1d)
   
-  !call calling(r1d)
-  
-  !write(*,*) "extra_precision = ", r1d%extra_precision
+  write(*,*) "extra_precision = ", r1d%extra_precision
   !write(*,*) "Mdiis_vec = ", r1d%Mdiis_vec, "mdiis_method = ", r1d%mdiis_method
   !write(*,*) "savefile = ", r1d%savefile, " closureID = ", r1d%closureID
   
@@ -67,18 +58,37 @@ program rism1d_main
   write(*,*) "rism1d_getExChem", rism1d_getExChem(r1d, o_form)
   write(*,*)
 
+  write(*,*) "rism1d_addSpecies"
   call rism1d_addSpecies(r1d, mdl, 123)
   write(*,*)
 
-  write(*,*) "rism1d_solve3DRISM_dT", rism1d_solve3DRISM_dT(r1d, -1, 2, 10000, 1d-4)
+  write(*,*) "rism1d_solve3DRISM_dT"
+  write(*,*) rism1d_solve3DRISM_dT(r1d, -1, 2, 10000, 1d-4)
   write(*,*)
 
+  write(*,*) "rism1d_single3DRISMsolution_dT"
   residual = 1.2
   tolerance = 1d-4
   start = .TRUE.
   converged = .FALSE.
-  write(*,*) "print xvv_o array: ", xvv_o
+  do i=1,ndim
+    do j=1,ndim
+     do k=1,ndim
+      write(*,*) "(", i,j,k, ")", xvv_o(i,j,k)
+      end do
+    end do
+  end do
   call rism1d_single3DRISMsolution_dT(r1d,xvv_o,residual,tolerance,start,converged,mdiis_o)
+  write(*,*)
+
+  write(*,*) "rism1d_selftest"
+  o_all = .TRUE.
+  call rism1d_selftest(r1d,filename,o_all)
+  write(*,*)
+
+  write(*,*) "rism1d_readNBFix"
+  call rism1d_readNBFix(r1d,nbfix)
+  write(*,*)
 
 
 end program rism1d_main

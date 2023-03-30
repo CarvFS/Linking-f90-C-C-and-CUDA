@@ -19,13 +19,13 @@ extern "C" struct mdiis{
 class RISM1D{
 // uncomment here will cause strange behavior
   private:
-    void new_();
+//    void new_();
     
-    void sanity_check();
+//    void sanity_check();
 
-    double solve3DRISM();
+//    double solve3DRISM();
 
-    void single3DRISMsolution();
+//    void single3DRISMsolution();
     
 //    int charlen = 8;
 //    int maxep0 = 4;
@@ -44,11 +44,10 @@ class RISM1D{
 
     ////////////////////////////////////////////////////////
     void addSpecies(MDL* mdl, int density); // "done"
+    void self_test(char *filename, bool o_all); // "done"
 
     double rism1d_solve();
-    double rism1d_dt_solve();
-
-    void self_test();
+    double rism1d_dt_solve();    
 
     double getInvDebyeLen(); // "done"
     double getCompressibility(); // "done"
@@ -75,15 +74,18 @@ class RISM1D{
 
     double solve3DRISM_dT(int ksave, int progress, int maxstep, double tolerance); // "done"
 
-    void single3DRISMsolution_dT(double *xvv, double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o);
-    void rism1d_readNBFix();
+    void single3DRISMsolution_dT(double xvv[][3][3], double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o); // "done"
+    void readNBFix(char *nbfix); // "done"
     void rism1d_readNBFixtsf();
 
 };
 // based on https://stackoverflow.com/questions/14815274/how-to-call-a-c-method-from-c
 extern "C" {
 void rism1d_addSpecies(RISM1D*, MDL* mdl, int density);
-void rism1d_single3DRISMsolution_dT(RISM1D*, double *xvv, double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o);
+void rism1d_single3DRISMsolution_dT(RISM1D*, double xvv[][3][3], double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o);
+void rism1d_selftest(RISM1D*, char *filename,bool o_all);
+void rism1d_readNBFix(RISM1D*, char *nbfix);
+
 
 double rism1d_getInvDebyeLen(RISM1D*);
 double rism1d_getCompressibility(RISM1D*);

@@ -5,6 +5,23 @@ using namespace std;
 
 RISM1D :: RISM1D() {}
 
+void RISM1D :: readNBFix(char *nbfix){
+  cout << nbfix << "(end string)" << endl;
+}
+void rism1d_readNBFix(RISM1D* rism1d, char *nbfix){
+  static_cast<RISM1D*>(rism1d)->readNBFix(nbfix);
+}
+
+void RISM1D :: self_test(char *filename, bool o_all){
+  cout << "o_all = " << o_all << endl;
+  cout << "Name is: " << filename << "(end filename)" << endl;
+  cout << "Just a test... print class member 'extra_precision': " << extra_precision << endl;
+  cout << "Need to call 'cplusplus_callback_function' to assign values!" << endl;
+}
+void rism1d_selftest(RISM1D* rism1d,char *filename, bool o_all){
+  static_cast<RISM1D*>(rism1d)->self_test(filename, o_all);
+}
+
 void RISM1D :: addSpecies(MDL* mdl, int density){
   cout << "Density is: " << density << endl;
   cout << "Accessing members of mdl... (no pointers or allocatables, but enough to test)" << endl;
@@ -15,14 +32,23 @@ void rism1d_addSpecies(RISM1D* rism1d, MDL* mdl, int density){
   static_cast<RISM1D*>(rism1d)->addSpecies(mdl, density);
 }
 
-void RISM1D :: single3DRISMsolution_dT(double *xvv, double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o){
+void RISM1D :: single3DRISMsolution_dT(double xvv[][3][3], double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o){
   cout << "residual = "<< residual << endl;
   cout << "tolerance = " << tolerance << endl;
   cout << "start: " << start << endl;
   cout << "converged: " << converged << endl;
-  cout << xvv[0] << endl;
+//  cout <<  xvv[1][1][1] << endl;
+  for(int i = 0; i < 3; i++){
+    for(int j = 0; j < 3; j++){
+      for(int k = 0; k < 3; k++){
+        cout << "vec(" << i << j << k << ") = " << xvv[i][j][k] << endl;
+      }
+    }
+  }
+  cout << "Working, but need to specify the 3D-array's 2nd and 3rd dimensions" << endl;
+
 }
-void rism1d_single3DRISMsolution_dT(RISM1D* rism1d, double *xvv, double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o){
+void rism1d_single3DRISMsolution_dT(RISM1D* rism1d, double xvv[][3][3], double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o){
   static_cast<RISM1D*>(rism1d)->single3DRISMsolution_dT(xvv, residual, tolerance, start, converged, mdiis_o);
 }
 
@@ -220,6 +246,7 @@ double rism1d_solve3DRISM_dT(RISM1D* rism1d, int ksave, int progress, int maxste
 }
 
 /////////////////////////////////////////////////////////////////
+///////////////////////// Assing values /////////////////////////
 /////////////////////////////////////////////////////////////////
 void RISM1D :: assign_char(){
     strcpy(savefile, "rism.sav");
@@ -235,7 +262,7 @@ void RISM1D :: assign_char(){
 }
 
 void RISM1D :: assign_values(){
-    extra_precision = 2;
+    extra_precision = 12345678;
     Mdiis_vec = 1;
     mdiis_method = 2;
 }
