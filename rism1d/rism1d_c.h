@@ -24,7 +24,7 @@ class RISM1D{
 
     double solve3DRISM(int ksave, int progress, int maxstep, double tolerance); // "done"
 
-    void single3DRISMsolution(double residual, double tolerance, bool start, bool converged, mdiis mdiis_o); // in progress
+    void single3DRISMsolution(double residual, double tolerance, bool start, bool converged, mdiis mdiis_o); // "done"
     
 //    int charlen = 8;
 //    int maxep0 = 4;
