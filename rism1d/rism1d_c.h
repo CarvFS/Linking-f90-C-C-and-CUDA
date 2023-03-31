@@ -12,20 +12,19 @@ extern "C" struct MDL{
 };
 
 extern "C" struct mdiis{
-  int test;
-  double test2;
+  int test = 121234;
+  double test2 = 43.21;
 };
 
 class RISM1D{
-// uncomment here will cause strange behavior
   private:
-//    void new_();
+//    void new_(); // Just this one remaining...
     
-//    void sanity_check();
+    void sanity_check(); // "done"
 
-//    double solve3DRISM();
+    double solve3DRISM(int ksave, int progress, int maxstep, double tolerance); // "done"
 
-//    void single3DRISMsolution();
+    void single3DRISMsolution(double residual, double tolerance, bool start, bool converged, mdiis mdiis_o); // in progress
     
 //    int charlen = 8;
 //    int maxep0 = 4;
@@ -46,8 +45,8 @@ class RISM1D{
     void addSpecies(MDL* mdl, int density); // "done"
     void self_test(char *filename, bool o_all); // "done"
 
-    double rism1d_solve();
-    double rism1d_dt_solve();    
+    double solve(int ksave, int progress, int maxstep, double tolerance); // "done"
+    double dt_solve(int ksave, int progress, int maxstep, double tolerance); // "done"
 
     double getInvDebyeLen(); // "done"
     double getCompressibility(); // "done"
@@ -70,13 +69,13 @@ class RISM1D{
     double getSolvene(); // "done"
     double bvv(); // "done"
 
-    void rism1d_destroy();
+    void destroy(); // "done"
 
     double solve3DRISM_dT(int ksave, int progress, int maxstep, double tolerance); // "done"
 
     void single3DRISMsolution_dT(double xvv[][3][3], double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o); // "done"
     void readNBFix(char *nbfix); // "done"
-    void rism1d_readNBFixtsf();
+    void readNBFixtsf(char *nbfix); // "done"
 
 };
 // based on https://stackoverflow.com/questions/14815274/how-to-call-a-c-method-from-c
@@ -85,7 +84,8 @@ void rism1d_addSpecies(RISM1D*, MDL* mdl, int density);
 void rism1d_single3DRISMsolution_dT(RISM1D*, double xvv[][3][3], double residual, double tolerance, bool start, bool converged, mdiis* mdiis_o);
 void rism1d_selftest(RISM1D*, char *filename,bool o_all);
 void rism1d_readNBFix(RISM1D*, char *nbfix);
-
+void rism1d_readNBFixtsf(RISM1D*, char *nbfix);
+void rism1d_destroy(RISM1D*);
 
 double rism1d_getInvDebyeLen(RISM1D*);
 double rism1d_getCompressibility(RISM1D*);
@@ -109,10 +109,12 @@ double rism1d_getSolvene(RISM1D*);
 double rism1d_bvv(RISM1D*);
 
 double rism1d_solve3DRISM_dT(RISM1D*, int ksave, int progress, int maxstep, double tolerance);
+double rism1d_solve(RISM1D*, int ksave, int progress, int maxstep, double tolerance);
+double rism1d_dt_solve(RISM1D*, int ksave, int progress, int maxstep, double tolerance);
 }
 
-
 extern "C" RISM1D *cplusplus_callback_function(RISM1D*);
+#endif /*RISM1D_C_H*/
 
 //extern "C" void assign_char;
 
@@ -143,4 +145,4 @@ extern "C" {
 }
 #endif
 */
-#endif /*RISM1D_C_H*/
+

@@ -20,8 +20,8 @@ module rism1d_mod
   end type solvMDL
 
   type, bind(C) :: mdiis
-    integer(C_int) :: test = 123
-    real(C_double) :: test2 = 1.23
+    integer(C_int) :: test = 54321
+    real(C_double) :: test2 = 123.45
   end type mdiis
 
   interface
@@ -34,6 +34,21 @@ module rism1d_mod
      end subroutine calling
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     subroutine rism1d_destroy(this) bind(C, name = "rism1d_destroy")
+      use iso_c_binding
+      import :: rism1d
+      type(rism1d) :: this
+
+    end subroutine rism1d_destroy
+     
+     subroutine rism1d_readNBFixtsf(this, nbfix) bind(C, name = "rism1d_readNBFixtsf")
+      use iso_c_binding
+      import :: rism1d
+      type(rism1d) :: this
+      character(C_char),  dimension(*), intent(in) :: nbfix
+
+     end subroutine rism1d_readNBFixtsf
+
      subroutine rism1d_readNBFix(this, nbfix) bind(C, name = "rism1d_readNBFix")
       use iso_c_binding
       import :: rism1d
@@ -163,6 +178,24 @@ module rism1d_mod
       real(C_double), value :: tolerance
       double precision :: rism1d_solve3DRISM_dT
     end function rism1d_solve3DRISM_dT
+
+    function rism1d_solve(this, ksave, progress, maxstep, tolerance) bind(C, name = "rism1d_solve")
+      use iso_c_binding
+      import :: rism1d
+      type(rism1d) :: this
+      integer(C_int), value :: ksave, progress, maxstep ! passing integer by value
+      real(C_double), value :: tolerance
+      double precision :: rism1d_solve
+    end function rism1d_solve
+
+    function rism1d_dt_solve(this, ksave, progress, maxstep, tolerance) bind(C, name = "rism1d_dt_solve")
+      use iso_c_binding
+      import :: rism1d
+      type(rism1d) :: this
+      integer(C_int), value :: ksave, progress, maxstep ! passing integer by value
+      real(C_double), value :: tolerance
+      double precision :: rism1d_dt_solve
+    end function rism1d_dt_solve
 
   end interface
 end module rism1d_mod

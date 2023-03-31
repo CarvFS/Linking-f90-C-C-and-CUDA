@@ -9,8 +9,10 @@ rism1d: rism1d_c.o rism1d.F90 rism1d_mod
 rism1d_mod: rism1d_mod.F90
 	$(GF90) -c rism1d_mod.F90
 
-rism1d_c.o: rism1d_c.cpp
+# Had to modify here, so changes made only on .h would triger this line
+rism1d_c.o: rism1d_c.cpp rism1d_c.h
 	$(CC) -c rism1d_c.cpp
 
+# rism1d_c.cpp: rism1d_c.h
 
-rism1d_c.cpp: rism1d_c.h
+

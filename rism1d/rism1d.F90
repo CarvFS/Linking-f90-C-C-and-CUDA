@@ -90,5 +90,19 @@ program rism1d_main
   call rism1d_readNBFix(r1d,nbfix)
   write(*,*)
 
+  write(*,*) "rism1d_readNBFixtsf"
+  call rism1d_readNBFixtsf(r1d,nbfix)
+  write(*,*)
+
+  write(*,*) "rism1d_solve"
+  write(*,*) rism1d_solve(r1d, -1, 3, 20000, 1d-12)
+  write(*,*)
+
+  write(*,*) "rism1d_dT_solve"
+  write(*,*) rism1d_dt_solve(r1d, -2, 1, 1000, 1d-10)
+  write(*,*)
+
+  write(*,*) "rism1d_destroy"
+  call rism1d_destroy(r1d)
 
 end program rism1d_main

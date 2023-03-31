@@ -4,6 +4,52 @@
 using namespace std;
 
 RISM1D :: RISM1D() {}
+///////////// Provate
+
+void RISM1D :: sanity_check(){
+  cout << "Hello from private sanity_check!" << endl;
+}
+
+void RISM1D :: single3DRISMsolution(double residual, double tolerance, bool start, bool converged, mdiis mdiis_o){
+  cout << "so far, so good at single3DRISMsolution" << endl;
+  cout << "print mdiis test: " << mdiis_o.test << endl;
+  cout << "print mdiis test2: " << mdiis_o.test2 << endl;
+  cout << "Probably both structure and type mdiis will need to be defined equaly on .F90 and .h" << endl;
+}
+
+double RISM1D :: solve3DRISM(int ksave, int progress, int maxstep, double tolerance){
+  cout << "///////////" << endl;
+  cout << "solve3DRISM here..." << endl;
+  cout << "///////////" << endl;
+
+  bool converged = false;
+  bool start = true;
+  double residual = 1e-2;
+  cout << "///////////" << endl;
+  cout << "Calling single3DRISMsolution here..." << endl;
+  mdiis mdiis_o;
+  single3DRISMsolution(residual, tolerance, start, converged, mdiis_o);
+  cout << "///////////" << endl;
+  return 24.0;
+}
+
+///////////// Public
+
+void RISM1D :: destroy(){
+  cout << "so far, so good" << endl;
+  cout << "calling sanity_check just as a test here: " << endl;
+  sanity_check();
+}
+void rism1d_destroy(RISM1D* rism1d){
+  static_cast<RISM1D*>(rism1d)->destroy();
+}
+
+void RISM1D :: readNBFixtsf(char *nbfix){
+  cout << nbfix << "(end string)" << endl;
+}
+void rism1d_readNBFixtsf(RISM1D* rism1d, char *nbfix){
+  static_cast<RISM1D*>(rism1d)->readNBFixtsf(nbfix);
+}
 
 void RISM1D :: readNBFix(char *nbfix){
   cout << nbfix << "(end string)" << endl;
@@ -25,8 +71,8 @@ void rism1d_selftest(RISM1D* rism1d,char *filename, bool o_all){
 void RISM1D :: addSpecies(MDL* mdl, int density){
   cout << "Density is: " << density << endl;
   cout << "Accessing members of mdl... (no pointers or allocatables, but enough to test)" << endl;
-  cout << "Print test: " << mdl->test << endl;
-  cout << "Print test2: " << mdl->test2 << endl;
+  cout << "Print mdl test: " << mdl->test << endl;
+  cout << "Print mdl test2: " << mdl->test2 << endl;
 }
 void rism1d_addSpecies(RISM1D* rism1d, MDL* mdl, int density){
   static_cast<RISM1D*>(rism1d)->addSpecies(mdl, density);
@@ -37,6 +83,8 @@ void RISM1D :: single3DRISMsolution_dT(double xvv[][3][3], double residual, doub
   cout << "tolerance = " << tolerance << endl;
   cout << "start: " << start << endl;
   cout << "converged: " << converged << endl;
+  cout << "Print mdiis test: " << mdiis_o->test << endl;
+  cout << "Print mdiis test2: " << mdiis_o->test2 << endl;
 //  cout <<  xvv[1][1][1] << endl;
   for(int i = 0; i < 3; i++){
     for(int j = 0; j < 3; j++){
@@ -243,6 +291,29 @@ double RISM1D :: solve3DRISM_dT(int ksave, int progress, int maxstep, double tol
 }
 double rism1d_solve3DRISM_dT(RISM1D* rism1d, int ksave, int progress, int maxstep, double tolerance){
   return static_cast<RISM1D*>(rism1d)->solve3DRISM_dT(ksave, progress, maxstep, tolerance);
+}
+
+double RISM1D :: solve(int ksave, int progress, int maxstep, double tolerance){
+  cout << "ksave = " << ksave << endl;
+  cout << "progress = " << progress << endl;
+  cout << "maxstep = " << maxstep << endl;
+  cout << "tolerance = " << tolerance << endl;
+  cout << solve3DRISM(ksave, progress, maxstep, tolerance) << endl;
+  return 22.0;
+}
+double rism1d_solve(RISM1D* rism1d, int ksave, int progress, int maxstep, double tolerance){
+  return static_cast<RISM1D*>(rism1d)->solve(ksave, progress, maxstep, tolerance);
+}
+
+double RISM1D :: dt_solve(int ksave, int progress, int maxstep, double tolerance){
+  cout << "ksave = " << ksave << endl;
+  cout << "progress = " << progress << endl;
+  cout << "maxstep = " << maxstep << endl;
+  cout << "tolerance = " << tolerance << endl;
+  return 23.0;
+}
+double rism1d_dt_solve(RISM1D* rism1d, int ksave, int progress, int maxstep, double tolerance){
+  return static_cast<RISM1D*>(rism1d)->dt_solve(ksave, progress, maxstep, tolerance);
 }
 
 /////////////////////////////////////////////////////////////////
