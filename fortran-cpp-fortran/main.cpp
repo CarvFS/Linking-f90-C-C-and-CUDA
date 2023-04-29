@@ -22,6 +22,7 @@ private:
 public:
   SimpleF() 
   { 
+    cout << "Hello from SimpleF class constructor" << endl;
     handle = GetHandle(); 
   }
 
@@ -74,19 +75,22 @@ public:
 };
 
 // F -> C++
-extern "C" void Set_A(SimpleF*, int a);
-extern "C" int get_a(SimpleF*);
+extern "C" {
+  SimpleF* SimpleF__new(){
+    cout << "Hello from Simple__new in cpp" << endl;
+    return new SimpleF();
+  }
+  
+  // void SimpleF__setA(SimpleF* obj, int a){
+  //   //cout << obj->SetA(a) << endl;
+  //   obj->SetA(a);
+  // }
 
-void Set_A(SimpleF* simp, int a){
-  cout << "Trying to set A = " << a << endl;
-  static_cast<SimpleF*>(simp)->SetA(a);
+  int SimpleF__getA(SimpleF* obj){
+    return obj->QueryA();
+  }
+  
 }
-
-// int get_a(SimpleF* simp){
-//   cout << "Trying to get A..." << endl;
-//   static_cast<SimpleF*>(simp)->QueryA();
-// }
-
 
 // int main()
 // {
