@@ -3,7 +3,7 @@ module SimpleF_mod
     use iso_c_binding
     implicit none
 
-    type :: simp
+    type,bind(C) :: simp
         private
         type(C_ptr) :: object = C_NULL_ptr
     end type simp
@@ -15,11 +15,11 @@ module SimpleF_mod
             type(C_ptr) :: this
         end function C_SimpleF__new
 
-        ! function C_SimpleF__setA(this, a) bind(C,name="SimpleF__setA")
-        !     import
-        !     !integer(C_INT) :: a
-        !     type(C_ptr), value :: this
-        ! end function C_SimpleF__setA
+        subroutine C_SimpleF__setA(this, a) bind(C,name="SimpleF__setA")
+            import
+            integer(C_INT), value :: a
+            type(C_ptr), value :: this
+        end subroutine C_SimpleF__setA
 
         function C_SimpleF__getA(this) result(a) bind(C,name="SimpleF__getA")
             import
@@ -36,11 +36,12 @@ contains
         this%object = C_SimpleF__new()
     end subroutine SimpleF__new
 
-    ! subroutine SimpleF__setA(this, a)
-    !     type(simp), intent(out) :: this
-    !     integer :: a
-    !     this%object = C_SimpleF__setA(int(a,C_int))
-    ! end subroutine SimpleF__setA
+    subroutine SimpleF__setA(this, a)
+        type(simp) :: this
+        integer, value :: a
+        write(*,*) "In SimpleF_mod.F90: passing a =", a
+        call C_SimpleF__setA(this%object,a)
+    end subroutine SimpleF__setA
 
     function SimpleF__getA(this) result(a)
         type(simp), intent(in) :: this
