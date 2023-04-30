@@ -22,7 +22,7 @@ private:
 public:
   SimpleF() 
   { 
-    cout << "Hello from SimpleF class constructor" << endl;
+    cout << "In main.cpp: Hello from SimpleF class constructor" << endl;
     handle = GetHandle(); 
   }
 
@@ -33,13 +33,13 @@ public:
 
   void SetA(int a) 
   { 
-    cout << "Hello from SetA" << endl;
-    ::SetA(handle, a); 
+    cout << "In main.cpp: Hello from SetA" << endl;
+    ::SetA(handle, a);
   }
   
   int QueryA()
   { 
-    cout << "Hello from get A" << endl;
+    cout << "In main.cpp: Hello from get A" << endl;
     return ::QueryA(handle); 
   }
 
@@ -77,20 +77,21 @@ public:
 // F -> C++
 extern "C" {
   SimpleF* SimpleF__new(){
-    cout << "Hello from Simple__new in cpp" << endl;
+    cout << "In main.cpp: Hello from Simple__new in cpp" << endl;
     return new SimpleF();
   }
   
-  // void SimpleF__setA(SimpleF* obj, int a){
-  //   //cout << obj->SetA(a) << endl;
-  //   obj->SetA(a);
-  // }
+  void SimpleF__setA(SimpleF* obj, int a){
+    cout << "In main.cpp's SimpleF_setA: receiving a = " << a << endl;
+    obj -> SetA(a);
+  }
 
   int SimpleF__getA(SimpleF* obj){
     return obj->QueryA();
   }
   
 }
+
 
 // int main()
 // {
