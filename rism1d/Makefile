@@ -1,18 +1,30 @@
 # the compiler: gcc for C program, define as g++ for C++
 CC = g++
 GF90 = gfortran
-LDLIBS  = -lstdc++
+LDLIBS  = -lgfortran -lstdc++ 
 
-rism1d: rism1d_c.o rism1d.F90 rism1d_mod
-	$(GF90) rism1d_c.o rism1d.F90 -o rism1d $(LDLIBS)
+# comment below to: cpp accessing F90
+main: main.F90 simple_mod.o simple2_mod.o SimpleF_mod.o main.o
+	$(GF90) simple_mod.o simple2_mod.o SimpleF_mod.o main.o main.F90 -o main $(LDLIBS)
 
-rism1d_mod: rism1d_mod.F90
-	$(GF90) -c rism1d_mod.F90
+simple_mod.o: simple_mod.F90
+	$(GF90) -c simple_mod.F90
 
-# Had to modify here, so changes made only on .h would triger this line
-rism1d_c.o: rism1d_c.cpp rism1d_c.h
-	$(CC) -c rism1d_c.cpp
+simple2_mod.o: simple2_mod.F90
+	$(GF90) -c simple2_mod.F90 
 
-# rism1d_c.cpp: rism1d_c.h
+main.o: main.cpp 
+	$(CC) -c main.cpp
 
+SimpleF_mod.o: SimpleF_mod.F90
+	$(GF90) -c SimpleF_mod.F90
 
+# uncomment below to: cpp accessing F90
+# main: main.cpp simple_mod.o simple2_mod.o
+# 	$(GF90) simple_mod.o simple2_mod.o main.cpp -o main $(LDLIBS)
+
+# simple_mod.o: simple_mod.F90
+# 	$(GF90) -c simple_mod.F90
+
+# simple2_mod.o: simple2_mod.F90
+# 	$(GF90) -c simple2_mod.F90 
