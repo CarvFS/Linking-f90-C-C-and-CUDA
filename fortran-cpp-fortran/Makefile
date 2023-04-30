@@ -7,8 +7,8 @@ LDLIBS  = -lgfortran -lstdc++
 main: main.F90 simple_mod.o simple2_mod.o SimpleF_mod.o main.o
 	$(GF90) simple_mod.o simple2_mod.o SimpleF_mod.o main.o main.F90 -o main $(LDLIBS)
 
-simple_mod.o: simple_mod.F90 simple2_mod.o
-	$(GF90) -c simple_mod.F90
+#simple_mod.o: simple_mod.F90
+#	$(GF90) -c simple_mod.F90
 
 main.o: main.cpp 
 	$(CC) -c main.cpp
