@@ -10,14 +10,14 @@ main: main.F90 simple_mod.o simple2_mod.o SimpleF_mod.o main.o
 simple_mod.o: simple_mod.F90
 	$(GF90) -c simple_mod.F90
 
-simple2_mod.o: simple2_mod.F90
-	$(GF90) -c simple2_mod.F90 
-
 main.o: main.cpp 
 	$(CC) -c main.cpp
 
 SimpleF_mod.o: SimpleF_mod.F90
 	$(GF90) -c SimpleF_mod.F90
+	
+simple2_mod.o: simple2_mod.F90
+	$(GF90) -c simple2_mod.F90 
 
 # uncomment below to: cpp accessing F90
 # main: main.cpp simple_mod.o simple2_mod.o
