@@ -4,10 +4,13 @@ MODULE simple
   ! An example of an non-interoperable type (no BIND(C)).
   
 CONTAINS
-  FUNCTION GetHandle() RESULT(handle) BIND(C, NAME='GetHandle')
-    USE, INTRINSIC :: ISO_C_BINDING, ONLY: C_PTR, C_LOC
+  FUNCTION GetHandle(pda,pdFstr) RESULT(handle) BIND(C, NAME='GetHandle')
+    ! USE, INTRINSIC :: ISO_C_BINDING, ONLY: C_PTR, C_LOC, C_INT
+    USE ISO_C_BINDING
     TYPE(C_PTR) :: handle
     TYPE(SIMPLEF), POINTER :: p
+    integer, value :: pda
+    character(C_char),  dimension(256) :: pdFstr
     !***
     ! For the sake of example we are exposing an interface that 
     ! allows client code to create an object.  Perhaps in your 
@@ -19,7 +22,10 @@ CONTAINS
     ! and you are done - no need for ReleaseHandle.
     ALLOCATE(p)
     ! Perhaps some constructory sort of stuff here?
-    p%a = 666
+    write(*,*) "In simple_mod.F90: pre-defining a as ", pda
+    p%a = pda
+    write(*,*) "In simple_mod.F90: pre-defining Fstr as ", pdFstr
+    p%Fstr = pdFstr
     ! Use the C address of the object as an opaque handle.
     handle = C_LOC(p)
   END FUNCTION GetHandle
@@ -99,6 +105,7 @@ CONTAINS
     ! Assuming here the pointer association status of p%B is always 
     ! defined or dissociated, never undefined.  This is much easier 
     ! with allocatable components.
+    write(*,*) "In simple_mod.F90's SetB: receiving b as ", data
     IF (ASSOCIATED(p%B)) THEN
       IF (SIZE(p%B) /= data_size) THEN
         DEALLOCATE(p%B)
@@ -118,6 +125,7 @@ CONTAINS
     TYPE(SIMPLEF), POINTER :: p
     !***
     CALL C_F_POINTER(handle, p)
+    ! write(*,*) "In simple_mod.F90's GetB: receiving n as ", data_size
     ! See comments about assumed association status above.
     IF (ASSOCIATED(p%B)) THEN
       data_size = SIZE(p%B, KIND=C_INT)
