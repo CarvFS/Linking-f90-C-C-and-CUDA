@@ -4,7 +4,7 @@
 using namespace std;
 
 // C++ -> F
-extern "C" void* GetHandle();
+extern "C" void* GetHandle(int a, char* Fstr);
 extern "C" void ReleaseHandle(void* handle);
 extern "C" void SetA(void* handle, int a);
 extern "C" int QueryA(void* handle);
@@ -15,18 +15,21 @@ extern "C" void QueryBSize(void* handle, int* data_size);
 // extern "C" void QueryBData(void *handle, int *data);
 extern "C" void QueryBData(void *handle, int data[2]);
 extern "C" double add_a_dk(void* handle);
+// extern "C" void GetFstr(void* handle);
 
 class SimpleF
 {
 private:
   void *handle;
 public:
-  SimpleF(int a) 
+  SimpleF(int a, char* Fstr) 
   { 
     cout << "In main.cpp: Hello from SimpleF class constructor" << endl;
-    cout << "receiving a = " << a << endl;
-    handle = GetHandle(); 
-    ::SetA(handle, a);
+    cout << "In main.cpp: receiving a = " << a << endl;
+    cout << "In main.cpp: receiving Fstr = " << Fstr << "..."<< endl;
+    handle = GetHandle(a, Fstr);
+    cout << "In main.cpp: done..." << endl ;
+    // ::SetA(handle, a);
   }
 
   ~SimpleF() 
@@ -45,6 +48,12 @@ public:
     cout << "In main.cpp: Hello from get A" << endl;
     return ::QueryA(handle); 
   }
+
+  // void GetFstr(){
+  //   cout <<  "In main.cpp: Hello from GetFstr" << endl;
+  //   // cout << "In main.cpp: returning string: " << ::GetFstr(handle) << endl;
+  //   ::GetFstr(handle);
+  // }
 
   void Setdk(double dk){
     ::Setdk(handle, dk);
@@ -88,9 +97,9 @@ public:
 
 // F -> C++
 extern "C" {
-  SimpleF* SimpleF__new(int a){
+  SimpleF* SimpleF__new(int a, char* Fstr){
     cout << "In main.cpp: Hello from Simple__new in cpp" << endl;
-    return new SimpleF(a);
+    return new SimpleF(a,Fstr);
   }
   
   void SimpleF__setA(SimpleF* obj, int a){
@@ -101,6 +110,10 @@ extern "C" {
   int SimpleF__getA(SimpleF* obj){
     return obj->QueryA();
   }
+
+  // void SimpleF__getFstr(SimpleF* obj){
+  //   obj->GetFstr();
+  // }
 
   void SimpleF__setB(SimpleF* obj, int n, int b[]){
     cout << "In main.cpp's SimpleF_setB: receiving b[0] = " << b[0] << "; b[1] = " << b[1] << endl;
