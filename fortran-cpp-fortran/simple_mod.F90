@@ -24,7 +24,7 @@ CONTAINS
     ! Perhaps some constructory sort of stuff here?
     write(*,*) "In simple_mod.F90: pre-defining a as ", pda
     p%a = pda
-    write(*,*) "In simple_mod.F90: pre-defining Fstr as ", pdFstr
+    write(*,*) "In simple_mod.F90: pre-defining Fstr as ", pdFstr, "..."
     p%Fstr = pdFstr
     ! Use the C address of the object as an opaque handle.
     handle = C_LOC(p)
@@ -149,6 +149,17 @@ CONTAINS
       ! Someone is being silly.
     END IF
   END SUBROUTINE QueryBData
+
+  subroutine getFstr(handle, Fstr) bind(C, name='getFstr')
+    use iso_c_binding
+    type(C_ptr), intent(in) :: handle
+    character(C_char),  dimension(256) :: Fstr
+    type(SIMPLEF), pointer :: p
+    call C_F_POINTER(handle,p)
+    write(*,*) "In simple_mod.F90: received test string: ", Fstr
+    Fstr = p%Fstr
+    write(*,*) "In simple_mod.F90: returning string: ", Fstr
+  end subroutine getFstr
 
   function add_a_dk(handle) result(sum) bind(C, name='add_a_dk')
     USE, INTRINSIC :: ISO_C_BINDING, ONLY:  &
