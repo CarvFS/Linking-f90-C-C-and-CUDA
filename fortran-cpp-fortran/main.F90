@@ -5,25 +5,28 @@ program main_program
     integer :: a
     integer :: new_a
     CHARACTER(256) :: Fstr = "Test for passing string F-Cpp-F"
-    CHARACTER(256) :: Cstr
+    CHARACTER(256) :: Cstr, new_char, new_char_f
     integer :: b(2), b2(2)
     type(simp) :: s
-    b(1) = 12345
-    b(2) = 54321
+    b(1) = 123
+    b(2) = 543
     ! write(*,*) "b = ", b
     
     call F2Cstring(Fstr,Cstr)
 
     write(*,*) "In main.90: !!!!! CREATING OBJECT !!!!!"
-    write(*,*) "defining Fstr as: ", Cstr
+    write(*,*) "In main.90: defining Fstr as: ", Trim(Fstr), "..."
     call SimpleF__new(s,7654,Cstr)
 
     write(*,*) " "
     write(*,*) "In main.90: !!!!! GET PRE-DEFINED A from Simple_mod.F90 !!!!!"
     a = SimpleF__getA(s)
     write(*,*) "In main.90: a = ", a
+    new_char = "Test"
+    call F2Cstring(new_char,new_char)
+    call SimpleF__getFstr(s,new_char)
     ! new_char = SimpleF__getFstr(s)
-    ! write(*,*) "In main.90: get char... ", new_char
+    write(*,*) "In main.90: get string = ", Trim(new_char), "..."
 
     write(*,*) " "
     write(*,*) "In main.90: !!!!! DEFINE AND GET NEW VARIABLES !!!!!"
