@@ -15,7 +15,7 @@ extern "C" void QueryBSize(void* handle, int* data_size);
 // extern "C" void QueryBData(void *handle, int *data);
 extern "C" void QueryBData(void *handle, int data[2]);
 extern "C" double add_a_dk(void* handle);
-// extern "C" void GetFstr(void* handle);
+extern "C" void getFstr(void* handle, char* Fstr);
 
 class SimpleF
 {
@@ -49,11 +49,12 @@ public:
     return ::QueryA(handle); 
   }
 
-  // void GetFstr(){
-  //   cout <<  "In main.cpp: Hello from GetFstr" << endl;
-  //   // cout << "In main.cpp: returning string: " << ::GetFstr(handle) << endl;
-  //   ::GetFstr(handle);
-  // }
+  void getFstr(char* Fstr){
+    cout <<  "In main.cpp's getFstr: Hello from GetFstr" << endl;
+    cout <<  "In main.cpp's getFstr: Receiving test string as: " << Fstr << "..." << endl;
+    ::getFstr(handle, Fstr);
+    cout << "In main.cpp's getFstr: returning string " << Fstr << "..." << endl;
+  }
 
   void Setdk(double dk){
     ::Setdk(handle, dk);
@@ -111,9 +112,11 @@ extern "C" {
     return obj->QueryA();
   }
 
-  // void SimpleF__getFstr(SimpleF* obj){
-  //   obj->GetFstr();
-  // }
+  void SimpleF__getFstr(SimpleF* obj, char* Fstr){
+    cout << "In main.cpp's SimpleF__getFstr: receiving string " << Fstr << "..." << endl;
+    obj->getFstr(Fstr);
+    cout << "In main.cpp's SimpleF__getFstr: returning string " << Fstr << "..." << endl;
+  }
 
   void SimpleF__setB(SimpleF* obj, int n, int b[]){
     cout << "In main.cpp's SimpleF_setB: receiving b[0] = " << b[0] << "; b[1] = " << b[1] << endl;
