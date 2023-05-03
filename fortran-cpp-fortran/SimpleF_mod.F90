@@ -29,12 +29,13 @@ module SimpleF_mod
             type(C_ptr), value :: this
         end function C_SimpleF__getA
 
-        ! subroutine C_SimpleF__getFstr(this, Fstr) bind(C,name="SimpleF__getFstr")
-        !     import
-        !     type(C_ptr), intent(in) :: this
-        !     character(1) :: Fstr
-        !     ! type(C_ptr) :: Fstr
-        ! end subroutine C_SimpleF__getFstr
+        subroutine C_SimpleF__getFstr(this, Fstr) bind(C,name="SimpleF__getFstr")
+            import
+            type(C_ptr), intent(in) :: this
+            character(C_char),  dimension(256) :: Fstr
+            ! character(1) :: Fstr
+            ! type(C_ptr) :: Fstr
+        end subroutine C_SimpleF__getFstr
 
         subroutine C_SimpleF__setB(this, n, b) bind(C,name="SimpleF__setB")
             import
@@ -84,6 +85,15 @@ contains
     !     ! Fstr = C_SimpleF__getFstr(this%object)
     !     call C_SimpleF__getFstr(this%object, Fstr)
     ! end function SimpleF__getFstr
+    subroutine SimpleF__getFstr(this, Fstr)
+        type(simp), intent(in) :: this
+        character(256) :: Fstr
+        write(*,*) "In SimpleF_mod.F90: passing test string as: ", Fstr
+        ! type(C_ptr) :: Fstr
+        ! Fstr = C_SimpleF__getFstr(this%object)
+        call C_SimpleF__getFstr(this%object, Fstr)
+        ! call C2Fstring(Fstr)
+    end subroutine SimpleF__getFstr
 
     subroutine SimpleF__setB(this, n, b)
         type(simp) :: this
