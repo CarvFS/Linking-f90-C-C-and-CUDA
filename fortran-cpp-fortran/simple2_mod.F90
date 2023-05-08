@@ -11,5 +11,6 @@ module simple2_mod
       ! help avoid its pointer association status becoming 
       ! inadvertently undefined 
       INTEGER, POINTER :: B(:) => NULL()
+      integer, pointer :: C(:,:) => NULL()
     END TYPE SIMPLEF
 end module
