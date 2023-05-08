@@ -125,7 +125,7 @@ CONTAINS
     TYPE(SIMPLEF), POINTER :: p
     !***
     CALL C_F_POINTER(handle, p)
-    ! write(*,*) "In simple_mod.F90's GetB: receiving n as ", data_size
+    ! write(*,*) "In simple_mod.F90's QuerryBSize: data_size = "
     ! See comments about assumed association status above.
     IF (ASSOCIATED(p%B)) THEN
       data_size = SIZE(p%B, KIND=C_INT)
@@ -149,6 +149,25 @@ CONTAINS
       ! Someone is being silly.
     END IF
   END SUBROUTINE QueryBData
+
+  SUBROUTINE QueryCData(handle, data, d_size) BIND(C, NAME='QueryCData')
+    USE, INTRINSIC :: ISO_C_BINDING, ONLY:  &
+        C_PTR, C_F_POINTER, C_INT
+    TYPE(C_PTR), INTENT(IN), VALUE :: handle
+    integer(C_int), value :: d_size
+    INTEGER(C_INT), INTENT(OUT) :: data(d_size,d_size)
+    TYPE(SIMPLEF), POINTER :: p
+    !***
+    CALL C_F_POINTER(handle, p)
+    write(*,*) "In simple_mod.F90: defined C is = ", p%C
+    data = p%C
+    ! See comments about assumed association status above.
+    ! IF (ASSOCIATED(p%C)) THEN
+    !   data(:,:) = p%C
+    ! ELSE
+    !   ! Someone is being silly.
+    ! END IF
+  END SUBROUTINE QueryCData
 
   subroutine getFstr(handle, Fstr) bind(C, name='getFstr')
     use iso_c_binding
@@ -175,6 +194,34 @@ CONTAINS
     a = p%a
     sum = a + dk
   end function add_a_dk
+
+    SUBROUTINE SetC(handle, data, data_size) BIND(C, NAME='SetC')
+    USE, INTRINSIC :: ISO_C_BINDING, ONLY:  &
+        C_PTR, C_F_POINTER, C_INT
+    TYPE(C_PTR), INTENT(IN), VALUE :: handle
+    INTEGER(C_INT), INTENT(IN), VALUE :: data_size
+    INTEGER(C_INT), INTENT(IN) :: data(data_size,data_size)
+    TYPE(SIMPLEF), POINTER :: p
+    !***
+    CALL C_F_POINTER(handle, p)
+    ! Allocate p%B to appropriate size.
+    !
+    ! Assuming here the pointer association status of p%B is always 
+    ! defined or dissociated, never undefined.  This is much easier 
+    ! with allocatable components.
+    write(*,*) "In simple_mod.F90's SetC: receiving C as ", data
+    IF (ASSOCIATED(p%C)) THEN
+      IF (SIZE(p%C) /= data_size) THEN
+        DEALLOCATE(p%C)
+        ALLOCATE(p%C(data_size,data_size))
+      END IF
+    ELSE
+      ALLOCATE(p%C(data_size,data_size))
+    END IF
+    p%C = data
+    write(*,*) "In simple_mod.F90's SetC: defining C as ", p%C
+
+  END SUBROUTINE SetC
 
   ! ...etc...
 END MODULE simple
