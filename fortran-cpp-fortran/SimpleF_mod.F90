@@ -44,12 +44,32 @@ module SimpleF_mod
             type(C_ptr), value :: this
         end subroutine C_SimpleF__setB
 
+        subroutine C_SimpleF__setC(this, n, b) bind(C,name="SimpleF__setC")
+            import
+            integer(C_INT), value :: n
+            integer(C_INT) :: b(n,n)
+            type(C_ptr), value :: this
+        end subroutine C_SimpleF__setC
+
         subroutine C_SimpleF__getB(this, n, b2) bind(C,name="SimpleF__getB")
             import
             integer(C_int), value :: n
             integer(C_INT) :: b2(n)
             type(C_ptr), value :: this
         end subroutine C_SimpleF__getB
+
+        subroutine C_SimpleF__getC(this, n, b2) bind(C,name="SimpleF__getC")
+            import
+            integer(C_int), value :: n
+            integer(C_INT) :: b2(n,n)
+            type(C_ptr), value :: this
+        end subroutine C_SimpleF__getC
+
+        ! function C_SimpleF__vecgetB(this) result(b) bind(C,name="SimpleF__vecgetB")
+        !     import
+        !     type(C_ptr) :: b
+        !     type(C_ptr), value :: this
+        ! end function C_SimpleF__vecgetB
 
     end interface
     
@@ -103,6 +123,14 @@ contains
         call C_SimpleF__setB(this%object,n,b)
     end subroutine SimpleF__setB
 
+    subroutine SimpleF__setC(this, n, b)
+        type(simp) :: this
+        integer :: n
+        integer :: b(n,n)
+        write(*,*) "In SimpleF_mod.F90: passing n = ", n," and C =", b
+        call C_SimpleF__setC(this%object,n,b)
+    end subroutine SimpleF__setC
+
     subroutine SimpleF__getB(this, n, b2)
         type(simp), intent(in) :: this
         integer, value :: n
@@ -112,14 +140,34 @@ contains
         call C_SimpleF__getB(this%object, n, b2)
     end subroutine SimpleF__getB
 
-    ! function SimpleF__getB(this, n, b2) result(b)
+    function SimpleF__funsubgetB(this,n,b2) result(b)
+        implicit none
+        integer :: n
+        type(simp), intent(in) :: this
+        integer, pointer :: b(:)
+        integer, target :: b2(:)
+        call C_SimpleF__getB(this%object, n, b2)
+        b => b2
+        ! write(*,*) "In SimpleF_mod.F90: junk b values are"
+    end function SimpleF__funsubgetB
+
+    function SimpleF__funsubgetC(this,n,b2) result(b)
+        implicit none
+        integer :: n
+        type(simp), intent(in) :: this
+        integer, pointer :: b(:,:)
+        integer, target :: b2(:,:)
+        write(*,*) "In SimpleF_mod.F90: receiving junk values of C: ", b2
+        call C_SimpleF__getC(this%object, n, b2)
+        b => b2
+        ! write(*,*) "In SimpleF_mod.F90: junk b values are"
+    end function SimpleF__funsubgetC
+
+    ! function SimpleF__ptrgetB(this) result(b)
     !     type(simp), intent(in) :: this
-    !     integer, value :: n
-    !     integer :: b2(n),b(n)
-    !     ! b = C_SimpleF__getB(this%object, n)
-    !     write(*,*) "In SimpleF_mod.F90: passing b values as ", b2
-    !     call C_SimpleF__getB(this%object, n, b2)
-    !     b = b2
-    ! end function SimpleF__getB
+    !     type(c_ptr) :: b
+    !     b = C_SimpleF__vecgetB(this%object)        
+    ! end function SimpleF__ptrgetB
+
 
 end module SimpleF_mod
