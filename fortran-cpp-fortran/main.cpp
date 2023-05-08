@@ -6,15 +6,20 @@ using namespace std;
 // C++ -> F
 extern "C" void* GetHandle(int a, char* Fstr);
 extern "C" void ReleaseHandle(void* handle);
+
 extern "C" void SetA(void* handle, int a);
-extern "C" int QueryA(void* handle);
 extern "C" void Setdk(void* handle, double dk);
-extern "C" double Getdk(void* handle);
 extern "C" void SetB(void* handle, const int* data, int data_size);
+extern "C" void SetC(void* handle, int data[][2], int data_size);
+
+extern "C" int QueryA(void* handle);
+extern "C" double Getdk(void* handle);
 extern "C" void QueryBSize(void* handle, int* data_size);
 // extern "C" void QueryBData(void *handle, int *data);
 extern "C" void QueryBData(void *handle, int data[2]);
+extern "C" void QueryCData(void *handle, int data[][2], int n);
 extern "C" double add_a_dk(void* handle);
+
 extern "C" void getFstr(void* handle, char* Fstr);
 
 class SimpleF
@@ -73,15 +78,27 @@ public:
      ::SetB(handle, b, n);
   }
 
-  // vector<int> QueryB()
+  void SetC(int n, int b[][2])
+  {
+    cout << "In main.cpp's SetC: receiving b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    cout << "In main.cpp's SetC: receiving b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+    ::SetC(handle, b, n);
+  }
+
+  // vector<int> QueryB2()
   // {
   //   // Get the data size, construct a suitable buffer, populate the buffer.
-  //   int data_size;
+  //   cout << "In main.cpp: Hello from QuerryB2" << endl;
+  //   int data_size = 1;
+  //   cout << "In main.cpp: data_size = " << data_size << endl;
   //   ::QueryBSize(handle, &data_size);
   //   if (data_size == 0) return vector<int>();
 
   //   vector<int> data(data_size);
-  //   ::QueryBData(handle, &data[0]);
+  //   // ::QueryBData(handle, &data[0]);
+
+  //   // cout << "In main.cpp: data = " << data[0] << endl;
+
   //   return data;
   // }
 
@@ -89,6 +106,13 @@ public:
     cout << "In main.cpp: Hello from get B" << endl;
     ::QueryBData(handle,b);
   }
+
+  void QueryC(int n, int b[][2]){
+    cout << "In main.cpp: Hello from get C" << endl;
+    cout << "n = " << n << endl;
+    ::QueryCData(handle,b,n);
+  }
+
 
   double add_a_dk(){
     return ::add_a_dk(handle);
@@ -123,16 +147,28 @@ extern "C" {
     obj -> SetB(n,b);
   }
 
-  // vector<int> SimpleF__getB(SimpleF* obj, int n){
-  //   cout << "receiving n = " << n << endl;
-  //   return obj->QueryB();
-  // }
+  void SimpleF__setC(SimpleF* obj, int n, int b[][2]){
+    cout << "In main.cpp's SimpleF_setB: receiving b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    cout << "In main.cpp's SimpleF_setB: receiving b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+    obj -> SetC(n,b);
+  }
+
   void SimpleF__getB(SimpleF* obj, int n, int b[2]){
     cout << "In main.cpp: receiving n = " << n << endl;
     cout << "In main.cpp: receiving b junk values as " << b[0] << " and " << b[1] << endl;
     // return obj->QueryB();
     obj -> QueryB(n,b);
     cout << "In main.cpp: Returning previously defined values of b as " << b[0] << " and " << b[1] << endl;
+  }
+
+  void SimpleF__getC(SimpleF* obj, int n, int b[][2]){
+    cout << "In main.cpp: receiving n = " << n << endl;
+    cout << "In main.cpp's SimpleF_setB: receiving junk... b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    cout << "In main.cpp's SimpleF_setB: receiving junk... b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+    // return obj->QueryB();
+    obj -> QueryC(n,b);
+    cout << "In main.cpp's SimpleF_setB: returning b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    cout << "In main.cpp's SimpleF_setB: returning b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
   }
   
 }
