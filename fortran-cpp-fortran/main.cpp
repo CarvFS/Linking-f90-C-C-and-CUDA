@@ -170,6 +170,75 @@ extern "C" {
     cout << "In main.cpp's SimpleF_setB: returning b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
     cout << "In main.cpp's SimpleF_setB: returning b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
   }
+
+  void getArray(int N, int arr[]){
+    cout << "In main.cpp: Receiving N = " << N << endl;
+    int count = 0;
+    for (int i = 0; i < N; ++i) {
+      // arr[i] = new int[N];
+      for (int j = 0; j < N; ++j) {
+        count = count + 1;
+        arr[N*i+j] = count;
+        cout << "In main.cpp: " << arr[N*i+j] << endl;
+      }
+    }
+  }
+
+  void getPtr(int N, int** p){
+    cout << "In main.cpp's getPtr: receiving N = " << N << endl;
+    int *arr = new int [N];
+    for(int i = 0; i < N; i++){
+      arr[i] = i+1;
+    }
+    *p = arr;
+  }
+
+  void get2DPtr(int N, int** p){
+    cout << "In main.cpp's get2Dptr: receiving N = " << N << endl;
+    int *arr = new int [N*N];
+    int count = 0;
+    for(int i = 0; i < N; i++){
+      for(int j = 0; j < N; j++){
+        count = count + 1;
+        /* Fortran is column major, so here we must asign values as to the transpose
+        of the matrix we want to get on fortran side */
+        arr[N*j + i] = count;
+      }
+    }
+    *p = arr;
+  }
+
+  /* Testing with array of pointers pointing to pointers...
+  Did not manage this to work and lots of people suggests the previous approach
+  while dealing with multidimentional arrays in c++/Fortran */ 
+  // void get2DPtr(int N, int*** p){
+  //   cout << "In main.cpp: receiving N = " << N << endl;
+  //   int **arr = new int* [N];
+  //   for(int i = 0; i < N; i++){
+  //     arr[i] = new int[N];
+  //   }
+  //   int count = 0;
+  //   for(int i = 0; i < N; i++){
+  //     for(int j = 0; j < N; j++){
+  //       count = count+1;
+  //       arr[i][j] = count;
+  //       cout << "In main.cpp's get2DPtr:" << "arr[" << i << "," << j << "] = " << arr[i][j] << endl;
+  //     }
+  //   }
+  //   *p = arr;
+  // }
+
+  bool getLogic(int R){
+    cout << "In main.cpp: receiving value: " << R << endl;
+    if(R == 1){
+      cout << "In main.cpp: returning boolean True" << endl;
+      return true;
+    }
+    else{
+      cout << "In main.cpp: returning boolean False" << endl;
+      return false;
+    }
+  }
   
 }
 
