@@ -14,7 +14,7 @@ module SimpleF_mod
             import
             type(C_ptr) :: this
             integer(C_INT), value :: a
-            character(C_char),  dimension(*) :: Fstr
+            character(C_char), optional,  dimension(*) :: Fstr
         end function C_SimpleF__new
 
         subroutine C_SimpleF__setA(this, a) bind(C,name="SimpleF__setA")
@@ -70,6 +70,31 @@ module SimpleF_mod
         !     type(C_ptr) :: b
         !     type(C_ptr), value :: this
         ! end function C_SimpleF__vecgetB
+
+        subroutine getArray(N, arr) bind(C, name="getArray")
+            import
+            integer(c_int), value :: N
+            integer(C_int) :: arr(N*N)
+        end subroutine getArray
+
+        subroutine getPtr(N,p) bind(C,name="getPtr")
+            import
+            integer(C_int), value :: N
+            type(C_ptr) :: p
+        end subroutine getPtr
+
+        subroutine get2DPtr(N,p) bind(C,name="get2DPtr")
+            import
+            integer(C_int), value :: N
+            type(C_ptr) :: p
+        end subroutine get2DPtr
+
+        function getLogic(R) result(logic) bind(C, name="getLogic")
+            import
+            integer(C_int), value :: R
+            logical(C_bool) :: logic
+        end function getLogic
+        
 
     end interface
     
