@@ -208,6 +208,44 @@ extern "C" {
     *p = arr;
   }
 
+  void get3DPtr(int N, int** p){
+    cout << "In main.cpp's get3Dptr: receiving N = " << N << endl;
+    int *arr = new int [N*N*N];
+    int count = 0;
+    for(int i = 0; i < N; i++){
+      for(int j = 0; j < N; j++){
+        for(int k = 0; k < N; k++){
+          count = count + 1;
+        /* Fortran is column major, so here we must asign values as to the transpose
+        of the matrix we want to get on fortran side */
+        arr[i + N*j + N*N*k] = count;
+        cout << "In main.cpp's get3DPtr: i = " << i << ", j = " << j << ", k = " << k << ", counting = " << count << endl;
+        }
+      }
+    }
+    *p = arr;
+  }
+
+  void get4DPtr(int N, int** p){
+    cout << "In main.cpp's get4Dptr: receiving N = " << N << endl;
+    int *arr = new int [N*N*N];
+    int count = 0;
+    for(int i = 0; i < N; i++){
+      for(int j = 0; j < N; j++){
+        for(int k = 0; k < N; k++){
+          for(int l = 0; l < N; l++){
+            count = count + 1;
+            /* Fortran is column major, so here we must asign values as to the transpose
+            of the matrix we want to get on fortran side */
+            arr[i + N*j + N*N*k + N*N*N*l] = count;
+            cout << "In main.cpp's get3DPtr: i = " << i << ", j = " << j << ", k = " << k << ", l = " << l << ", counting = " << count << endl;
+          }
+        }
+      }
+    }
+    *p = arr;
+  }
+
   /* Testing with array of pointers pointing to pointers...
   Did not manage this to work and lots of people suggests the previous approach
   while dealing with multidimentional arrays in c++/Fortran */ 
