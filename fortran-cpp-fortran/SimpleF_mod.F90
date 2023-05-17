@@ -89,6 +89,18 @@ module SimpleF_mod
             type(C_ptr) :: p
         end subroutine get2DPtr
 
+        subroutine get3DPtr(N,p) bind(C,name="get3DPtr")
+            import
+            integer(C_int), value :: N
+            type(C_ptr) :: p
+        end subroutine get3DPtr
+
+        subroutine get4DPtr(N,p) bind(C,name="get4DPtr")
+            import
+            integer(C_int), value :: N
+            type(C_ptr) :: p
+        end subroutine get4DPtr
+
         function getLogic(R) result(logic) bind(C, name="getLogic")
             import
             integer(C_int), value :: R
