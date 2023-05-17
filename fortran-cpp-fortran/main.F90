@@ -2,15 +2,15 @@ program main_program
     use iso_c_binding
     use SimpleF_mod
     implicit none
-    integer :: a,bt,i,j
+    integer :: a,bt,i,j,k,l
     integer :: new_a
     CHARACTER(256) :: Fstr = "Test for passing string F-Cpp-F"
     CHARACTER(256) :: Cstr, new_char, new_char_f
     type(C_ptr) :: cptr
-    integer, pointer :: fptr(:),fptr2(:,:),M(:,:)
+    integer, pointer :: fptr(:),fptr2(:,:),fptr3(:,:,:),fptr_4(:,:,:,:),M(:,:),M2(:,:,:)
     integer, target :: b(2),b2(2),b3(2)
     integer, target :: c(2,2),c2(2,2)
-    integer :: N
+    integer :: N, count
     logical :: logic
     integer :: arr(100000)
     integer, target :: matrix(100000,100000)
@@ -84,7 +84,7 @@ program main_program
     ! I WILL BE WORKING ON THIS IN FUTURE EXAMPLES
 
     !> Receiving arrays from c++
-    N=4 ! size for either vector or matrix dimensions
+    N=2 ! size for either vector or matrix dimensions
     ! Receiving N*N array
     call getArray(N, arr)
     write(*,*) "In main.F90: Receiving array:"
@@ -115,6 +115,38 @@ program main_program
     do i=1,N
         do j=1,N
             write(*,*) "M[",i,",",j,"] = ", fptr2(i,j)
+        end do
+    end do
+
+    !! 3D case
+    call get3DPtr(N,cptr)
+    call C_F_POINTER(cptr,fptr3,[N,N,N])
+
+    write(*,*) "In main.F90: the tensor received through a pointer is:"
+    count = 0
+    do i=1,N
+        do j=1,N
+            do k=1,N
+                count = count + 1
+                write(*,*) "M[",i,",",j,",",k,"] = ", fptr3(i,j,k)! , " || test count = ", count
+            end do
+        end do
+    end do
+
+    !! 4D case    
+    call get4DPtr(N,cptr)
+    call C_F_POINTER(cptr,fptr_4,[N,N,N,N])
+
+    write(*,*) "In main.F90: the tensor received through a pointer is:"
+    count = 0
+    do i=1,N
+        do j=1,N
+            do k=1,N
+                do l=1,N
+                    count = count + 1
+                    write(*,*) "M[",i,",",j,",",k,"] = ", fptr_4(i,j,k,l)! , " || test count = ", count
+                end do
+            end do
         end do
     end do
 
