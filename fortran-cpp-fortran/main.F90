@@ -178,7 +178,7 @@ program main_program
     end do
     d2_ptr => d2
 
-    write(*,*) "In main.F90: 1D pointer to pass is "
+    write(*,*) "In main.F90: 2D pointer to pass is "
     do i=1,N
         do j=1,N
             write(*,*) "D[",i,j,"]=", d2_ptr(i,j)
@@ -186,7 +186,31 @@ program main_program
     end do
     call SimpleF__passFptr2D(s,N,d2_ptr)
 
+    !! Passing 3D pointer to c++
+    write(*,*) " "
+    N=2
+    !! Setting values to pass from here to c++
+    do i=1,N
+        do j=1,N
+            do k=1,N
+                d3(i,j,k) = 123 + i*2*N + j*N + k
+            end do
+        end do
+    end do
+    d3_ptr => d3
+
+    write(*,*) "In main.F90: 3D pointer to pass is "
+    do i=1,N
+        do j=1,N
+            do k=1,N
+                write(*,*) "D[",i,j,k,"]=", d3_ptr(i,j,k)
+            end do
+        end do
+    end do
+    call SimpleF__passFptr3D(s,N,d3_ptr)
+
     !> Receiving logical from c++
+    write(*,*) " "
     logic = getLogic(1)
     write(*,*) "In main.F90: received boolean from c++ is ", logic
 
