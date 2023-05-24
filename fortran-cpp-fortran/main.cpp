@@ -210,6 +210,26 @@ extern "C" {
     // cout << "In main.cpp's SimpleF_getD: returning b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
   }
 
+  void SimpleF__passFptr3D(SimpleF* obj, int n, int** d){
+    cout << "In main.cpp's SimpleF__passFptr3D: receiving n = " << n << endl;
+    cout << "In main.cpp's SimpleF__passFptr3D: receiving three-dimensional D!" << endl;
+
+    for(int i = 0; i < n; i++){
+      for(int j = 0; j < n; j++){
+        for(int k = 0; k < n; k++){
+          cout << "D[" << i << j << k << "] = " << d[0][i+j*n+k*n*n] << endl;
+        }
+      }
+    }
+    
+    // cout << "In main.cpp's SimpleF_getD: receiving junk... b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    // cout << "In main.cpp's SimpleF_getD: receiving junk... b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+    // // return obj->QueryB();
+    // obj -> QueryD(n,b);
+    // cout << "In main.cpp's SimpleF_getD: returning b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    // cout << "In main.cpp's SimpleF_getD: returning b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+  }
+
   void getArray(int N, int arr[]){
     cout << "In main.cpp: Receiving N = " << N << endl;
     int count = 0;
