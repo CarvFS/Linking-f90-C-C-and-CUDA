@@ -65,6 +65,22 @@ module SimpleF_mod
             type(C_ptr), value :: this
         end subroutine C_SimpleF__getC
 
+        subroutine C_SimpleF__passFptr(this, N, d) bind(C,name="SimpleF__passFptr")
+            import
+            integer(C_INT), value :: N
+            type(C_ptr), value :: this
+            ! integer(C_int), pointer :: d(:,:,:)
+            type(C_ptr) :: d
+        end subroutine C_SimpleF__passFptr
+
+        subroutine C_SimpleF__passFptr2D(this, N, d) bind(C,name="SimpleF__passFptr2D")
+            import
+            integer(C_INT), value :: N
+            type(C_ptr), value :: this
+            ! integer(C_int), pointer :: d(:,:,:)
+            type(C_ptr) :: d
+        end subroutine C_SimpleF__passFptr2D
+
         ! function C_SimpleF__vecgetB(this) result(b) bind(C,name="SimpleF__vecgetB")
         !     import
         !     type(C_ptr) :: b
@@ -176,6 +192,30 @@ contains
         write(*,*) "In SimpleF_mod.F90: passing b junk values as ", b2
         call C_SimpleF__getB(this%object, n, b2)
     end subroutine SimpleF__getB
+
+    subroutine SimpleF__passFptr(this, n, d)
+        use iso_c_binding
+        type(simp), intent(in) :: this
+        integer, pointer :: d(:)
+        integer, value :: n
+        type(C_PTR) :: p
+        write(*,*) "In SimpleF_mod.F90' SimpleF_getD: passing d values as ", d
+        ! call C_F_POINTER(p,d,[n])
+        p = C_LOC(d(:))
+        call C_SimpleF__passFptr(this%object, n, p)
+    end subroutine SimpleF__passFptr
+
+    subroutine SimpleF__passFptr2D(this, n, d)
+        use iso_c_binding
+        type(simp), intent(in) :: this
+        integer, pointer :: d(:,:)
+        integer, value :: n
+        type(C_PTR) :: p
+        write(*,*) "In SimpleF_mod.F90' SimpleF_getD: passing d values as ", d
+        ! call C_F_POINTER(p,d,[n])
+        p = C_LOC(d(:,:))
+        call C_SimpleF__passFptr2D(this%object, n, p)
+    end subroutine SimpleF__passFptr2D
 
     function SimpleF__funsubgetB(this,n,b2) result(b)
         implicit none
