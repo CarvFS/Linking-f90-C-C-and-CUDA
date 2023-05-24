@@ -18,6 +18,7 @@ extern "C" void QueryBSize(void* handle, int* data_size);
 // extern "C" void QueryBData(void *handle, int *data);
 extern "C" void QueryBData(void *handle, int data[2]);
 extern "C" void QueryCData(void *handle, int data[][2], int n);
+extern "C" void QueryDData(void *handle, int data[][2][2]);
 extern "C" double add_a_dk(void* handle);
 
 extern "C" void getFstr(void* handle, char* Fstr);
@@ -29,11 +30,11 @@ private:
 public:
   SimpleF(int a, char* Fstr) 
   { 
-    cout << "In main.cpp: Hello from SimpleF class constructor" << endl;
-    cout << "In main.cpp: receiving a = " << a << endl;
-    cout << "In main.cpp: receiving Fstr = " << Fstr << "..."<< endl;
+    cout << "In main.cpp's SimpleF: Hello from SimpleF class constructor" << endl;
+    cout << "In main.cpp's SimpleF: receiving a = " << a << endl;
+    cout << "In main.cpp's SimpleF: receiving Fstr = " << Fstr << "..."<< endl;
     handle = GetHandle(a, Fstr);
-    cout << "In main.cpp: done..." << endl ;
+    cout << "In main.cpp's SimpleF: done..." << endl ;
     // ::SetA(handle, a);
   }
 
@@ -113,6 +114,10 @@ public:
     ::QueryCData(handle,b,n);
   }
 
+    void QueryD(int n, int b[][2][2]){
+    cout << "In main.cpp: Hello from get D" << endl;
+    ::QueryDData(handle,b);
+  }
 
   double add_a_dk(){
     return ::add_a_dk(handle);
@@ -163,12 +168,46 @@ extern "C" {
 
   void SimpleF__getC(SimpleF* obj, int n, int b[][2]){
     cout << "In main.cpp: receiving n = " << n << endl;
-    cout << "In main.cpp's SimpleF_setB: receiving junk... b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
-    cout << "In main.cpp's SimpleF_setB: receiving junk... b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+    cout << "In main.cpp's SimpleF_getC: receiving junk... b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    cout << "In main.cpp's SimpleF_getC: receiving junk... b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
     // return obj->QueryB();
     obj -> QueryC(n,b);
-    cout << "In main.cpp's SimpleF_setB: returning b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
-    cout << "In main.cpp's SimpleF_setB: returning b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+    cout << "In main.cpp's SimpleF_getC: returning b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    cout << "In main.cpp's SimpleF_getC: returning b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+  }
+
+  void SimpleF__passFptr(SimpleF* obj, int n, int** d){
+    cout << "In main.cpp's SimpleF__passFptr: receiving n = " << n << endl;
+    cout << "In main.cpp's SimpleF__passFptr: receiving D!" << endl;
+
+    for(int i = 0; i < n; i++){
+      cout << "D[" << i << "] = " << d[0][i] << endl;
+    }
+    
+    // cout << "In main.cpp's SimpleF_getD: receiving junk... b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    // cout << "In main.cpp's SimpleF_getD: receiving junk... b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+    // // return obj->QueryB();
+    // obj -> QueryD(n,b);
+    // cout << "In main.cpp's SimpleF_getD: returning b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    // cout << "In main.cpp's SimpleF_getD: returning b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+  }
+
+  void SimpleF__passFptr2D(SimpleF* obj, int n, int** d){
+    cout << "In main.cpp's SimpleF__passFptr2D: receiving n = " << n << endl;
+    cout << "In main.cpp's SimpleF__passFptr2D: receiving two-dimensional D!" << endl;
+
+    for(int i = 0; i < n; i++){
+      for(int j = 0; j < n; j++){
+        cout << "D[" << i << j << "] = " << d[0][i*n+j] << endl;
+      }
+    }
+    
+    // cout << "In main.cpp's SimpleF_getD: receiving junk... b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    // cout << "In main.cpp's SimpleF_getD: receiving junk... b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
+    // // return obj->QueryB();
+    // obj -> QueryD(n,b);
+    // cout << "In main.cpp's SimpleF_getD: returning b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
+    // cout << "In main.cpp's SimpleF_getD: returning b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
   }
 
   void getArray(int N, int arr[]){
@@ -225,6 +264,24 @@ extern "C" {
     }
     *p = arr;
   }
+
+  // void SimpleF__getD(int N, int** p){
+  //   cout << "In main.cpp's C_SimpleF__getD: receiving N = " << N << endl;
+  //   int *arr = new int [N*N*N];
+  //   int count = 0;
+  //   for(int i = 0; i < N; i++){
+  //     for(int j = 0; j < N; j++){
+  //       for(int k = 0; k < N; k++){
+  //         count = count + 1;
+  //       /* Fortran is column major, so here we must asign values as to the transpose
+  //       of the matrix we want to get on fortran side */
+  //       arr[i + N*j + N*N*k] = count;
+  //       cout << "In main.cpp's get3DPtr: i = " << i << ", j = " << j << ", k = " << k << ", counting = " << count << endl;
+  //       }
+  //     }
+  //   }
+  //   *p = arr;
+  // }
 
   void get4DPtr(int N, int** p){
     cout << "In main.cpp's get4Dptr: receiving N = " << N << endl;
