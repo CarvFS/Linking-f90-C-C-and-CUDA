@@ -9,7 +9,8 @@ program main_program
     type(C_ptr) :: cptr
     integer, pointer :: fptr(:),fptr2(:,:),fptr3(:,:,:),fptr_4(:,:,:,:),M(:,:),M2(:,:,:)
     integer, target :: b(2),b2(2),b3(2)
-    integer, target :: c(2,2),c2(2,2)
+    integer, target :: c(2,2),c2(2,2),d(2),d2(2,2),d3(2,2,2)
+    integer, pointer :: d3_ptr(:,:,:), d2_ptr(:,:), d_ptr(:)
     integer :: N, count
     logical :: logic
     integer :: arr(100000)
@@ -85,6 +86,7 @@ program main_program
 
     !> Receiving arrays from c++
     N=2 ! size for either vector or matrix dimensions
+
     ! Receiving N*N array
     call getArray(N, arr)
     write(*,*) "In main.F90: Receiving array:"
@@ -107,14 +109,16 @@ program main_program
     
     write(*,*) "In main.F90: the vector received through a pointer is: ", fptr
 
-    !! 2D case
+    ! 2D case
     call get2DPtr(N,cptr)
     call C_F_POINTER(cptr,fptr2,[N,N])
+
+    M => fptr2
 
     write(*,*) "In main.F90: the matrix received through a pointer is:"
     do i=1,N
         do j=1,N
-            write(*,*) "M[",i,",",j,"] = ", fptr2(i,j)
+            write(*,*) "M[",i,",",j,"] = ", M(i,j)
         end do
     end do
 
@@ -149,6 +153,38 @@ program main_program
             end do
         end do
     end do
+
+    !> Passing pointers to C++
+    !! Passing 1D pointer to c++
+    write(*,*) " "
+    N=2
+    !! Setting values to pass from here to c++
+    do i=1,N
+        d(i) = 123 + i
+    end do
+    d_ptr => d
+
+    write(*,*) "In main.F90: 1D pointer to pass is ", d_ptr
+    call SimpleF__passFptr(s,N,d_ptr)
+
+    !! Passing 2D pointer to c++
+    write(*,*) " "
+    N=2
+    !! Setting values to pass from here to c++
+    do i=1,N
+        do j=1,N
+            d2(i,j) = 123 + i*N + j
+        end do
+    end do
+    d2_ptr => d2
+
+    write(*,*) "In main.F90: 1D pointer to pass is "
+    do i=1,N
+        do j=1,N
+            write(*,*) "D[",i,j,"]=", d2_ptr(i,j)
+        end do
+    end do
+    call SimpleF__passFptr2D(s,N,d2_ptr)
 
     !> Receiving logical from c++
     logic = getLogic(1)
