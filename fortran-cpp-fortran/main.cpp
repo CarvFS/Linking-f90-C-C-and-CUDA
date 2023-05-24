@@ -222,6 +222,19 @@ extern "C" {
       }
     }
     
+    cout << "In main.cpp's SimpleF_passFptr3D: To avoind dealing with d[0][indx] notation" << 
+    " one may pass the values from the pointer-to-pointer(**d) to a pointer (*arr)" << endl;
+    int *arr = new int [n*n];
+    arr = *d;
+
+    for(int i = 0; i < n; i++){
+      for(int j = 0; j < n; j++){
+        for(int k = 0; k < n; k++){
+          cout << "arr[" << i << j << k << "] = " << arr[i+j*n+k*n*n] << endl;
+        }
+      }
+    }
+
     // cout << "In main.cpp's SimpleF_getD: receiving junk... b[0,0] = " << b[0][0] << "; b[0][1] = " << b[0][1] << endl;
     // cout << "In main.cpp's SimpleF_getD: receiving junk... b[1,0] = " << b[1][0] << "; b[1][1] = " << b[1][1] << endl;
     // // return obj->QueryB();
