@@ -1,13 +1,19 @@
 program main_test
 use FirstMod
+use iso_c_binding
 
 type(firstex_v1), pointer :: FTptr
 type(firstex_v2), pointer :: FTptr2
 type(firstex_v2), target :: FT2
 type(firstex_v1), target :: FT
-integer :: a = 123
+integer :: a = 123, N_1d, i
+integer, target :: B_arr(3)
 real*8 :: dk = 0.25
-character(len=256) :: Fstr = "Resturning from C++!"//char(0)
+character(len=256) :: Fstr = "Resturning from C++!!!"//char(0)
+character(len=256), pointer :: Fstr_ptr
+character(len=256), target :: Fstr_test = "Testing"//char(0)
+
+allocate(FTptr,FTptr2,Fstr_ptr)
 
 !!> USING DEFINED TYPE WITH BIND(C):
 write(*,*) " "
@@ -20,22 +26,25 @@ write(*,*) " "
 
 FT%a = 321
 FT%dk = 0.123
+Fstr_ptr => Fstr_test
+FT%Fstr = C_LOC(Fstr_ptr)
 
 FTptr => FT
 
-write(*,*) "In main.90: Values to initialize: a = ", a, "dk = ", dk, "Fstr = ", Fstr, "..."
+write(*,*) "In main.90: Values to initialize: a = ", a, "dk = ", dk, "Fstr = ", trim(Fstr), "..."
 write(*,*) " "
 write(*,*) "In main.90: Printing object members before initialization:"
-write(*,*) "a in mod = ", FT%a, "dk in mod = ", FT%dk
+write(*,*) "a in mod = ", FT%a, "dk in mod = ", FT%dk, "Fptr in mod = ", trim(Fstr_ptr), "..."
 
 write(*,*) " "
 write(*,*) "In main.90: INITIALIZING..."
 
-call FirstMod_new_v1(FTptr, a, dk)
+call FirstMod_new_v1(FTptr, a, dk, Fstr)
 
 write(*,*) " "
 write(*,*) "In main.90: Printing object members after initialization:"
-write(*,*) "In main.90: a in mod = ", FT%a, "dk in mod = ", FT%dk
+
+write(*,*) "In main.90: a in mod = ", FT%a, "dk in mod = ", FT%dk, "Fstr = ", trim(Fstr_ptr), "..."
 
 !!> USING DEFINED TYPE AS IN FORTRAN:
 write(*,*) " "
@@ -58,9 +67,20 @@ write(*,*) "In main.90: a in mod = ", FT2%a, "dk in mod = ", FT2%dk, "Fstr in mo
 write(*,*) " "
 write(*,*) "In main.90: INITIALIZING..."
 
-call FirstMod_new_V2(FTptr2, a, dk, Fstr//char(0))
+N_1d = 3
+B_arr(1) = 321
+B_arr(2) = 321
+B_arr(3) = 321
+
+FT2%B => B_arr
+
+call FirstMod_new_V2(FTptr2, N_1d, a, dk, Fstr//char(0))
 
 write(*,*) "In main.90: Printing object members after initialization:"
 write(*,*) "In main.90: a in mod = ", FT2%a, "dk in mod = ", FT2%dk, "Fstr in mod = ", trim(FT2%Fstr), "..."
+write(*,*) "In main.90: B in mod:"
+do i = 1,N_1d
+    write(*,*) "B(",i,") = ", FT2%B(i)
+end do
 
 end program main_test
