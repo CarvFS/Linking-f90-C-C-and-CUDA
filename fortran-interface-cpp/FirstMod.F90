@@ -5,7 +5,8 @@ module FirstMod
     TYPE, bind(C) :: firstex_v1
       INTEGER(C_INT) :: a
       REAL(C_DOUBLE) :: dk
-      type(C_ptr) :: Fstr
+      type(C_ptr) :: Fstr 
+      type(C_ptr) :: B
     !   CHARACTER(C_CHAR), dimension(256) :: Fstr
     !   INTEGER, POINTER :: B(:) => NULL()
     !   integer, pointer :: C(:,:) => NULL()
@@ -23,10 +24,10 @@ module FirstMod
 
     interface
 
-        subroutine C_FirstMod_new_v1(p, a_int, dk_real, Fstr) bind(C,name="Initialize_firstex_v1")
+        subroutine C_FirstMod_new_v1(p, N_1d, a_int, dk_real, Fstr) bind(C,name="Initialize_firstex_v1")
             import
             type(C_ptr) :: p
-            integer(C_INT), value :: a_int
+            integer(C_INT), value :: a_int, N_1d
             real(C_DOUBLE), value :: dk_real
             character(C_CHAR), dimension(*) :: Fstr
 
@@ -55,16 +56,17 @@ module FirstMod
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !!> INITIALIZING IN C++
-    subroutine new_1(this, a_int, dk_real, Fstr)
+    subroutine new_1(this, N_1d, a_int, dk_real, Fstr)
         type(firstex_v1), pointer :: this
-        integer :: a_int
+        integer :: a_int, N_1d
         real*8 :: dk_real
         character(len=256), intent(in) :: Fstr
         type(C_PTR) :: p
 
-        !!> Why do I have to do this???
-        type(C_PTR) :: p_a, p_dk, p_Fstr
+        !!> Why do I have to do this??? The order matters...!
+        type(C_PTR) :: p_a, p_dk, p_Fstr, p_B
         p_a = C_LOC(this%a)
+        p_B = this%B
         p_Fstr = this%Fstr
         p_dk = C_LOC(this%dk)
         p = C_LOC(this)
@@ -72,7 +74,7 @@ module FirstMod
 
         write(*,*) "In FirstMod.F90: passing... a = ", this%a, "dk = ", this%dk, "C address to Fstr = ", this%Fstr
 
-        call C_FirstMod_new_v1(p, a_int, dk_real, Fstr)
+        call C_FirstMod_new_v1(p, N_1d, a_int, dk_real, Fstr)
         
     end subroutine new_1
 
