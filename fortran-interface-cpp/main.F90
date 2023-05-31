@@ -7,9 +7,10 @@ type(firstex_v2), pointer :: FTptr2
 type(firstex_v2), target :: FT2
 type(firstex_v1), target :: FT
 integer :: a = 123, N_1d, i
+integer, pointer :: Bptr(:)
 integer, target :: B_arr(3)
 real*8 :: dk = 0.25
-character(len=256) :: Fstr = "Resturning from C++!!!"//char(0)
+character(len=256) :: Fstr = "Returning from C++!!!"//char(0)
 character(len=256), pointer :: Fstr_ptr
 character(len=256), target :: Fstr_test = "Testing"//char(0)
 
@@ -29,22 +30,32 @@ FT%dk = 0.123
 Fstr_ptr => Fstr_test
 FT%Fstr = C_LOC(Fstr_ptr)
 
+N_1d = 3
+Allocate(Bptr(N_1d))
+
+do i=1,N_1d
+    B_arr(i) = 320+i
+end do
+
+Bptr => B_arr
+FT%B = C_LOC(Bptr)
+
 FTptr => FT
 
 write(*,*) "In main.90: Values to initialize: a = ", a, "dk = ", dk, "Fstr = ", trim(Fstr), "..."
 write(*,*) " "
 write(*,*) "In main.90: Printing object members before initialization:"
-write(*,*) "a in mod = ", FT%a, "dk in mod = ", FT%dk, "Fptr in mod = ", trim(Fstr_ptr), "..."
+write(*,*) "a in mod = ", FT%a, "dk in mod = ", FT%dk, "Fptr in mod = ", trim(Fstr_ptr), "...", ", B = ", Bptr
 
 write(*,*) " "
 write(*,*) "In main.90: INITIALIZING..."
 
-call FirstMod_new_v1(FTptr, a, dk, Fstr)
+call FirstMod_new_v1(FTptr, N_1d, a, dk, Fstr)
 
 write(*,*) " "
 write(*,*) "In main.90: Printing object members after initialization:"
 
-write(*,*) "In main.90: a in mod = ", FT%a, "dk in mod = ", FT%dk, "Fstr = ", trim(Fstr_ptr), "..."
+write(*,*) "In main.90: a in mod = ", FT%a, "dk in mod = ", FT%dk, "Fstr = ", trim(Fstr_ptr), "...", ", B = ", Bptr
 
 !!> USING DEFINED TYPE AS IN FORTRAN:
 write(*,*) " "
