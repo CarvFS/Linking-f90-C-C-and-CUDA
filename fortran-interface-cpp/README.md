@@ -15,4 +15,5 @@ The first approach seems to be more straightforward, but I need to figure out ho
  - [x] Figure out if one can send a pointer to the derived type to C++ in the second approach;
  - [x] Add 1D pointers to the derived type in second approach (the examples on fortran-cpp-fortran folder will be helpful, I hope);
  - [ ] Add multidimensional pointers to the derived type in second approach;
- - [ ] Add 1D and multidimentional pointers to the derived tyoe in first approach;
+ - [x] Add 1D pointers to the derived tyoe in first approach;
+ - [ ] Add multidimensional pointers to the derived type in first approach;
