@@ -1,6 +1,6 @@
 #  Example for passing/changing Fortran defined type to C++
 
-Run as: `make`, then `./main`
+Run as: `make`, then `./main`.
 
 The idea here is to acess and modify Fortran derived types on C++ side, but without the need for get/set functions. Also, here one may acess the object values on the top level fortran code using the usal sintaxe (e.g. `type_object%variable`).
 
