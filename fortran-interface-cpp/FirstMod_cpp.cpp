@@ -7,6 +7,7 @@ extern "C" struct  firstex {
     double* dk;
     char* Fstr;
     int* B;
+    int* B2;
 };
 
 extern "C"{
@@ -29,9 +30,16 @@ extern "C"{
             cout << "i = " << i << ", B = " << p->B[i] << endl;
         }
 
+        cout << "In FirstMod_cpp.cpp's Initialize_firstex_v1: N_1d = " << n << ". Pre-defined values for B_2D are:" << endl;
+        for(int i = 0; i < n*n; i++){
+            cout << "i = " << i << ", B = " << p->B2[i] << endl;
+        }
+
+        // Setting new values for "a" and "dk"
         *p->a = a;
         *p->dk = dk;
 
+        // Setting new value for Fstr
         i = 0;
         while(Fstr[i] != '\0'){
             p->Fstr[i] = Fstr[i];
@@ -39,8 +47,16 @@ extern "C"{
         }
         p->Fstr[i] = '\0';
 
+        // Setting new values for B 1D
         for(int i = 0; i < n; i++){
             p->B[i] = 123+i;
+        }
+
+        // Setting new values for B 2D
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                p->B2[i+n*j] = 321+n*i+j;
+            }
         }
 
         cout << "In FirstMod_cpp.cpp's Initialize_firstex_v1: Printing new values:" << endl;
@@ -53,8 +69,14 @@ extern "C"{
         }
         cout << endl;
 
+        cout << "In FirstMod_cpp.cpp's Initialize_firstex_v1: New values for B: " << endl;
         for(int i = 0; i < n; i++){
             cout << "i = " << i << ", B = " << p->B[i] << endl;
+        }
+
+        cout << "In FirstMod_cpp.cpp's Initialize_firstex_v1: New values for B2: " << endl;
+        for(int i = 0; i < n*n; i++){
+            cout << "i = " << i << ", B2 = " << p->B2[i] << endl;
         }
     }
 

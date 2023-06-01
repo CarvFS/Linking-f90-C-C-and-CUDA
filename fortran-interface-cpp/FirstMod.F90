@@ -7,6 +7,7 @@ module FirstMod
       REAL(C_DOUBLE) :: dk
       type(C_ptr) :: Fstr 
       type(C_ptr) :: B
+      type(C_ptr) :: B2
     !   CHARACTER(C_CHAR), dimension(256) :: Fstr
     !   INTEGER, POINTER :: B(:) => NULL()
     !   integer, pointer :: C(:,:) => NULL()
@@ -64,8 +65,9 @@ module FirstMod
         type(C_PTR) :: p
 
         !!> Why do I have to do this??? The order matters...!
-        type(C_PTR) :: p_a, p_dk, p_Fstr, p_B
+        type(C_PTR) :: p_a, p_dk, p_Fstr, p_B, p_B2
         p_a = C_LOC(this%a)
+        p_B2 = this%B2
         p_B = this%B
         p_Fstr = this%Fstr
         p_dk = C_LOC(this%dk)
