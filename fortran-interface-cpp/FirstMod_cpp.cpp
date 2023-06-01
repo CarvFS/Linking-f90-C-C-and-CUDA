@@ -80,7 +80,7 @@ extern "C"{
         }
     }
 
-    void Initialize_firstex_v2(int** p_a, double** p_dk, char** p_Fstr, int** p_1dptr, int N, int a, double dk, char* Fstr){
+    void Initialize_firstex_v2(int** p_a, double** p_dk, char** p_Fstr, int** p_1dptr, int** p_2dptr, int N, int a, double dk, char* Fstr){
         cout << "In FirstMod_cpp.cpp's Initialize_firstex_v2: Data on C++ side!" << endl;
         cout << "In FirstMod_cpp.cpp's Initialize_firstex_v2: Receiving values to set..." << endl;
         cout << "FirstMod_cpp.cpp's Initialize_firstex_v2: a = " << a << ", dk = " << dk << ", Fstr = " << Fstr << "..." << endl;
@@ -88,10 +88,18 @@ extern "C"{
         cout << "FirstMod_cpp.cpp's Initialize_firstex_v2: Printing pre-defined values:" << endl;
         cout << "FirstMod_cpp.cpp's Initialize_firstex_v2: a = " << **p_a << ", dk = " << **p_dk << ", Fstr = " << *p_Fstr << endl;
         cout << "In FirstMod_cpp.cpp's Initialize_firstex_v2: B = " << p_1dptr[0][0] << ", " << p_1dptr[0][1] << ", " << p_1dptr[0][2] << endl;
-        
+        cout << "In FirstMod_cpp.cpp's Initialize_firstex_v2: B2: " << endl;
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                cout << "B2 = " << p_2dptr[0][i+N*j] << endl;
+            }
+        }
+
+        // Setting new values for and "a" and "dk"
         **p_a = a;
         **p_dk = dk;
 
+        // Setting new value for Fstr
         int i = 0;
         while(Fstr[i] != '\0'){
             p_Fstr[0][i] = Fstr[i];
@@ -99,14 +107,22 @@ extern "C"{
         }
         p_Fstr[0][i] = '\0';
 
+        // Setting new values for 1D array
+        for(int i = 0; i < N; i++){
+            p_1dptr[0][i] = i+123;
+        }
+
+        // Setting new values for 2D array
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                p_2dptr[0][i+N*j] = 321 + N*i + j;
+            }
+        }
+
         cout << "In FirstMod_cpp.cpp's Initialize_firstex_v2: Printing new values:" << endl;
         cout << "In FirstMod_cpp.cpp's Initialize_firstex_v2: a = " << **p_a << ", dk = " << **p_dk << ", Fstr = " << *p_Fstr << "..." << endl;
 
         cout << "In FirstMod_cpp.cpp's Initialize_firstex_v2: receiving N = " << N << endl;
-
-        for(int i = 0; i < N; i++){
-            p_1dptr[0][i] = i+123;
-        }
 
         cout << "In FirstMod_cpp.cpp's Initialize_firstex_v2: B = " << p_1dptr[0][0] << ", " << p_1dptr[0][1] << ", " << p_1dptr[0][2] << endl;
     }

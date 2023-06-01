@@ -19,7 +19,7 @@ module FirstMod
       REAL*8 :: dk
       character(len=256) :: Fstr
       INTEGER, POINTER :: B(:) => NULL()
-    !   integer, pointer :: C(:,:) => NULL()
+      integer, pointer :: B2(:,:) => NULL()
     !   integer, pointer :: D(:,:,:) => NULL()
     END TYPE firstex_v2
 
@@ -34,9 +34,10 @@ module FirstMod
 
         end subroutine C_FirstMod_new_v1
 
-        subroutine C_FirstMod_new_v2(p_a, p_dk, p_Fstr, p_1dptr, N_1d, a_int, dk_real, F_str) bind(C,name="Initialize_firstex_v2")
+        subroutine C_FirstMod_new_v2(p_a, p_dk, p_Fstr, p_1dptr, p_2dptr,&
+        N_1d, a_int, dk_real, F_str) bind(C,name="Initialize_firstex_v2")
             import
-            type(C_ptr) :: p_a, p_dk, p_Fstr, p_1dptr
+            type(C_ptr) :: p_a, p_dk, p_Fstr, p_1dptr,p_2dptr
             integer(C_INT), value :: a_int, N_1d
             real(C_DOUBLE), value :: dk_real
             character(C_CHAR), dimension(*) :: F_str
@@ -86,18 +87,19 @@ module FirstMod
         real*8 :: dk_real
         character(len=*), intent(in) :: F_str
 
-        type(C_PTR) :: p_a, p_dk, p_Fstr, p_1dptr
+        type(C_PTR) :: p_a, p_dk, p_Fstr, p_1dptr, p_2dptr
         p_a = C_LOC(this%a)
         p_dk = C_LOC(this%dk)
         p_Fstr = C_LOC(this%Fstr)
         p_1dptr = C_LOC(this%B)
+        p_2dptr = C_LOC(this%B2)
 
-        write(*,*) "In FirstMod.90: Passing B as:"
-        do i = 1,N_1d
-            write(*,*) "B(",i,") = ", this%B(i)
-        end do
+        ! write(*,*) "In FirstMod.90: Passing B as:"
+        ! do i = 1,N_1d
+        !     write(*,*) "B(",i,") = ", this%B(i)
+        ! end do
 
-        call C_FirstMod_new_v2(p_a, p_dk, p_Fstr, p_1dptr, N_1d, a_int, dk_real, F_str)
+        call C_FirstMod_new_v2(p_a, p_dk, p_Fstr, p_1dptr, p_2dptr, N_1d, a_int, dk_real, F_str)
         
     end subroutine new_2
 

@@ -16,6 +16,15 @@ character(len=256), target :: Fstr_test = "Testing"//char(0)
 
 allocate(FTptr,FTptr2,Fstr_ptr)
 
+N_1d = 3
+do i=1,N_1d
+    B_arr(i) = 320+i
+    do j=1,N_1d
+        B_2Darr(i,j) = 210+N_1d*i+j
+        ! write(*,*) "i,j,B2D = ", i,j,B_2Darr(i,j) !print and check values
+    end do
+end do
+
 !!> USING DEFINED TYPE WITH BIND(C):
 write(*,*) " "
 write(*,*) " "
@@ -30,16 +39,7 @@ FT%dk = 0.123
 Fstr_ptr => Fstr_test
 FT%Fstr = C_LOC(Fstr_ptr)
 
-N_1d = 3
 Allocate(Bptr(N_1d),B2Dptr(N_1d,N_1d))
-
-do i=1,N_1d
-    B_arr(i) = 320+i
-    do j=1,N_1d
-        B_2Darr(i,j) = 210+N_1d*i+j
-        ! write(*,*) "i,j,B2D = ", i,j,B_2Darr(i,j) !print and check values
-    end do
-end do
 
 Bptr => B_arr
 B2Dptr => B_2Darr
@@ -70,40 +70,52 @@ do i=1,N_1d
 end do
 
 !!> USING DEFINED TYPE AS IN FORTRAN:
-! write(*,*) " "
-! write(*,*) " "
-! write(*,*) "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-! write(*,*) "                USING DEFINED TYPE AS IN FORTRAN"
-! write(*,*) "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-! write(*,*) " "
-! write(*,*) " "
+write(*,*) " "
+write(*,*) " "
+write(*,*) "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+write(*,*) "                USING DEFINED TYPE AS IN FORTRAN"
+write(*,*) "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+write(*,*) " "
+write(*,*) " "
 
-! FT2%a = 321
-! FT2%dk = 0.123
-! FT2%Fstr = "testing"//char(0)
+FT2%a = 321
+FT2%dk = 0.123
+FT2%Fstr = "testing"//char(0)
+FT2%B => B_arr
+FT2%B2 => B_2Darr
 
-! FTptr2 => FT2
+FTptr2 => FT2
 
-! write(*,*) "In main.90: Printing object members before initialization:"
-! write(*,*) "In main.90: a in mod = ", FT2%a, "dk in mod = ", FT2%dk, "Fstr in mod = ", trim(FT2%Fstr), "..."
+write(*,*) "In main.90: Printing object members before initialization:"
+write(*,*) "In main.90: a in mod = ", FT2%a, "dk in mod = ", FT2%dk, "Fstr in mod = ", trim(FT2%Fstr), "..."
+write(*,*) "In main.90: B and B2 in mod:"
+do i = 1,N_1d
+    write(*,*) "B(",i,") = ", FT2%B(i)
+end do
 
-! write(*,*) " "
-! write(*,*) "In main.90: INITIALIZING..."
+do i = 1,N_1d
+    do j = 1,N_1d
+        write(*,*) "B2(",i,",",j,") = ", FT2%B2(i,j)
+    end do
+end do
 
-! N_1d = 3
-! B_arr(1) = 321
-! B_arr(2) = 321
-! B_arr(3) = 321
 
-! FT2%B => B_arr
+write(*,*) " "
+write(*,*) "In main.90: INITIALIZING..."
 
-! call FirstMod_new_V2(FTptr2, N_1d, a, dk, Fstr//char(0))
+call FirstMod_new_V2(FTptr2, N_1d, a, dk, Fstr//char(0))
 
-! write(*,*) "In main.90: Printing object members after initialization:"
-! write(*,*) "In main.90: a in mod = ", FT2%a, "dk in mod = ", FT2%dk, "Fstr in mod = ", trim(FT2%Fstr), "..."
-! write(*,*) "In main.90: B in mod:"
-! do i = 1,N_1d
-!     write(*,*) "B(",i,") = ", FT2%B(i)
-! end do
+write(*,*) "In main.90: Printing object members after initialization:"
+write(*,*) "In main.90: a in mod = ", FT2%a, "dk in mod = ", FT2%dk, "Fstr in mod = ", trim(FT2%Fstr), "..."
+write(*,*) "In main.90: B in mod:"
+do i = 1,N_1d
+    write(*,*) "B(",i,") = ", FT2%B(i)
+end do
+write(*,*) "In main.90: B2 in mod:"
+do i = 1,N_1d
+    do j = 1,N_1d
+        write(*,*) "B2(",i,",",j,") = ", FT2%B2(i,j)
+    end do
+end do
 
 end program main_test
