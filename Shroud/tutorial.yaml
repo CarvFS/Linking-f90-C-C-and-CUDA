@@ -1,0 +1,35 @@
+library: Tutorial
+format:
+  F_filename_suffix: F90
+cxx_header: tutorial.hpp
+
+declarations:
+- decl: namespace tutorial
+  declarations:
+  - decl: class Class1
+    declarations:
+    - decl: Class1()
+      format:
+        function_suffix: _default
+    - decl: int *get_test_ptr(int *len+intent(out)+hidden) +deref(pointer) +rank(1)
+      splicer:
+        f:
+        - "type(C_PTR) :: SHT_ptr"
+        - "SHT_ptr = c_class1_get_test_ptr(obj%cxxmem, len)"
+        - "call c_f_pointer(SHT_ptr, SHT_rv, [len])"
+    - decl: int *get_TwoDarray_ptr(int *len1+intent(out)+hidden, int *len2+intent(out)+hidden) +deref(pointer) +rank(2)
+      splicer:
+        f:
+        - "type(C_PTR) :: SHT_ptr"
+        - "SHT_ptr = c_class1_get__two_darray_ptr(obj%cxxmem, len1, len2)"
+        - "call c_f_pointer(SHT_ptr, SHT_rv, [len1,len2])"
+    - decl: void set_test(int N)
+    - decl: void set_TwoDarray(int N, int M)
+    - decl: ~Class1() +name(delete)
+    - decl: void Method1()
+    - decl: void acceptCharArrayIn(char **names +intent(in), int clsize+hidden)
+      splicer:
+        f:
+        - "clsize = size(names)"
+        - "call c_class1_accept_char_array_in_bufferify(obj%cxxmem, names, &"
+        - "size(names, kind=C_LONG), len(names, kind=C_INT), clsize)"
