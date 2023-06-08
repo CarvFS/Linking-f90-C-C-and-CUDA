@@ -32,6 +32,7 @@ module tutorial_tutorial_mod
         procedure :: delete => class1_delete
         procedure :: method1 => class1_method1
         procedure :: accept_char_array_in => class1_accept_char_array_in
+        procedure :: check => class1_check
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
         procedure :: associated => class1_associated
@@ -138,6 +139,17 @@ module tutorial_tutorial_mod
             integer(C_INT), value, intent(IN) :: clsize
         end subroutine c_class1_accept_char_array_in_bufferify
 
+        function c_class1_check(self, N) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_check")
+            use iso_c_binding, only : C_BOOL, C_INT
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), value, intent(IN) :: N
+            logical(C_BOOL) :: SHT_rv
+        end function c_class1_check
+
         ! splicer begin namespace.tutorial.class.Class1.additional_interfaces
         ! splicer end namespace.tutorial.class.Class1.additional_interfaces
 
@@ -232,6 +244,17 @@ contains
         size(names, kind=C_LONG), len(names, kind=C_INT), clsize)
         ! splicer end namespace.tutorial.class.Class1.method.accept_char_array_in
     end subroutine class1_accept_char_array_in
+
+    function class1_check(obj, N) &
+            result(SHT_rv)
+        use iso_c_binding, only : C_BOOL, C_INT
+        class(class1) :: obj
+        integer(C_INT), value, intent(IN) :: N
+        logical :: SHT_rv
+        ! splicer begin namespace.tutorial.class.Class1.method.check
+        SHT_rv = c_class1_check(obj%cxxmem, N)
+        ! splicer end namespace.tutorial.class.Class1.method.check
+    end function class1_check
 
     ! Return pointer to C++ memory.
     function class1_get_instance(obj) result (cxxptr)

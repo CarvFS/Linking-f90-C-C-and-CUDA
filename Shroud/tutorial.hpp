@@ -34,6 +34,8 @@ namespace tutorial {
       void set_test(int N); // Set 1D array
       void set_TwoDarray(int N, int M); // Set 2D array
 
+      bool check(int N);
+
     };
 
 }

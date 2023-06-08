@@ -88,5 +88,15 @@ namespace tutorial {
 
     }
 
+    bool Class1 :: check(int N){
+        cout << "So far, so good..." << endl;
+        if(N < 10){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 
 }

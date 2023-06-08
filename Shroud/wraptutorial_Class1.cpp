@@ -153,4 +153,14 @@ void TUT_tutorial_Class1_accept_char_array_in_bufferify(
     // splicer end namespace.tutorial.class.Class1.method.accept_char_array_in_bufferify
 }
 
+bool TUT_tutorial_Class1_check(TUT_tutorial_Class1 * self, int N)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.check
+    bool SHC_rv = SH_this->check(N);
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.check
+}
+
 }  // extern "C"

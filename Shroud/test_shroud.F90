@@ -56,6 +56,8 @@ program test_shroud
         end do
     end do
 
+    write(*,*) cptr%check(10)
+
     write(*,*) "::::::::::::::::::Calling method1::::::::::::::::::"
     call cptr%method1
 

@@ -10,6 +10,9 @@
 #define WRAPTUTORIAL_CLASS1_H
 
 #include "typesTutorial.h"
+#ifndef __cplusplus
+#include <stdbool.h>
+#endif
 
 // splicer begin namespace.tutorial.class.Class1.CXX_declarations
 // splicer end namespace.tutorial.class.Class1.CXX_declarations
@@ -45,6 +48,8 @@ void TUT_tutorial_Class1_accept_char_array_in(
 void TUT_tutorial_Class1_accept_char_array_in_bufferify(
     TUT_tutorial_Class1 * self, char *names, long Snames, int Nnames,
     int clsize);
+
+bool TUT_tutorial_Class1_check(TUT_tutorial_Class1 * self, int N);
 
 #ifdef __cplusplus
 }
