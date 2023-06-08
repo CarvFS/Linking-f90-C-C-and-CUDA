@@ -59,15 +59,15 @@ static void ShroudStrArrayFree(char **src, int nsrc)
 // splicer begin namespace.tutorial.class.Class1.C_definitions
 // splicer end namespace.tutorial.class.Class1.C_definitions
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_default(
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_default(
     TUT_tutorial_Class1 * SHC_rv)
 {
-    // splicer begin namespace.tutorial.class.Class1.method.ctor_default
+    // splicer begin namespace.tutorial.class.Class1.method.new_default
     tutorial::Class1 *SHCXX_rv = new tutorial::Class1();
     SHC_rv->addr = static_cast<void *>(SHCXX_rv);
     SHC_rv->idtor = 1;
     return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.ctor_default
+    // splicer end namespace.tutorial.class.Class1.method.new_default
 }
 
 int * TUT_tutorial_Class1_get_test_ptr(TUT_tutorial_Class1 * self,

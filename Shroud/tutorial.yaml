@@ -8,7 +8,7 @@ declarations:
   declarations:
   - decl: class Class1
     declarations:
-    - decl: Class1()
+    - decl: Class1() +name(new)
       format:
         function_suffix: _default
     - decl: int *get_test_ptr(int *len+intent(out)+hidden) +deref(pointer) +rank(1)
@@ -33,3 +33,4 @@ declarations:
         - "clsize = size(names)"
         - "call c_class1_accept_char_array_in_bufferify(obj%cxxmem, names, &"
         - "size(names, kind=C_LONG), len(names, kind=C_INT), clsize)"
+    - decl: bool check(int N)

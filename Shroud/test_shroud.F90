@@ -31,7 +31,11 @@ program test_shroud
 
     ! write(*,*) closurelist
 
-    cptr = class1()
+    !! Both ways will work to create the object
+    cptr = Class1()
+    ! cptr = Class1_new_default() 
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     call cptr%set_test(N)
     call cptr%set__two_darray(N,M)
 

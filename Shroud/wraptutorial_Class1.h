@@ -24,7 +24,7 @@ extern "C" {
 // splicer begin namespace.tutorial.class.Class1.C_declarations
 // splicer end namespace.tutorial.class.Class1.C_declarations
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_default(
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_default(
     TUT_tutorial_Class1 * SHC_rv);
 
 int * TUT_tutorial_Class1_get_test_ptr(TUT_tutorial_Class1 * self,

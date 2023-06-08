@@ -50,15 +50,15 @@ module tutorial_tutorial_mod
 
     interface
 
-        function c_class1_ctor_default(SHT_crv) &
+        function c_class1_new_default(SHT_crv) &
                 result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_ctor_default")
+                bind(C, name="TUT_tutorial_Class1_new_default")
             use iso_c_binding, only : C_PTR
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
             type(C_PTR) SHT_rv
-        end function c_class1_ctor_default
+        end function c_class1_new_default
 
         function c_class1_get_test_ptr(self, len) &
                 result(SHT_rv) &
@@ -158,20 +158,20 @@ module tutorial_tutorial_mod
     end interface
 
     interface class1
-        module procedure class1_ctor_default
+        module procedure class1_new_default
     end interface class1
 
 contains
 
-    function class1_ctor_default() &
+    function class1_new_default() &
             result(SHT_rv)
         use iso_c_binding, only : C_PTR
         type(class1) :: SHT_rv
-        ! splicer begin namespace.tutorial.class.Class1.method.ctor_default
+        ! splicer begin namespace.tutorial.class.Class1.method.new_default
         type(C_PTR) :: SHT_prv
-        SHT_prv = c_class1_ctor_default(SHT_rv%cxxmem)
-        ! splicer end namespace.tutorial.class.Class1.method.ctor_default
-    end function class1_ctor_default
+        SHT_prv = c_class1_new_default(SHT_rv%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.new_default
+    end function class1_new_default
 
     function class1_get_test_ptr(obj) &
             result(SHT_rv)
