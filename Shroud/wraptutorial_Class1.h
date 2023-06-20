@@ -48,6 +48,12 @@ void TUT_tutorial_Class1_method1_1(TUT_tutorial_Class1 * self,
 void TUT_tutorial_Class1_method1_2(TUT_tutorial_Class1 * self,
     int o_test, int * value);
 
+void TUT_tutorial_Class1_method1_3(TUT_tutorial_Class1 * self,
+    int o_test, int * value, char * word2);
+
+void TUT_tutorial_Class1_method1_3_bufferify(TUT_tutorial_Class1 * self,
+    int o_test, int * value, char * word2, int Lword2, int Nword2);
+
 void TUT_tutorial_Class1_accept_char_array_in(
     TUT_tutorial_Class1 * self, char **names, int clsize);
 

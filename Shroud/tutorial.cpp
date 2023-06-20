@@ -68,14 +68,16 @@ namespace tutorial {
         return TwoDarray;
     }
 
-    void Class1 :: Method1(int o_test, int* value){
+    void Class1 :: Method1(int o_test, int* value, char* word2){
         cout << "In tutorial.cpp: retrieving strings: " << endl;
+
+        cout << "o_test = " << o_test << endl;
 
         for(int i = 0; i < 3; i++){
             cout << "value[" << i << "] = " << value[i] << endl;
         }
 
-        cout << "o_test = " << o_test << endl;
+        cout << "string is: " << word2 << "." << endl;
 
         for(int i = 0; i < cl_size; i++){
             cout << closurelist[i] << endl;

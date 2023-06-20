@@ -12,6 +12,18 @@
 extern "C" {
 
 
+// helper ShroudStrAlloc
+// Copy src into new memory and null terminate.
+static char *ShroudStrAlloc(const char *src, int nsrc, int ntrim)
+{
+   char *rv = (char *) std::malloc(nsrc + 1);
+   if (ntrim > 0) {
+     std::memcpy(rv, src, ntrim);
+   }
+   rv[ntrim] = '\0';
+   return rv;
+}
+
 // helper ShroudLenTrim
 // Returns the length of character string src with length nsrc,
 // ignoring any trailing blanks.
@@ -55,6 +67,29 @@ static void ShroudStrArrayFree(char **src, int nsrc)
        std::free(src[i]);
    }
    std::free(src);
+}
+
+// helper ShroudStrCopy
+// Copy src into dest, blank fill to ndest characters
+// Truncate if dest is too short.
+// dest will not be NULL terminated.
+static void ShroudStrCopy(char *dest, int ndest, const char *src, int nsrc)
+{
+   if (src == NULL) {
+     std::memset(dest,' ',ndest); // convert NULL pointer to blank filled string
+   } else {
+     if (nsrc < 0) nsrc = std::strlen(src);
+     int nm = nsrc < ndest ? nsrc : ndest;
+     std::memcpy(dest,src,nm);
+     if(ndest > nm) std::memset(dest+nm,' ',ndest-nm); // blank fill
+   }
+}
+
+// helper ShroudStrFree
+// Release memory allocated by ShroudStrAlloc
+static void ShroudStrFree(char *src)
+{
+   free(src);
 }
 // splicer begin namespace.tutorial.class.Class1.C_definitions
 // splicer end namespace.tutorial.class.Class1.C_definitions
@@ -148,6 +183,29 @@ void TUT_tutorial_Class1_method1_2(TUT_tutorial_Class1 * self,
     // splicer begin namespace.tutorial.class.Class1.method.method1_2
     SH_this->Method1(o_test, value);
     // splicer end namespace.tutorial.class.Class1.method.method1_2
+}
+
+void TUT_tutorial_Class1_method1_3(TUT_tutorial_Class1 * self,
+    int o_test, int * value, char * word2)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.method1_3
+    SH_this->Method1(o_test, value, word2);
+    // splicer end namespace.tutorial.class.Class1.method.method1_3
+}
+
+void TUT_tutorial_Class1_method1_3_bufferify(TUT_tutorial_Class1 * self,
+    int o_test, int * value, char * word2, int Lword2, int Nword2)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.method1_3_bufferify
+    char * SHCXX_word2 = ShroudStrAlloc(word2, Nword2, Lword2);
+    SH_this->Method1(o_test, value, SHCXX_word2);
+    ShroudStrCopy(word2, Nword2, SHCXX_word2, -1);
+    ShroudStrFree(SHCXX_word2);
+    // splicer end namespace.tutorial.class.Class1.method.method1_3_bufferify
 }
 
 void TUT_tutorial_Class1_accept_char_array_in(

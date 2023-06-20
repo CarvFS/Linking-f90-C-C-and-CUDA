@@ -33,12 +33,13 @@ module tutorial_tutorial_mod
         procedure :: method1_0 => class1_method1_0
         procedure :: method1_1 => class1_method1_1
         procedure :: method1_2 => class1_method1_2
+        procedure :: method1_3 => class1_method1_3
         procedure :: accept_char_array_in => class1_accept_char_array_in
         procedure :: check => class1_check
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
         procedure :: associated => class1_associated
-        generic :: method1 => method1_0, method1_1, method1_2
+        generic :: method1 => method1_0, method1_1, method1_2, method1_3
         ! splicer begin namespace.tutorial.class.Class1.type_bound_procedure_part
         ! splicer end namespace.tutorial.class.Class1.type_bound_procedure_part
     end type class1
@@ -137,6 +138,31 @@ module tutorial_tutorial_mod
             integer(C_INT), value, intent(IN) :: o_test
             integer(C_INT), intent(INOUT) :: value(*)
         end subroutine c_class1_method1_2
+
+        subroutine c_class1_method1_3(self, o_test, value, word2) &
+                bind(C, name="TUT_tutorial_Class1_method1_3")
+            use iso_c_binding, only : C_CHAR, C_INT
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), value, intent(IN) :: o_test
+            integer(C_INT), intent(INOUT) :: value(*)
+            character(kind=C_CHAR), intent(INOUT) :: word2(*)
+        end subroutine c_class1_method1_3
+
+        subroutine c_class1_method1_3_bufferify(self, o_test, value, &
+                word2, Lword2, Nword2) &
+                bind(C, name="TUT_tutorial_Class1_method1_3_bufferify")
+            use iso_c_binding, only : C_CHAR, C_INT
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), value, intent(IN) :: o_test
+            integer(C_INT), intent(INOUT) :: value(*)
+            character(kind=C_CHAR), intent(INOUT) :: word2(*)
+            integer(C_INT), value, intent(IN) :: Lword2
+            integer(C_INT), value, intent(IN) :: Nword2
+        end subroutine c_class1_method1_3_bufferify
 
         subroutine c_class1_accept_char_array_in(self, names, clsize) &
                 bind(C, name="TUT_tutorial_Class1_accept_char_array_in")
@@ -273,6 +299,18 @@ contains
         call c_class1_method1_2(obj%cxxmem, o_test, value)
         ! splicer end namespace.tutorial.class.Class1.method.method1_2
     end subroutine class1_method1_2
+
+    subroutine class1_method1_3(obj, o_test, value, word2)
+        use iso_c_binding, only : C_INT
+        class(class1) :: obj
+        integer(C_INT), value, intent(IN) :: o_test
+        integer(C_INT), intent(INOUT) :: value(:)
+        character(len=*), intent(INOUT) :: word2
+        ! splicer begin namespace.tutorial.class.Class1.method.method1_3
+        call c_class1_method1_3_bufferify(obj%cxxmem, o_test, value, &
+            word2, len_trim(word2, kind=C_INT), len(word2, kind=C_INT))
+        ! splicer end namespace.tutorial.class.Class1.method.method1_3
+    end subroutine class1_method1_3
 
     subroutine class1_accept_char_array_in(obj, names)
         use iso_c_binding, only : C_INT, C_LONG

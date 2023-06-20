@@ -13,6 +13,7 @@ program test_shroud
      "cat       ", &
      "monkey    "  ]
     character(len = 8), pointer :: closure_list(:) => NULL()
+    character(len = 16), pointer :: word(:) => NULL()
     character :: test
 
     type(C_PTR) :: nsol_val
@@ -23,7 +24,7 @@ program test_shroud
     N=4
     M=2
 
-    allocate(closure_list(3),val_ptr(3))
+    allocate(closure_list(3),val_ptr(3),word(1))
 
     closure_list(1) = "kh"
     closure_list(2) = "pse2"
@@ -69,7 +70,12 @@ program test_shroud
 
     val_ptr => val
 
-    call cptr%method1(2, val_ptr)
+    word(1) = "redefined"
+
+    ! call cptr%method1()
+    ! call cptr%method1(2)
+    ! call cptr%method1(2, val_ptr)
+    call cptr%method1(2, val_ptr, word(1))
 
     call cptr%delete()
 end program test_shroud

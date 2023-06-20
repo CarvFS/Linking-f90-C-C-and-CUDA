@@ -26,7 +26,7 @@ declarations:
     - decl: void set_test(int N)
     - decl: void set_TwoDarray(int N, int M)
     - decl: ~Class1() +name(delete)
-    - decl: void Method1(int o_test = 1, int* value +rank(1) = vec)
+    - decl: void Method1(int o_test = 1, int* value +rank(1) = vec, char* word2 = word)
     - decl: void acceptCharArrayIn(char **names +intent(in), int clsize+hidden)
       splicer:
         f:
