@@ -63,7 +63,7 @@ program test_shroud
     write(*,*) cptr%check(10)
 
     write(*,*) "::::::::::::::::::Calling method1::::::::::::::::::"
-    call cptr%method1
+    call cptr%method1(2)
 
     call cptr%delete()
 end program test_shroud

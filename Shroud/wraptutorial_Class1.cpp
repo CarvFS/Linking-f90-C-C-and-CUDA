@@ -121,13 +121,23 @@ void TUT_tutorial_Class1_delete(TUT_tutorial_Class1 * self)
     // splicer end namespace.tutorial.class.Class1.method.delete
 }
 
-void TUT_tutorial_Class1_method1(TUT_tutorial_Class1 * self)
+void TUT_tutorial_Class1_method1_0(TUT_tutorial_Class1 * self)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
-    // splicer begin namespace.tutorial.class.Class1.method.method1
+    // splicer begin namespace.tutorial.class.Class1.method.method1_0
     SH_this->Method1();
-    // splicer end namespace.tutorial.class.Class1.method.method1
+    // splicer end namespace.tutorial.class.Class1.method.method1_0
+}
+
+void TUT_tutorial_Class1_method1_1(TUT_tutorial_Class1 * self,
+    int o_test)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.method1_1
+    SH_this->Method1(o_test);
+    // splicer end namespace.tutorial.class.Class1.method.method1_1
 }
 
 void TUT_tutorial_Class1_accept_char_array_in(

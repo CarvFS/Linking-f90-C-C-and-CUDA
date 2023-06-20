@@ -30,12 +30,14 @@ module tutorial_tutorial_mod
         procedure :: set_test => class1_set_test
         procedure :: set__two_darray => class1_set__two_darray
         procedure :: delete => class1_delete
-        procedure :: method1 => class1_method1
+        procedure :: method1_0 => class1_method1_0
+        procedure :: method1_1 => class1_method1_1
         procedure :: accept_char_array_in => class1_accept_char_array_in
         procedure :: check => class1_check
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
         procedure :: associated => class1_associated
+        generic :: method1 => method1_0, method1_1
         ! splicer begin namespace.tutorial.class.Class1.type_bound_procedure_part
         ! splicer end namespace.tutorial.class.Class1.type_bound_procedure_part
     end type class1
@@ -109,12 +111,21 @@ module tutorial_tutorial_mod
             type(SHROUD_class1_capsule), intent(IN) :: self
         end subroutine c_class1_delete
 
-        subroutine c_class1_method1(self) &
-                bind(C, name="TUT_tutorial_Class1_method1")
+        subroutine c_class1_method1_0(self) &
+                bind(C, name="TUT_tutorial_Class1_method1_0")
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
-        end subroutine c_class1_method1
+        end subroutine c_class1_method1_0
+
+        subroutine c_class1_method1_1(self, o_test) &
+                bind(C, name="TUT_tutorial_Class1_method1_1")
+            use iso_c_binding, only : C_INT
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), value, intent(IN) :: o_test
+        end subroutine c_class1_method1_1
 
         subroutine c_class1_accept_char_array_in(self, names, clsize) &
                 bind(C, name="TUT_tutorial_Class1_accept_char_array_in")
@@ -226,12 +237,21 @@ contains
         ! splicer end namespace.tutorial.class.Class1.method.delete
     end subroutine class1_delete
 
-    subroutine class1_method1(obj)
+    subroutine class1_method1_0(obj)
         class(class1) :: obj
-        ! splicer begin namespace.tutorial.class.Class1.method.method1
-        call c_class1_method1(obj%cxxmem)
-        ! splicer end namespace.tutorial.class.Class1.method.method1
-    end subroutine class1_method1
+        ! splicer begin namespace.tutorial.class.Class1.method.method1_0
+        call c_class1_method1_0(obj%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.method1_0
+    end subroutine class1_method1_0
+
+    subroutine class1_method1_1(obj, o_test)
+        use iso_c_binding, only : C_INT
+        class(class1) :: obj
+        integer(C_INT), value, intent(IN) :: o_test
+        ! splicer begin namespace.tutorial.class.Class1.method.method1_1
+        call c_class1_method1_1(obj%cxxmem, o_test)
+        ! splicer end namespace.tutorial.class.Class1.method.method1_1
+    end subroutine class1_method1_1
 
     subroutine class1_accept_char_array_in(obj, names)
         use iso_c_binding, only : C_INT, C_LONG

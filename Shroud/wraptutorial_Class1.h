@@ -40,7 +40,10 @@ void TUT_tutorial_Class1_set__two_darray(TUT_tutorial_Class1 * self,
 
 void TUT_tutorial_Class1_delete(TUT_tutorial_Class1 * self);
 
-void TUT_tutorial_Class1_method1(TUT_tutorial_Class1 * self);
+void TUT_tutorial_Class1_method1_0(TUT_tutorial_Class1 * self);
+
+void TUT_tutorial_Class1_method1_1(TUT_tutorial_Class1 * self,
+    int o_test);
 
 void TUT_tutorial_Class1_accept_char_array_in(
     TUT_tutorial_Class1 * self, char **names, int clsize);
