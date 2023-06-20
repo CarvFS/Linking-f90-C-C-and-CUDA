@@ -5,7 +5,7 @@
 using namespace std;
 
 namespace tutorial {
-
+    static int vec[3] = {12,23,34};
     class Class1
     {
     public:
@@ -23,7 +23,7 @@ namespace tutorial {
       int cl_size;
       ////////////////////////////////////////
 
-      void Method1(int o_test = 1); // routine to print class atributes and see it they are correctly set.
+      void Method1(int o_test = 1, int* value = vec); // routine to print class atributes and see it they are correctly set.
 
       void acceptCharArrayIn(char **names, int N); // define routine which will receive string array
                                                    // from Fortran and copy it into `string closurelist`

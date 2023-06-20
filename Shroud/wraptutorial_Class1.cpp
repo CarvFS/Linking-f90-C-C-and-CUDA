@@ -140,6 +140,16 @@ void TUT_tutorial_Class1_method1_1(TUT_tutorial_Class1 * self,
     // splicer end namespace.tutorial.class.Class1.method.method1_1
 }
 
+void TUT_tutorial_Class1_method1_2(TUT_tutorial_Class1 * self,
+    int o_test, int * value)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.method1_2
+    SH_this->Method1(o_test, value);
+    // splicer end namespace.tutorial.class.Class1.method.method1_2
+}
+
 void TUT_tutorial_Class1_accept_char_array_in(
     TUT_tutorial_Class1 * self, char **names, int clsize)
 {

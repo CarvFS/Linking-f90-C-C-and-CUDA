@@ -5,7 +5,7 @@ program test_shroud
     real(C_DOUBLE) result
     type(C_PTR) :: cptr_array
     type(C_PTR) :: cptr_array_2d
-    integer, pointer :: f_1darray(:)
+    integer, pointer :: f_1darray(:), val_ptr(:)
     integer, pointer :: f_2darray(:,:)
     real(C_DOUBLE) :: dk
     character(10) :: in(3) = [ &
@@ -23,7 +23,7 @@ program test_shroud
     N=4
     M=2
 
-    allocate(closure_list(3))
+    allocate(closure_list(3),val_ptr(3))
 
     closure_list(1) = "kh"
     closure_list(2) = "pse2"
@@ -63,7 +63,13 @@ program test_shroud
     write(*,*) cptr%check(10)
 
     write(*,*) "::::::::::::::::::Calling method1::::::::::::::::::"
-    call cptr%method1(2)
+    val(1) = 120
+    val(2) = 432
+    val(3) = 1234
+
+    val_ptr => val
+
+    call cptr%method1(2, val_ptr)
 
     call cptr%delete()
 end program test_shroud
