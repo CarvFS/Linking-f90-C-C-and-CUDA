@@ -28,7 +28,7 @@ namespace tutorial {
       int cl_size;
       ////////////////////////////////////////
 
-      void Method1(int o_test = 1, int* value = vec, char* word2 = word); // routine to print class atributes and see it they are correctly set.
+      void Method1(int o_test = 1, int* value = vec, char* word2 = word, bool o_bool = true); // routine to print class atributes and see it they are correctly set.
 
       void acceptCharArrayIn(char **names, int N); // define routine which will receive string array
                                                    // from Fortran and copy it into `string closurelist`

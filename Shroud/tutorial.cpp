@@ -74,7 +74,7 @@ namespace tutorial {
         return TwoDarray;
     }
 
-    void Class1 :: Method1(int o_test, int* value, char* word2){
+    void Class1 :: Method1(int o_test, int* value, char* word2, bool o_bool){
         cout << "In tutorial.cpp: retrieving strings: " << endl;
 
         cout << "o_test = " << o_test << endl;
@@ -102,6 +102,8 @@ namespace tutorial {
         }
 
         cout << obj1.dk << endl;
+
+        cout << "Boolen is: " << o_bool << endl;
     }
 
     bool Class1 :: check(int N){

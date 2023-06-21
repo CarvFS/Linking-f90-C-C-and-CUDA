@@ -75,7 +75,8 @@ program test_shroud
     ! call cptr%method1()
     ! call cptr%method1(2)
     ! call cptr%method1(2, val_ptr)
-    call cptr%method1(2, val_ptr, word(1))
+    ! call cptr%method1(2, val_ptr, word(1))
+    call cptr%method1(2, val_ptr, word(1), .false.)
 
     ! dk2 = class1_get_dk(cptr)
     dk2 = cptr%get_dk()

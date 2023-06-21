@@ -208,6 +208,30 @@ void TUT_tutorial_Class1_method1_3_bufferify(TUT_tutorial_Class1 * self,
     // splicer end namespace.tutorial.class.Class1.method.method1_3_bufferify
 }
 
+void TUT_tutorial_Class1_method1_4(TUT_tutorial_Class1 * self,
+    int o_test, int * value, char * word2, bool o_bool)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.method1_4
+    SH_this->Method1(o_test, value, word2, o_bool);
+    // splicer end namespace.tutorial.class.Class1.method.method1_4
+}
+
+void TUT_tutorial_Class1_method1_4_bufferify(TUT_tutorial_Class1 * self,
+    int o_test, int * value, char * word2, int Lword2, int Nword2,
+    bool o_bool)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.method1_4_bufferify
+    char * SHCXX_word2 = ShroudStrAlloc(word2, Nword2, Lword2);
+    SH_this->Method1(o_test, value, SHCXX_word2, o_bool);
+    ShroudStrCopy(word2, Nword2, SHCXX_word2, -1);
+    ShroudStrFree(SHCXX_word2);
+    // splicer end namespace.tutorial.class.Class1.method.method1_4_bufferify
+}
+
 void TUT_tutorial_Class1_accept_char_array_in(
     TUT_tutorial_Class1 * self, char **names, int clsize)
 {
