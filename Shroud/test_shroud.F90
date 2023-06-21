@@ -2,29 +2,18 @@ program test_shroud
     use iso_c_binding
     use tutorial_tutorial_mod
     type(class1) cptr
-    real(C_DOUBLE) result
-    type(C_PTR) :: cptr_array
-    type(C_PTR) :: cptr_array_2d
     integer, pointer :: f_1darray(:), val_ptr(:)
     integer, pointer :: f_2darray(:,:)
-    real(C_DOUBLE) :: dk,dk2
-    character(10) :: in(3) = [ &
-     "dog       ", &
-     "cat       ", &
-     "monkey    "  ]
+    real(C_DOUBLE) :: dk2
     character(len = 8), pointer :: closure_list(:) => NULL()
-    character(len = 16), pointer :: word(:) => NULL()
-    character :: test
-
-    type(C_PTR) :: nsol_val
-    integer, pointer :: nsol_val_ptr(:)
+    character(len = 16), pointer :: word => NULL()
     integer, target :: val(3)
-
     integer :: i,j,N,M
+
     N=4
     M=2
 
-    allocate(closure_list(3),val_ptr(3),word(1))
+    allocate(closure_list(3),val_ptr(3),word)
 
     closure_list(1) = "kh"
     closure_list(2) = "pse2"
@@ -70,15 +59,15 @@ program test_shroud
 
     val_ptr => val
 
-    word(1) = "redefined"
+    word = "redefined"
 
     ! call cptr%method1()
     ! call cptr%method1(2)
     ! call cptr%method1(2, val_ptr)
     ! call cptr%method1(2, val_ptr, word(1))
-    call cptr%method1(2, val_ptr, word(1), .false.)
+    call cptr%method1(2, val_ptr, word, .false.)
 
-    ! dk2 = class1_get_dk(cptr)
+    ! dk2 = class1_get_dk(cptr) !! also works this way
     dk2 = cptr%get_dk()
 
     write(*,*) "In test_shroud.F90: Retrieving dk from NewClass... dk = ", dk2
