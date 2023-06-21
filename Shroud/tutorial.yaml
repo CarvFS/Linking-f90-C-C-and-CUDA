@@ -34,3 +34,4 @@ declarations:
         - "call c_class1_accept_char_array_in_bufferify(obj%cxxmem, names, &"
         - "size(names, kind=C_LONG), len(names, kind=C_INT), clsize)"
     - decl: bool check(int N)
+    - decl: double get_dk();

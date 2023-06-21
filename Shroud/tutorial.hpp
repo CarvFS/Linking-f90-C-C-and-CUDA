@@ -1,18 +1,22 @@
-#ifndef CLASSES_HPP
-#define CLASSES_HPP
-
+// #ifndef CLASSES_HPP
+// #define CLASSES_HPP
+#include "NewClass.hpp"
 #include <iostream>
 using namespace std;
 
 namespace tutorial {
+    
     static int vec[3] = {12,23,34};
     static char word[] = "pre-defined";
+
     class Class1
     {
     public:
       Class1();
       ~Class1();
-      
+
+      NewClass obj1;
+
       // attributes not passed to .yaml file
       int *test; // pointer to a 1D array
       int test_len; // size of 1D array
@@ -37,8 +41,10 @@ namespace tutorial {
 
       bool check(int N);
 
+      double get_dk();
+
     };
 
 }
 
-#endif // CLASSES_HPP
+// #endif // CLASSES_HPP

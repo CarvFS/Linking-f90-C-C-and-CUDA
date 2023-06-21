@@ -1,19 +1,19 @@
-#ifndef CLASSES_HPP
-#define CLASSES_HPP
+// #ifndef CLASSES_HPP
+// #define CLASSES_HPP
 
 #include <iostream>
 using namespace std;
 
-class NewClass
-{
+class NewClass{
+    private:
+        
     public:
         NewClass();
         ~NewClass();
-
+        
         double dk;
-
         void print_message();
-        double get_dk();
 };
 
-#endif // CLASSES_HPP
+
+// #endif // CLASSES_HPP

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "tutorial.hpp"
+// #include "NewClass.hpp"
 #include <sstream>
 
 static int global_fixed_array[] = {12,23,34};
@@ -8,8 +9,13 @@ static int global_int2d[] = {12,45,23,56,34,67};
 
 namespace tutorial {
 
-    Class1::Class1() {cout << "Object is being created!" << endl;}
-    Class1::~Class1() {cout << "Object is being deleted!" << endl;}
+    Class1 :: Class1(){
+        cout << "Object is being created!" << endl;
+    }
+    
+    Class1::~Class1(){
+        cout << "Object is being deleted!" << endl;
+    }
 
     void Class1 :: acceptCharArrayIn(char **names, int N)
     {
@@ -95,6 +101,7 @@ namespace tutorial {
             }
         }
 
+        cout << obj1.dk << endl;
     }
 
     bool Class1 :: check(int N){
@@ -105,6 +112,10 @@ namespace tutorial {
         else{
             return false;
         }
+    }
+
+    double Class1 :: get_dk(){
+        return obj1.dk;
     }
 
 
