@@ -6,7 +6,7 @@ using namespace std;
 
 NewClass :: NewClass(){
     cout << "Object from NewClass is being created!" << endl;
-    dk = 0.025;
+    dk = 0.00123;
 }
 
 NewClass :: ~NewClass(){

@@ -63,6 +63,8 @@ void TUT_tutorial_Class1_accept_char_array_in_bufferify(
 
 bool TUT_tutorial_Class1_check(TUT_tutorial_Class1 * self, int N);
 
+double TUT_tutorial_Class1_get_dk(TUT_tutorial_Class1 * self);
+
 #ifdef __cplusplus
 }
 #endif

@@ -36,6 +36,7 @@ module tutorial_tutorial_mod
         procedure :: method1_3 => class1_method1_3
         procedure :: accept_char_array_in => class1_accept_char_array_in
         procedure :: check => class1_check
+        procedure :: get_dk => class1_get_dk
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
         procedure :: associated => class1_associated
@@ -198,6 +199,16 @@ module tutorial_tutorial_mod
             logical(C_BOOL) :: SHT_rv
         end function c_class1_check
 
+        function c_class1_get_dk(self) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_get_dk")
+            use iso_c_binding, only : C_DOUBLE
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            real(C_DOUBLE) :: SHT_rv
+        end function c_class1_get_dk
+
         ! splicer begin namespace.tutorial.class.Class1.additional_interfaces
         ! splicer end namespace.tutorial.class.Class1.additional_interfaces
 
@@ -334,6 +345,16 @@ contains
         SHT_rv = c_class1_check(obj%cxxmem, N)
         ! splicer end namespace.tutorial.class.Class1.method.check
     end function class1_check
+
+    function class1_get_dk(obj) &
+            result(SHT_rv)
+        use iso_c_binding, only : C_DOUBLE
+        class(class1) :: obj
+        real(C_DOUBLE) :: SHT_rv
+        ! splicer begin namespace.tutorial.class.Class1.method.get_dk
+        SHT_rv = c_class1_get_dk(obj%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.get_dk
+    end function class1_get_dk
 
     ! Return pointer to C++ memory.
     function class1_get_instance(obj) result (cxxptr)

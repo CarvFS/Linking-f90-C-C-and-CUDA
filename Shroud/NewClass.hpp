@@ -1,5 +1,5 @@
-// #ifndef CLASSES_HPP
-// #define CLASSES_HPP
+#ifndef NEWCLASS_HPP
+#define NEWCLASS_HPP
 
 #include <iostream>
 using namespace std;
@@ -10,10 +10,10 @@ class NewClass{
     public:
         NewClass();
         ~NewClass();
-        
+
         double dk;
         void print_message();
 };
 
 
-// #endif // CLASSES_HPP
+#endif // NEWCLASS_HPP

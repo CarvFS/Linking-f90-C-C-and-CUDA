@@ -1,5 +1,5 @@
-// #ifndef CLASSES_HPP
-// #define CLASSES_HPP
+#ifndef CLASS1_HPP
+#define CLASS1_HPP
 #include "NewClass.hpp"
 #include <iostream>
 using namespace std;
@@ -47,4 +47,4 @@ namespace tutorial {
 
 }
 
-// #endif // CLASSES_HPP
+#endif // CLASS1_HPP

@@ -241,4 +241,14 @@ bool TUT_tutorial_Class1_check(TUT_tutorial_Class1 * self, int N)
     // splicer end namespace.tutorial.class.Class1.method.check
 }
 
+double TUT_tutorial_Class1_get_dk(TUT_tutorial_Class1 * self)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_dk
+    double SHC_rv = SH_this->get_dk();
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.get_dk
+}
+
 }  // extern "C"

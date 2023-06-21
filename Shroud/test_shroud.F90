@@ -7,7 +7,7 @@ program test_shroud
     type(C_PTR) :: cptr_array_2d
     integer, pointer :: f_1darray(:), val_ptr(:)
     integer, pointer :: f_2darray(:,:)
-    real(C_DOUBLE) :: dk
+    real(C_DOUBLE) :: dk,dk2
     character(10) :: in(3) = [ &
      "dog       ", &
      "cat       ", &
@@ -76,6 +76,11 @@ program test_shroud
     ! call cptr%method1(2)
     ! call cptr%method1(2, val_ptr)
     call cptr%method1(2, val_ptr, word(1))
+
+    ! dk2 = class1_get_dk(cptr)
+    dk2 = cptr%get_dk()
+
+    write(*,*) "In test_shroud.F90: Retrieving dk from NewClass... dk = ", dk2
 
     call cptr%delete()
 end program test_shroud
