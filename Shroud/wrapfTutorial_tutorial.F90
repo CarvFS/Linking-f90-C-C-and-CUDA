@@ -57,15 +57,65 @@ module tutorial_tutorial_mod
 
     interface
 
-        function c_class1_new_default(SHT_crv) &
+        function c_class1_ctor_0(test1, test2, TorF, SHT_crv) &
                 result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_new_default")
-            use iso_c_binding, only : C_PTR
+                bind(C, name="TUT_tutorial_Class1_ctor_0")
+            use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
             import :: SHROUD_class1_capsule
             implicit none
+            integer(C_INT), value, intent(IN) :: test1
+            real(C_DOUBLE), value, intent(IN) :: test2
+            logical(C_BOOL), value, intent(IN) :: TorF
             type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
             type(C_PTR) SHT_rv
-        end function c_class1_new_default
+        end function c_class1_ctor_0
+
+        function c_class1_ctor_1(test1, test2, TorF, o_test, SHT_crv) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_ctor_1")
+            use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
+            import :: SHROUD_class1_capsule
+            implicit none
+            integer(C_INT), value, intent(IN) :: test1
+            real(C_DOUBLE), value, intent(IN) :: test2
+            logical(C_BOOL), value, intent(IN) :: TorF
+            integer(C_INT), value, intent(IN) :: o_test
+            type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
+            type(C_PTR) SHT_rv
+        end function c_class1_ctor_1
+
+        function c_class1_ctor_2(test1, test2, TorF, o_test, o_test2, &
+                SHT_crv) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_ctor_2")
+            use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
+            import :: SHROUD_class1_capsule
+            implicit none
+            integer(C_INT), value, intent(IN) :: test1
+            real(C_DOUBLE), value, intent(IN) :: test2
+            logical(C_BOOL), value, intent(IN) :: TorF
+            integer(C_INT), value, intent(IN) :: o_test
+            real(C_DOUBLE), value, intent(IN) :: o_test2
+            type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
+            type(C_PTR) SHT_rv
+        end function c_class1_ctor_2
+
+        function c_class1_ctor_3(test1, test2, TorF, o_test, o_test2, &
+                o_TorF, SHT_crv) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_ctor_3")
+            use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
+            import :: SHROUD_class1_capsule
+            implicit none
+            integer(C_INT), value, intent(IN) :: test1
+            real(C_DOUBLE), value, intent(IN) :: test2
+            logical(C_BOOL), value, intent(IN) :: TorF
+            integer(C_INT), value, intent(IN) :: o_test
+            real(C_DOUBLE), value, intent(IN) :: o_test2
+            logical(C_BOOL), value, intent(IN) :: o_TorF
+            type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
+            type(C_PTR) SHT_rv
+        end function c_class1_ctor_3
 
         function c_class1_get_test_ptr(self, len) &
                 result(SHT_rv) &
@@ -247,20 +297,84 @@ module tutorial_tutorial_mod
     end interface
 
     interface class1
-        module procedure class1_new_default
+        module procedure class1_ctor_0
+        module procedure class1_ctor_1
+        module procedure class1_ctor_2
+        module procedure class1_ctor_3
     end interface class1
 
 contains
 
-    function class1_new_default() &
+    function class1_ctor_0(test1, test2, TorF) &
             result(SHT_rv)
-        use iso_c_binding, only : C_PTR
+        use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
+        integer(C_INT), value, intent(IN) :: test1
+        real(C_DOUBLE), value, intent(IN) :: test2
+        logical, value, intent(IN) :: TorF
         type(class1) :: SHT_rv
-        ! splicer begin namespace.tutorial.class.Class1.method.new_default
+        ! splicer begin namespace.tutorial.class.Class1.method.ctor_0
+        logical(C_BOOL) SH_TorF
         type(C_PTR) :: SHT_prv
-        SHT_prv = c_class1_new_default(SHT_rv%cxxmem)
-        ! splicer end namespace.tutorial.class.Class1.method.new_default
-    end function class1_new_default
+        SH_TorF = TorF  ! coerce to C_BOOL
+        SHT_prv = c_class1_ctor_0(test1, test2, SH_TorF, SHT_rv%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.ctor_0
+    end function class1_ctor_0
+
+    function class1_ctor_1(test1, test2, TorF, o_test) &
+            result(SHT_rv)
+        use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
+        integer(C_INT), value, intent(IN) :: test1
+        real(C_DOUBLE), value, intent(IN) :: test2
+        logical, value, intent(IN) :: TorF
+        integer(C_INT), value, intent(IN) :: o_test
+        type(class1) :: SHT_rv
+        ! splicer begin namespace.tutorial.class.Class1.method.ctor_1
+        logical(C_BOOL) SH_TorF
+        type(C_PTR) :: SHT_prv
+        SH_TorF = TorF  ! coerce to C_BOOL
+        SHT_prv = c_class1_ctor_1(test1, test2, SH_TorF, o_test, &
+            SHT_rv%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.ctor_1
+    end function class1_ctor_1
+
+    function class1_ctor_2(test1, test2, TorF, o_test, o_test2) &
+            result(SHT_rv)
+        use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
+        integer(C_INT), value, intent(IN) :: test1
+        real(C_DOUBLE), value, intent(IN) :: test2
+        logical, value, intent(IN) :: TorF
+        integer(C_INT), value, intent(IN) :: o_test
+        real(C_DOUBLE), value, intent(IN) :: o_test2
+        type(class1) :: SHT_rv
+        ! splicer begin namespace.tutorial.class.Class1.method.ctor_2
+        logical(C_BOOL) SH_TorF
+        type(C_PTR) :: SHT_prv
+        SH_TorF = TorF  ! coerce to C_BOOL
+        SHT_prv = c_class1_ctor_2(test1, test2, SH_TorF, o_test, &
+            o_test2, SHT_rv%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.ctor_2
+    end function class1_ctor_2
+
+    function class1_ctor_3(test1, test2, TorF, o_test, o_test2, o_TorF) &
+            result(SHT_rv)
+        use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
+        integer(C_INT), value, intent(IN) :: test1
+        real(C_DOUBLE), value, intent(IN) :: test2
+        logical, value, intent(IN) :: TorF
+        integer(C_INT), value, intent(IN) :: o_test
+        real(C_DOUBLE), value, intent(IN) :: o_test2
+        logical, value, intent(IN) :: o_TorF
+        type(class1) :: SHT_rv
+        ! splicer begin namespace.tutorial.class.Class1.method.ctor_3
+        logical(C_BOOL) SH_TorF
+        logical(C_BOOL) SH_o_TorF
+        type(C_PTR) :: SHT_prv
+        SH_TorF = TorF  ! coerce to C_BOOL
+        SH_o_TorF = o_TorF  ! coerce to C_BOOL
+        SHT_prv = c_class1_ctor_3(test1, test2, SH_TorF, o_test, &
+            o_test2, SH_o_TorF, SHT_rv%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.ctor_3
+    end function class1_ctor_3
 
     function class1_get_test_ptr(obj) &
             result(SHT_rv)

@@ -94,15 +94,54 @@ static void ShroudStrFree(char *src)
 // splicer begin namespace.tutorial.class.Class1.C_definitions
 // splicer end namespace.tutorial.class.Class1.C_definitions
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_new_default(
-    TUT_tutorial_Class1 * SHC_rv)
+TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_0(int test1,
+    double test2, bool TorF, TUT_tutorial_Class1 * SHC_rv)
 {
-    // splicer begin namespace.tutorial.class.Class1.method.new_default
-    tutorial::Class1 *SHCXX_rv = new tutorial::Class1();
+    // splicer begin namespace.tutorial.class.Class1.method.ctor_0
+    tutorial::Class1 *SHCXX_rv = new tutorial::Class1(test1, test2,
+        TorF);
     SHC_rv->addr = static_cast<void *>(SHCXX_rv);
     SHC_rv->idtor = 1;
     return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.new_default
+    // splicer end namespace.tutorial.class.Class1.method.ctor_0
+}
+
+TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_1(int test1,
+    double test2, bool TorF, int o_test, TUT_tutorial_Class1 * SHC_rv)
+{
+    // splicer begin namespace.tutorial.class.Class1.method.ctor_1
+    tutorial::Class1 *SHCXX_rv = new tutorial::Class1(test1, test2,
+        TorF, o_test);
+    SHC_rv->addr = static_cast<void *>(SHCXX_rv);
+    SHC_rv->idtor = 1;
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.ctor_1
+}
+
+TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_2(int test1,
+    double test2, bool TorF, int o_test, double o_test2,
+    TUT_tutorial_Class1 * SHC_rv)
+{
+    // splicer begin namespace.tutorial.class.Class1.method.ctor_2
+    tutorial::Class1 *SHCXX_rv = new tutorial::Class1(test1, test2,
+        TorF, o_test, o_test2);
+    SHC_rv->addr = static_cast<void *>(SHCXX_rv);
+    SHC_rv->idtor = 1;
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.ctor_2
+}
+
+TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_3(int test1,
+    double test2, bool TorF, int o_test, double o_test2, bool o_TorF,
+    TUT_tutorial_Class1 * SHC_rv)
+{
+    // splicer begin namespace.tutorial.class.Class1.method.ctor_3
+    tutorial::Class1 *SHCXX_rv = new tutorial::Class1(test1, test2,
+        TorF, o_test, o_test2, o_TorF);
+    SHC_rv->addr = static_cast<void *>(SHCXX_rv);
+    SHC_rv->idtor = 1;
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.ctor_3
 }
 
 int * TUT_tutorial_Class1_get_test_ptr(TUT_tutorial_Class1 * self,

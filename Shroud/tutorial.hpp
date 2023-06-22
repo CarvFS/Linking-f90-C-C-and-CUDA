@@ -12,7 +12,7 @@ namespace tutorial {
     class Class1
     {
     public:
-      Class1();
+      Class1(int test1, double test2, bool TorF, int o_test = 1, double o_test2 = 0.5, bool o_TorF = true);
       ~Class1();
 
       NewClass obj1;

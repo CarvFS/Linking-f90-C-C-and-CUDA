@@ -21,9 +21,8 @@ program test_shroud
 
     ! write(*,*) closurelist
 
-    !! Both ways will work to create the object
-    cptr = Class1()
-    ! cptr = Class1_new_default() 
+    !!!!! Create object
+    cptr = Class1(1,0.1d0,.true.,123456,0.555d0,.false.) 
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     call cptr%set_test(N)

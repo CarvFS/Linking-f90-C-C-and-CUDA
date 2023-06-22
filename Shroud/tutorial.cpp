@@ -8,9 +8,12 @@ static int global_fixed_array[] = {12,23,34};
 static int global_int2d[] = {12,45,23,56,34,67};
 
 namespace tutorial {
-
-    Class1 :: Class1(){
+    Class1 :: Class1(int test1, double test2, bool TorF, int o_test, double o_test2, bool o_TorF){
         cout << "Object is being created!" << endl;
+        // print pre-defined/optional arguments
+        cout << "o_test = " << o_test << endl;
+        cout << "o_test2 = " << o_test2 << endl;
+        cout << "o_TorF = " << o_TorF << endl;
     }
     
     Class1::~Class1(){
