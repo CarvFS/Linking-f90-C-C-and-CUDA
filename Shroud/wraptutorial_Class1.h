@@ -24,18 +24,18 @@ extern "C" {
 // splicer begin namespace.tutorial.class.Class1.C_declarations
 // splicer end namespace.tutorial.class.Class1.C_declarations
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_0(int test1,
-    double test2, bool TorF, TUT_tutorial_Class1 * SHC_rv);
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_0(int test1, double test2,
+    bool TorF, TUT_tutorial_Class1 * SHC_rv);
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_1(int test1,
-    double test2, bool TorF, int o_test, TUT_tutorial_Class1 * SHC_rv);
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_1(int test1, double test2,
+    bool TorF, int o_test, TUT_tutorial_Class1 * SHC_rv);
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_2(int test1,
-    double test2, bool TorF, int o_test, double o_test2,
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_2(int test1, double test2,
+    bool TorF, int o_test, double o_test2,
     TUT_tutorial_Class1 * SHC_rv);
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_3(int test1,
-    double test2, bool TorF, int o_test, double o_test2, bool o_TorF,
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_3(int test1, double test2,
+    bool TorF, int o_test, double o_test2, bool o_TorF,
     TUT_tutorial_Class1 * SHC_rv);
 
 int * TUT_tutorial_Class1_get_test_ptr(TUT_tutorial_Class1 * self,
@@ -51,26 +51,28 @@ void TUT_tutorial_Class1_set__two_darray(TUT_tutorial_Class1 * self,
 
 void TUT_tutorial_Class1_delete(TUT_tutorial_Class1 * self);
 
-void TUT_tutorial_Class1_method1_0(TUT_tutorial_Class1 * self);
+void TUT_tutorial_Class1_method1_0(TUT_tutorial_Class1 * self,
+    int * vec2d);
 
 void TUT_tutorial_Class1_method1_1(TUT_tutorial_Class1 * self,
-    int o_test);
+    int * vec2d, int o_test);
 
 void TUT_tutorial_Class1_method1_2(TUT_tutorial_Class1 * self,
-    int o_test, int * value);
+    int * vec2d, int o_test, int * value);
 
 void TUT_tutorial_Class1_method1_3(TUT_tutorial_Class1 * self,
-    int o_test, int * value, char * word2);
+    int * vec2d, int o_test, int * value, char * word2);
 
 void TUT_tutorial_Class1_method1_3_bufferify(TUT_tutorial_Class1 * self,
-    int o_test, int * value, char * word2, int Lword2, int Nword2);
+    int * vec2d, int o_test, int * value, char * word2, int Lword2,
+    int Nword2);
 
 void TUT_tutorial_Class1_method1_4(TUT_tutorial_Class1 * self,
-    int o_test, int * value, char * word2, bool o_bool);
+    int * vec2d, int o_test, int * value, char * word2, bool o_bool);
 
 void TUT_tutorial_Class1_method1_4_bufferify(TUT_tutorial_Class1 * self,
-    int o_test, int * value, char * word2, int Lword2, int Nword2,
-    bool o_bool);
+    int * vec2d, int o_test, int * value, char * word2, int Lword2,
+    int Nword2, bool o_bool);
 
 void TUT_tutorial_Class1_accept_char_array_in(
     TUT_tutorial_Class1 * self, char **names, int clsize);

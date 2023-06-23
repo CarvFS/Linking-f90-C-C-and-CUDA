@@ -3,7 +3,7 @@ program test_shroud
     use tutorial_tutorial_mod
     type(class1) cptr
     integer, pointer :: f_1darray(:), val_ptr(:)
-    integer, pointer :: f_2darray(:,:)
+    integer, pointer :: f_2darray(:,:), vec2d(:,:)
     real(C_DOUBLE) :: dk2
     character(len = 8), pointer :: closure_list(:) => NULL()
     character(len = 16), pointer :: word => NULL()
@@ -13,7 +13,12 @@ program test_shroud
     N=4
     M=2
 
-    allocate(closure_list(3),val_ptr(3),word)
+    allocate(closure_list(3),val_ptr(3),word, vec2d(2,2))
+
+    vec2d(1,1) = 123
+    vec2d(1,2) = 234
+    vec2d(2,1) = 321
+    vec2d(2,2) = 432
 
     closure_list(1) = "kh"
     closure_list(2) = "pse2"
@@ -60,12 +65,13 @@ program test_shroud
 
     word = "redefined"
 
-    ! call cptr%method1()
-    ! call cptr%method1(2)
-    ! call cptr%method1(2, val_ptr)
-    ! call cptr%method1(2, val_ptr, word(1))
-    call cptr%method1(2, val_ptr, word, .false.)
-
+    ! call cptr%method1(vec2d)
+    ! call cptr%method1(vec2d, 2)
+    ! call cptr%method1(vec2d, 2, val_ptr)
+    ! call cptr%method1(vec2d, 2, val_ptr, word)
+    call cptr%method1(vec2d, 2, val_ptr, word, .false.)
+    
+    write(*,*) "::::::::::::::::::::::::::::::::::::::::::::::::::"
     ! dk2 = class1_get_dk(cptr) !! also works this way
     dk2 = cptr%get_dk()
 

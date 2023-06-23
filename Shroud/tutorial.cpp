@@ -77,13 +77,21 @@ namespace tutorial {
         return TwoDarray;
     }
 
-    void Class1 :: Method1(int o_test, int* value, char* word2, bool o_bool){
+    void Class1 :: Method1(int* vec2d, int o_test, int* value, char* word2, bool o_bool){
         cout << "In tutorial.cpp: retrieving strings: " << endl;
 
         cout << "o_test = " << o_test << endl;
 
+        cout << "Printing 1D array: (12,23,34) as standard" << endl;
         for(int i = 0; i < 3; i++){
             cout << "value[" << i << "] = " << value[i] << endl;
+        }
+
+        cout << "Receiving 2D array:" << endl;
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++){
+                cout << "value[" << i << "," << j << "] = " << vec2d[i*2+j] << endl;
+            }
         }
 
         cout << "string is: " << word2 << "." << endl;

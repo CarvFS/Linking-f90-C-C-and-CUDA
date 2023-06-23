@@ -57,9 +57,9 @@ module tutorial_tutorial_mod
 
     interface
 
-        function c_class1_ctor_0(test1, test2, TorF, SHT_crv) &
+        function c_class1_new_0(test1, test2, TorF, SHT_crv) &
                 result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_ctor_0")
+                bind(C, name="TUT_tutorial_Class1_new_0")
             use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
             import :: SHROUD_class1_capsule
             implicit none
@@ -68,11 +68,11 @@ module tutorial_tutorial_mod
             logical(C_BOOL), value, intent(IN) :: TorF
             type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
             type(C_PTR) SHT_rv
-        end function c_class1_ctor_0
+        end function c_class1_new_0
 
-        function c_class1_ctor_1(test1, test2, TorF, o_test, SHT_crv) &
+        function c_class1_new_1(test1, test2, TorF, o_test, SHT_crv) &
                 result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_ctor_1")
+                bind(C, name="TUT_tutorial_Class1_new_1")
             use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
             import :: SHROUD_class1_capsule
             implicit none
@@ -82,12 +82,12 @@ module tutorial_tutorial_mod
             integer(C_INT), value, intent(IN) :: o_test
             type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
             type(C_PTR) SHT_rv
-        end function c_class1_ctor_1
+        end function c_class1_new_1
 
-        function c_class1_ctor_2(test1, test2, TorF, o_test, o_test2, &
+        function c_class1_new_2(test1, test2, TorF, o_test, o_test2, &
                 SHT_crv) &
                 result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_ctor_2")
+                bind(C, name="TUT_tutorial_Class1_new_2")
             use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
             import :: SHROUD_class1_capsule
             implicit none
@@ -98,12 +98,12 @@ module tutorial_tutorial_mod
             real(C_DOUBLE), value, intent(IN) :: o_test2
             type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
             type(C_PTR) SHT_rv
-        end function c_class1_ctor_2
+        end function c_class1_new_2
 
-        function c_class1_ctor_3(test1, test2, TorF, o_test, o_test2, &
+        function c_class1_new_3(test1, test2, TorF, o_test, o_test2, &
                 o_TorF, SHT_crv) &
                 result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_ctor_3")
+                bind(C, name="TUT_tutorial_Class1_new_3")
             use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
             import :: SHROUD_class1_capsule
             implicit none
@@ -115,7 +115,7 @@ module tutorial_tutorial_mod
             logical(C_BOOL), value, intent(IN) :: o_TorF
             type(SHROUD_class1_capsule), intent(OUT) :: SHT_crv
             type(C_PTR) SHT_rv
-        end function c_class1_ctor_3
+        end function c_class1_new_3
 
         function c_class1_get_test_ptr(self, len) &
                 result(SHT_rv) &
@@ -166,50 +166,56 @@ module tutorial_tutorial_mod
             type(SHROUD_class1_capsule), intent(IN) :: self
         end subroutine c_class1_delete
 
-        subroutine c_class1_method1_0(self) &
+        subroutine c_class1_method1_0(self, vec2d) &
                 bind(C, name="TUT_tutorial_Class1_method1_0")
+            use iso_c_binding, only : C_INT
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(INOUT) :: vec2d(*)
         end subroutine c_class1_method1_0
 
-        subroutine c_class1_method1_1(self, o_test) &
+        subroutine c_class1_method1_1(self, vec2d, o_test) &
                 bind(C, name="TUT_tutorial_Class1_method1_1")
             use iso_c_binding, only : C_INT
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(INOUT) :: vec2d(*)
             integer(C_INT), value, intent(IN) :: o_test
         end subroutine c_class1_method1_1
 
-        subroutine c_class1_method1_2(self, o_test, value) &
+        subroutine c_class1_method1_2(self, vec2d, o_test, value) &
                 bind(C, name="TUT_tutorial_Class1_method1_2")
             use iso_c_binding, only : C_INT
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(INOUT) :: vec2d(*)
             integer(C_INT), value, intent(IN) :: o_test
             integer(C_INT), intent(INOUT) :: value(*)
         end subroutine c_class1_method1_2
 
-        subroutine c_class1_method1_3(self, o_test, value, word2) &
+        subroutine c_class1_method1_3(self, vec2d, o_test, value, word2) &
                 bind(C, name="TUT_tutorial_Class1_method1_3")
             use iso_c_binding, only : C_CHAR, C_INT
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(INOUT) :: vec2d(*)
             integer(C_INT), value, intent(IN) :: o_test
             integer(C_INT), intent(INOUT) :: value(*)
             character(kind=C_CHAR), intent(INOUT) :: word2(*)
         end subroutine c_class1_method1_3
 
-        subroutine c_class1_method1_3_bufferify(self, o_test, value, &
-                word2, Lword2, Nword2) &
+        subroutine c_class1_method1_3_bufferify(self, vec2d, o_test, &
+                value, word2, Lword2, Nword2) &
                 bind(C, name="TUT_tutorial_Class1_method1_3_bufferify")
             use iso_c_binding, only : C_CHAR, C_INT
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(INOUT) :: vec2d(*)
             integer(C_INT), value, intent(IN) :: o_test
             integer(C_INT), intent(INOUT) :: value(*)
             character(kind=C_CHAR), intent(INOUT) :: word2(*)
@@ -217,26 +223,28 @@ module tutorial_tutorial_mod
             integer(C_INT), value, intent(IN) :: Nword2
         end subroutine c_class1_method1_3_bufferify
 
-        subroutine c_class1_method1_4(self, o_test, value, word2, &
+        subroutine c_class1_method1_4(self, vec2d, o_test, value, word2, &
                 o_bool) &
                 bind(C, name="TUT_tutorial_Class1_method1_4")
             use iso_c_binding, only : C_BOOL, C_CHAR, C_INT
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(INOUT) :: vec2d(*)
             integer(C_INT), value, intent(IN) :: o_test
             integer(C_INT), intent(INOUT) :: value(*)
             character(kind=C_CHAR), intent(INOUT) :: word2(*)
             logical(C_BOOL), value, intent(IN) :: o_bool
         end subroutine c_class1_method1_4
 
-        subroutine c_class1_method1_4_bufferify(self, o_test, value, &
-                word2, Lword2, Nword2, o_bool) &
+        subroutine c_class1_method1_4_bufferify(self, vec2d, o_test, &
+                value, word2, Lword2, Nword2, o_bool) &
                 bind(C, name="TUT_tutorial_Class1_method1_4_bufferify")
             use iso_c_binding, only : C_BOOL, C_CHAR, C_INT
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(INOUT) :: vec2d(*)
             integer(C_INT), value, intent(IN) :: o_test
             integer(C_INT), intent(INOUT) :: value(*)
             character(kind=C_CHAR), intent(INOUT) :: word2(*)
@@ -297,30 +305,30 @@ module tutorial_tutorial_mod
     end interface
 
     interface class1
-        module procedure class1_ctor_0
-        module procedure class1_ctor_1
-        module procedure class1_ctor_2
-        module procedure class1_ctor_3
+        module procedure class1_new_0
+        module procedure class1_new_1
+        module procedure class1_new_2
+        module procedure class1_new_3
     end interface class1
 
 contains
 
-    function class1_ctor_0(test1, test2, TorF) &
+    function class1_new_0(test1, test2, TorF) &
             result(SHT_rv)
         use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
         integer(C_INT), value, intent(IN) :: test1
         real(C_DOUBLE), value, intent(IN) :: test2
         logical, value, intent(IN) :: TorF
         type(class1) :: SHT_rv
-        ! splicer begin namespace.tutorial.class.Class1.method.ctor_0
+        ! splicer begin namespace.tutorial.class.Class1.method.new_0
         logical(C_BOOL) SH_TorF
         type(C_PTR) :: SHT_prv
         SH_TorF = TorF  ! coerce to C_BOOL
-        SHT_prv = c_class1_ctor_0(test1, test2, SH_TorF, SHT_rv%cxxmem)
-        ! splicer end namespace.tutorial.class.Class1.method.ctor_0
-    end function class1_ctor_0
+        SHT_prv = c_class1_new_0(test1, test2, SH_TorF, SHT_rv%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.new_0
+    end function class1_new_0
 
-    function class1_ctor_1(test1, test2, TorF, o_test) &
+    function class1_new_1(test1, test2, TorF, o_test) &
             result(SHT_rv)
         use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
         integer(C_INT), value, intent(IN) :: test1
@@ -328,16 +336,16 @@ contains
         logical, value, intent(IN) :: TorF
         integer(C_INT), value, intent(IN) :: o_test
         type(class1) :: SHT_rv
-        ! splicer begin namespace.tutorial.class.Class1.method.ctor_1
+        ! splicer begin namespace.tutorial.class.Class1.method.new_1
         logical(C_BOOL) SH_TorF
         type(C_PTR) :: SHT_prv
         SH_TorF = TorF  ! coerce to C_BOOL
-        SHT_prv = c_class1_ctor_1(test1, test2, SH_TorF, o_test, &
+        SHT_prv = c_class1_new_1(test1, test2, SH_TorF, o_test, &
             SHT_rv%cxxmem)
-        ! splicer end namespace.tutorial.class.Class1.method.ctor_1
-    end function class1_ctor_1
+        ! splicer end namespace.tutorial.class.Class1.method.new_1
+    end function class1_new_1
 
-    function class1_ctor_2(test1, test2, TorF, o_test, o_test2) &
+    function class1_new_2(test1, test2, TorF, o_test, o_test2) &
             result(SHT_rv)
         use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
         integer(C_INT), value, intent(IN) :: test1
@@ -346,16 +354,16 @@ contains
         integer(C_INT), value, intent(IN) :: o_test
         real(C_DOUBLE), value, intent(IN) :: o_test2
         type(class1) :: SHT_rv
-        ! splicer begin namespace.tutorial.class.Class1.method.ctor_2
+        ! splicer begin namespace.tutorial.class.Class1.method.new_2
         logical(C_BOOL) SH_TorF
         type(C_PTR) :: SHT_prv
         SH_TorF = TorF  ! coerce to C_BOOL
-        SHT_prv = c_class1_ctor_2(test1, test2, SH_TorF, o_test, &
-            o_test2, SHT_rv%cxxmem)
-        ! splicer end namespace.tutorial.class.Class1.method.ctor_2
-    end function class1_ctor_2
+        SHT_prv = c_class1_new_2(test1, test2, SH_TorF, o_test, o_test2, &
+            SHT_rv%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.new_2
+    end function class1_new_2
 
-    function class1_ctor_3(test1, test2, TorF, o_test, o_test2, o_TorF) &
+    function class1_new_3(test1, test2, TorF, o_test, o_test2, o_TorF) &
             result(SHT_rv)
         use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_PTR
         integer(C_INT), value, intent(IN) :: test1
@@ -365,16 +373,16 @@ contains
         real(C_DOUBLE), value, intent(IN) :: o_test2
         logical, value, intent(IN) :: o_TorF
         type(class1) :: SHT_rv
-        ! splicer begin namespace.tutorial.class.Class1.method.ctor_3
+        ! splicer begin namespace.tutorial.class.Class1.method.new_3
         logical(C_BOOL) SH_TorF
         logical(C_BOOL) SH_o_TorF
         type(C_PTR) :: SHT_prv
         SH_TorF = TorF  ! coerce to C_BOOL
         SH_o_TorF = o_TorF  ! coerce to C_BOOL
-        SHT_prv = c_class1_ctor_3(test1, test2, SH_TorF, o_test, &
-            o_test2, SH_o_TorF, SHT_rv%cxxmem)
-        ! splicer end namespace.tutorial.class.Class1.method.ctor_3
-    end function class1_ctor_3
+        SHT_prv = c_class1_new_3(test1, test2, SH_TorF, o_test, o_test2, &
+            SH_o_TorF, SHT_rv%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.new_3
+    end function class1_new_3
 
     function class1_get_test_ptr(obj) &
             result(SHT_rv)
@@ -429,47 +437,55 @@ contains
         ! splicer end namespace.tutorial.class.Class1.method.delete
     end subroutine class1_delete
 
-    subroutine class1_method1_0(obj)
+    subroutine class1_method1_0(obj, vec2d)
+        use iso_c_binding, only : C_INT
         class(class1) :: obj
+        integer(C_INT), intent(INOUT) :: vec2d(:,:)
         ! splicer begin namespace.tutorial.class.Class1.method.method1_0
-        call c_class1_method1_0(obj%cxxmem)
+        call c_class1_method1_0(obj%cxxmem, vec2d)
         ! splicer end namespace.tutorial.class.Class1.method.method1_0
     end subroutine class1_method1_0
 
-    subroutine class1_method1_1(obj, o_test)
+    subroutine class1_method1_1(obj, vec2d, o_test)
         use iso_c_binding, only : C_INT
         class(class1) :: obj
+        integer(C_INT), intent(INOUT) :: vec2d(:,:)
         integer(C_INT), value, intent(IN) :: o_test
         ! splicer begin namespace.tutorial.class.Class1.method.method1_1
-        call c_class1_method1_1(obj%cxxmem, o_test)
+        call c_class1_method1_1(obj%cxxmem, vec2d, o_test)
         ! splicer end namespace.tutorial.class.Class1.method.method1_1
     end subroutine class1_method1_1
 
-    subroutine class1_method1_2(obj, o_test, value)
+    subroutine class1_method1_2(obj, vec2d, o_test, value)
         use iso_c_binding, only : C_INT
         class(class1) :: obj
+        integer(C_INT), intent(INOUT) :: vec2d(:,:)
         integer(C_INT), value, intent(IN) :: o_test
         integer(C_INT), intent(INOUT) :: value(:)
         ! splicer begin namespace.tutorial.class.Class1.method.method1_2
-        call c_class1_method1_2(obj%cxxmem, o_test, value)
+        call c_class1_method1_2(obj%cxxmem, vec2d, o_test, value)
         ! splicer end namespace.tutorial.class.Class1.method.method1_2
     end subroutine class1_method1_2
 
-    subroutine class1_method1_3(obj, o_test, value, word2)
+    subroutine class1_method1_3(obj, vec2d, o_test, value, word2)
         use iso_c_binding, only : C_INT
         class(class1) :: obj
+        integer(C_INT), intent(INOUT) :: vec2d(:,:)
         integer(C_INT), value, intent(IN) :: o_test
         integer(C_INT), intent(INOUT) :: value(:)
         character(len=*), intent(INOUT) :: word2
         ! splicer begin namespace.tutorial.class.Class1.method.method1_3
-        call c_class1_method1_3_bufferify(obj%cxxmem, o_test, value, &
-            word2, len_trim(word2, kind=C_INT), len(word2, kind=C_INT))
+        call c_class1_method1_3_bufferify(obj%cxxmem, vec2d, o_test, &
+            value, word2, len_trim(word2, kind=C_INT), &
+            len(word2, kind=C_INT))
         ! splicer end namespace.tutorial.class.Class1.method.method1_3
     end subroutine class1_method1_3
 
-    subroutine class1_method1_4(obj, o_test, value, word2, o_bool)
+    subroutine class1_method1_4(obj, vec2d, o_test, value, word2, &
+            o_bool)
         use iso_c_binding, only : C_BOOL, C_INT
         class(class1) :: obj
+        integer(C_INT), intent(INOUT) :: vec2d(:,:)
         integer(C_INT), value, intent(IN) :: o_test
         integer(C_INT), intent(INOUT) :: value(:)
         character(len=*), intent(INOUT) :: word2
@@ -477,9 +493,9 @@ contains
         ! splicer begin namespace.tutorial.class.Class1.method.method1_4
         logical(C_BOOL) SH_o_bool
         SH_o_bool = o_bool  ! coerce to C_BOOL
-        call c_class1_method1_4_bufferify(obj%cxxmem, o_test, value, &
-            word2, len_trim(word2, kind=C_INT), len(word2, kind=C_INT), &
-            SH_o_bool)
+        call c_class1_method1_4_bufferify(obj%cxxmem, vec2d, o_test, &
+            value, word2, len_trim(word2, kind=C_INT), &
+            len(word2, kind=C_INT), SH_o_bool)
         ! splicer end namespace.tutorial.class.Class1.method.method1_4
     end subroutine class1_method1_4
 

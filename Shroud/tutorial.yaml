@@ -8,9 +8,9 @@ declarations:
   declarations:
   - decl: class Class1
     declarations:
-    - decl: Class1() +name(new)
-      format:
-        function_suffix: _default
+    - decl: Class1(int test1, double test2, bool TorF, int o_test = 1, double o_test2 = 0.5, bool o_TorF = true) +name(new)
+      # format:
+      #   function_suffix: _default
     - decl: int *get_test_ptr(int *len+intent(out)+hidden) +deref(pointer) +rank(1)
       splicer:
         f:
@@ -26,7 +26,7 @@ declarations:
     - decl: void set_test(int N)
     - decl: void set_TwoDarray(int N, int M)
     - decl: ~Class1() +name(delete)
-    - decl: void Method1(int o_test = 1, int* value +rank(1) = vec, char* word2 = word, bool o_bool = true)
+    - decl: void Method1(int* vec2d +rank(2), int o_test = 1, int* value +rank(1) = vec, char* word2 = word, bool o_bool = true)
     - decl: void acceptCharArrayIn(char **names +intent(in), int clsize+hidden)
       splicer:
         f:

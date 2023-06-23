@@ -94,54 +94,53 @@ static void ShroudStrFree(char *src)
 // splicer begin namespace.tutorial.class.Class1.C_definitions
 // splicer end namespace.tutorial.class.Class1.C_definitions
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_0(int test1,
-    double test2, bool TorF, TUT_tutorial_Class1 * SHC_rv)
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_0(int test1, double test2,
+    bool TorF, TUT_tutorial_Class1 * SHC_rv)
 {
-    // splicer begin namespace.tutorial.class.Class1.method.ctor_0
+    // splicer begin namespace.tutorial.class.Class1.method.new_0
     tutorial::Class1 *SHCXX_rv = new tutorial::Class1(test1, test2,
         TorF);
     SHC_rv->addr = static_cast<void *>(SHCXX_rv);
     SHC_rv->idtor = 1;
     return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.ctor_0
+    // splicer end namespace.tutorial.class.Class1.method.new_0
 }
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_1(int test1,
-    double test2, bool TorF, int o_test, TUT_tutorial_Class1 * SHC_rv)
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_1(int test1, double test2,
+    bool TorF, int o_test, TUT_tutorial_Class1 * SHC_rv)
 {
-    // splicer begin namespace.tutorial.class.Class1.method.ctor_1
+    // splicer begin namespace.tutorial.class.Class1.method.new_1
     tutorial::Class1 *SHCXX_rv = new tutorial::Class1(test1, test2,
         TorF, o_test);
     SHC_rv->addr = static_cast<void *>(SHCXX_rv);
     SHC_rv->idtor = 1;
     return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.ctor_1
+    // splicer end namespace.tutorial.class.Class1.method.new_1
 }
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_2(int test1,
-    double test2, bool TorF, int o_test, double o_test2,
-    TUT_tutorial_Class1 * SHC_rv)
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_2(int test1, double test2,
+    bool TorF, int o_test, double o_test2, TUT_tutorial_Class1 * SHC_rv)
 {
-    // splicer begin namespace.tutorial.class.Class1.method.ctor_2
+    // splicer begin namespace.tutorial.class.Class1.method.new_2
     tutorial::Class1 *SHCXX_rv = new tutorial::Class1(test1, test2,
         TorF, o_test, o_test2);
     SHC_rv->addr = static_cast<void *>(SHCXX_rv);
     SHC_rv->idtor = 1;
     return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.ctor_2
+    // splicer end namespace.tutorial.class.Class1.method.new_2
 }
 
-TUT_tutorial_Class1 * TUT_tutorial_Class1_ctor_3(int test1,
-    double test2, bool TorF, int o_test, double o_test2, bool o_TorF,
+TUT_tutorial_Class1 * TUT_tutorial_Class1_new_3(int test1, double test2,
+    bool TorF, int o_test, double o_test2, bool o_TorF,
     TUT_tutorial_Class1 * SHC_rv)
 {
-    // splicer begin namespace.tutorial.class.Class1.method.ctor_3
+    // splicer begin namespace.tutorial.class.Class1.method.new_3
     tutorial::Class1 *SHCXX_rv = new tutorial::Class1(test1, test2,
         TorF, o_test, o_test2, o_TorF);
     SHC_rv->addr = static_cast<void *>(SHCXX_rv);
     SHC_rv->idtor = 1;
     return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.ctor_3
+    // splicer end namespace.tutorial.class.Class1.method.new_3
 }
 
 int * TUT_tutorial_Class1_get_test_ptr(TUT_tutorial_Class1 * self,
@@ -195,77 +194,79 @@ void TUT_tutorial_Class1_delete(TUT_tutorial_Class1 * self)
     // splicer end namespace.tutorial.class.Class1.method.delete
 }
 
-void TUT_tutorial_Class1_method1_0(TUT_tutorial_Class1 * self)
+void TUT_tutorial_Class1_method1_0(TUT_tutorial_Class1 * self,
+    int * vec2d)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.method1_0
-    SH_this->Method1();
+    SH_this->Method1(vec2d);
     // splicer end namespace.tutorial.class.Class1.method.method1_0
 }
 
 void TUT_tutorial_Class1_method1_1(TUT_tutorial_Class1 * self,
-    int o_test)
+    int * vec2d, int o_test)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.method1_1
-    SH_this->Method1(o_test);
+    SH_this->Method1(vec2d, o_test);
     // splicer end namespace.tutorial.class.Class1.method.method1_1
 }
 
 void TUT_tutorial_Class1_method1_2(TUT_tutorial_Class1 * self,
-    int o_test, int * value)
+    int * vec2d, int o_test, int * value)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.method1_2
-    SH_this->Method1(o_test, value);
+    SH_this->Method1(vec2d, o_test, value);
     // splicer end namespace.tutorial.class.Class1.method.method1_2
 }
 
 void TUT_tutorial_Class1_method1_3(TUT_tutorial_Class1 * self,
-    int o_test, int * value, char * word2)
+    int * vec2d, int o_test, int * value, char * word2)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.method1_3
-    SH_this->Method1(o_test, value, word2);
+    SH_this->Method1(vec2d, o_test, value, word2);
     // splicer end namespace.tutorial.class.Class1.method.method1_3
 }
 
 void TUT_tutorial_Class1_method1_3_bufferify(TUT_tutorial_Class1 * self,
-    int o_test, int * value, char * word2, int Lword2, int Nword2)
+    int * vec2d, int o_test, int * value, char * word2, int Lword2,
+    int Nword2)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.method1_3_bufferify
     char * SHCXX_word2 = ShroudStrAlloc(word2, Nword2, Lword2);
-    SH_this->Method1(o_test, value, SHCXX_word2);
+    SH_this->Method1(vec2d, o_test, value, SHCXX_word2);
     ShroudStrCopy(word2, Nword2, SHCXX_word2, -1);
     ShroudStrFree(SHCXX_word2);
     // splicer end namespace.tutorial.class.Class1.method.method1_3_bufferify
 }
 
 void TUT_tutorial_Class1_method1_4(TUT_tutorial_Class1 * self,
-    int o_test, int * value, char * word2, bool o_bool)
+    int * vec2d, int o_test, int * value, char * word2, bool o_bool)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.method1_4
-    SH_this->Method1(o_test, value, word2, o_bool);
+    SH_this->Method1(vec2d, o_test, value, word2, o_bool);
     // splicer end namespace.tutorial.class.Class1.method.method1_4
 }
 
 void TUT_tutorial_Class1_method1_4_bufferify(TUT_tutorial_Class1 * self,
-    int o_test, int * value, char * word2, int Lword2, int Nword2,
-    bool o_bool)
+    int * vec2d, int o_test, int * value, char * word2, int Lword2,
+    int Nword2, bool o_bool)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.method1_4_bufferify
     char * SHCXX_word2 = ShroudStrAlloc(word2, Nword2, Lword2);
-    SH_this->Method1(o_test, value, SHCXX_word2, o_bool);
+    SH_this->Method1(vec2d, o_test, value, SHCXX_word2, o_bool);
     ShroudStrCopy(word2, Nword2, SHCXX_word2, -1);
     ShroudStrFree(SHCXX_word2);
     // splicer end namespace.tutorial.class.Class1.method.method1_4_bufferify
