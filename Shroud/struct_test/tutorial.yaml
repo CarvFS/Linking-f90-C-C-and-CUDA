@@ -3,15 +3,32 @@ format:
   F_filename_suffix: F90
 cxx_header: tutorial.hpp
 
+splicer:
+  # f:
+  # -  fsplicer.f
+  c:
+  - csplicer.c
+
 declarations:
 - decl: namespace tutorial
   declarations:
-  - decl: class Class1
+  - decl: class Class1  
     declarations:
     - decl: Class1(int test1, double test2, bool TorF, int o_test = 1, double o_test2 = 0.5, bool o_TorF = true) +name(new)
     - decl: ~Class1() +name(delete)
-    - decl: struct str1{
-              int ivalue;
-              double dvalue;
-            };
+    - decl: |
+        struct str1 {
+          int ifield;
+          double dfield;
+        };
+      options:
+        literalinclude: True
     - decl: void receive_str(str1 *arg)
+    - decl: void test_struct()
+  - decl: |
+      struct str1 {
+        int ifield;
+        double dfield;
+      };
+    options:
+      literalinclude: True
