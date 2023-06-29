@@ -33,6 +33,7 @@ namespace tutorial {
     void Class1 :: test_struct(){
         cout << "getting struct values:" << endl;
         cout << s.ifield << " and " << s.dfield << endl;
+        cout << s.iptr[0] << ", " << s.iptr[1] << " and " << s.iptr[2] << endl;
     }
     
     Class1::~Class1(){

@@ -40,6 +40,7 @@ module tutorial_tutorial_mod
     type, bind(C) :: str1
         integer(C_INT) :: ifield
         real(C_DOUBLE) :: dfield
+        type(C_PTR) :: iptr
     end type str1
     ! end derived-type str1
 

@@ -29,6 +29,7 @@ declarations:
       struct str1 {
         int ifield;
         double dfield;
+        int *iptr;
       };
     options:
       literalinclude: True

@@ -18,6 +18,7 @@ namespace tutorial {
     struct str1{
         int ifield;
         double dfield;
+        int *iptr;
     };
     typedef struct str1 str1;
 

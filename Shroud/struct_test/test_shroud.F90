@@ -2,15 +2,32 @@ program test_shroud
     use iso_c_binding
     use tutorial_tutorial_mod
     type(class1) cptr
+    integer, pointer :: my_ptr(:)
 
-    type :: test_str
-        integer :: int_value
-        real*8 :: re_value
+    type :: my_type
+        integer :: ivalue
+        real*8 :: dvalue
+        integer, pointer :: intptr(:)
     end type
 
     type(str1) :: my_str
-    my_str%ifield = 626262
-    my_str%dfield = 987.54d0
+    type(my_type) :: test
+
+    test%ivalue = 626262
+    test%dvalue = 987.54d0
+
+    allocate(my_ptr(3))
+
+    my_ptr(1)=1222
+    my_ptr(2)=2333
+    my_ptr(3)=3444
+
+    test%intptr => my_ptr
+
+    my_str%ifield = test%ivalue
+    my_str%dfield = test%dvalue
+    my_str%iptr = C_LOC(test%intptr)
+
 
     write(*,*) "=============== Testing my type created in fortran ==============="
     write(*,*) my_str%ifield, my_str%dfield
