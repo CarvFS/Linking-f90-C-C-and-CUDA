@@ -28,15 +28,13 @@ namespace tutorial {
     public:
       Class1(int test1, double test2, bool TorF, int o_test = 1, double o_test2 = 0.5, bool o_TorF = true);
       ~Class1();
-      
-      // struct str1{
-      //   int ivalue;
-      //   double dvalue;
-      // };
-      // typedef struct str1 str1;
 
       void receive_str(str1 *arg);
       void set_names(char** names, int size);
+
+      // Maybe here (https://github.com/LLNL/shroud/blob/develop/regression/input/strings.yaml) one 
+      // can find a way to retrieve string *names on fortran side
+      // Take a look on: acceptStringPointer
 
       void test_struct();
 
