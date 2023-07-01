@@ -19,6 +19,7 @@ namespace tutorial {
         int ifield;
         double dfield;
         int *iptr;
+        string *names;
     };
     typedef struct str1 str1;
 
@@ -35,6 +36,7 @@ namespace tutorial {
       // typedef struct str1 str1;
 
       void receive_str(str1 *arg);
+      void set_names(char** names, int size);
 
       void test_struct();
 

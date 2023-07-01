@@ -44,6 +44,12 @@ void TUT_tutorial_Class1_delete(TUT_tutorial_Class1 * self);
 void TUT_tutorial_Class1_receive_str(TUT_tutorial_Class1 * self,
     TUT_str1 * arg);
 
+void TUT_tutorial_Class1_set_names(TUT_tutorial_Class1 * self,
+    char **names, int name_len);
+
+void TUT_tutorial_Class1_set_names_bufferify(TUT_tutorial_Class1 * self,
+    char *names, long Snames, int Nnames, int name_len);
+
 void TUT_tutorial_Class1_test_struct(TUT_tutorial_Class1 * self);
 
 #ifdef __cplusplus

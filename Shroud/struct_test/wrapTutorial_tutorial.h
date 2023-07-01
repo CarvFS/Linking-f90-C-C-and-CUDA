@@ -23,6 +23,7 @@ struct s_TUT_str1 {
     int ifield;
     double dfield;
     int * iptr;
+    char * * names;
 };
 typedef struct s_TUT_str1 TUT_str1;
 

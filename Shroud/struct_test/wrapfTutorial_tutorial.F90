@@ -27,6 +27,7 @@ module tutorial_tutorial_mod
     contains
         procedure :: delete => class1_delete
         procedure :: receive_str => class1_receive_str
+        procedure :: set_names => class1_set_names
         procedure :: test_struct => class1_test_struct
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
@@ -41,6 +42,7 @@ module tutorial_tutorial_mod
         integer(C_INT) :: ifield
         real(C_DOUBLE) :: dfield
         type(C_PTR) :: iptr
+        type(C_PTR) :: names
     end type str1
     ! end derived-type str1
 
@@ -128,6 +130,29 @@ module tutorial_tutorial_mod
             type(SHROUD_class1_capsule), intent(IN) :: self
             type(str1), intent(INOUT) :: arg
         end subroutine c_class1_receive_str
+
+        subroutine c_class1_set_names(self, names, name_len) &
+                bind(C, name="TUT_tutorial_Class1_set_names")
+            use iso_c_binding, only : C_INT, C_PTR
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            type(C_PTR), intent(IN) :: names(*)
+            integer(C_INT), value, intent(IN) :: name_len
+        end subroutine c_class1_set_names
+
+        subroutine c_class1_set_names_bufferify(self, names, Snames, &
+                Nnames, name_len) &
+                bind(C, name="TUT_tutorial_Class1_set_names_bufferify")
+            use iso_c_binding, only : C_CHAR, C_INT, C_LONG
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            character(kind=C_CHAR), intent(IN) :: names(*)
+            integer(C_LONG), value, intent(IN) :: Snames
+            integer(C_INT), value, intent(IN) :: Nnames
+            integer(C_INT), value, intent(IN) :: name_len
+        end subroutine c_class1_set_names_bufferify
 
         subroutine c_class1_test_struct(self) &
                 bind(C, name="TUT_tutorial_Class1_test_struct")
@@ -237,6 +262,17 @@ contains
         call c_class1_receive_str(obj%cxxmem, arg)
         ! splicer end namespace.tutorial.class.Class1.method.receive_str
     end subroutine class1_receive_str
+
+    subroutine class1_set_names(obj, names)
+        use iso_c_binding, only : C_INT, C_LONG
+        class(class1) :: obj
+        character(len=*), intent(IN) :: names(:)
+        integer(C_INT) :: name_len
+        ! splicer begin namespace.tutorial.class.Class1.method.set_names
+        call c_class1_set_names_bufferify(obj%cxxmem, names, &
+            size(names, kind=C_LONG), len(names, kind=C_INT), name_len)
+        ! splicer end namespace.tutorial.class.Class1.method.set_names
+    end subroutine class1_set_names
 
     subroutine class1_test_struct(obj)
         class(class1) :: obj

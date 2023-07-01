@@ -8,6 +8,7 @@ program test_shroud
         integer :: ivalue
         real*8 :: dvalue
         integer, pointer :: intptr(:)
+        character(len = 4), pointer :: name_list(:)
     end type
 
     type(str1) :: my_str
@@ -16,7 +17,11 @@ program test_shroud
     test%ivalue = 626262
     test%dvalue = 987.54d0
 
-    allocate(my_ptr(3))
+    allocate(my_ptr(3),test%name_list(2))
+
+    test%name_list(1) = "Test"
+    test%name_list(2) = "T22t"
+    write(*,*) "In .F90: ", test%name_list(1), ", ",test%name_list(2)
 
     my_ptr(1)=1222
     my_ptr(2)=2333
@@ -27,6 +32,7 @@ program test_shroud
     my_str%ifield = test%ivalue
     my_str%dfield = test%dvalue
     my_str%iptr = C_LOC(test%intptr)
+    ! my_str%names = C_LOC(test%name_list)
 
 
     write(*,*) "=============== Testing my type created in fortran ==============="
@@ -38,6 +44,7 @@ program test_shroud
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     call class1_receive_str(cptr, my_str)
+    call class1_set_names(cptr, test%name_list)
     call class1_test_struct(cptr)
 
     !!!!! Delete object

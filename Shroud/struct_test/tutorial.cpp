@@ -27,13 +27,27 @@ namespace tutorial {
         cout << "So far, so good" << endl;
         // cout << arg->ifield << " and " << arg->dfield << endl;
         s = *arg;
+        s.names = new string[2];
         // cout << s.ifield << " and " << s.dfield << endl;
     }
+
+    void Class1 :: set_names(char** names, int name_len){
+        cout << "setting names..." << endl;
+        name_len = 2;
+        // solv.atomName = new string[numAtomType];
+
+        for(int i=0; i<name_len; i++){
+            cout << names[i] << "..." << endl;
+            s.names[i] = names[i];
+        }
+    }    
 
     void Class1 :: test_struct(){
         cout << "getting struct values:" << endl;
         cout << s.ifield << " and " << s.dfield << endl;
         cout << s.iptr[0] << ", " << s.iptr[1] << " and " << s.iptr[2] << endl;
+        cout << "String is: " << s.names[0] << endl;
+        cout << "String is: " << s.names[1] << endl;
     }
     
     Class1::~Class1(){
