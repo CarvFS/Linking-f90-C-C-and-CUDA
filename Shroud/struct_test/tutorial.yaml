@@ -20,16 +20,20 @@ declarations:
         struct str1 {
           int ifield;
           double dfield;
+          int *iptr;
+          const string *names;
         };
       options:
         literalinclude: True
     - decl: void receive_str(str1 *arg)
+    - decl: void set_names(char** t_names+intent(in), int name_len +hidden)
     - decl: void test_struct()
   - decl: |
       struct str1 {
         int ifield;
         double dfield;
         int *iptr;
+        const string *names;
       };
     options:
       literalinclude: True
