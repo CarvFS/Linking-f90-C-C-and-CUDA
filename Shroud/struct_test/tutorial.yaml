@@ -27,7 +27,7 @@ declarations:
         literalinclude: True
     - decl: void receive_str(str1 *arg)
     - decl: void set_names(char** t_names+intent(in), int name_len +hidden)
-    - decl: void get_names(std::string *name_list +intent(out))
+    - decl: void get_name(std::string *name_list +intent(out))
     - decl: void test_struct()
   - decl: |
       struct str1 {
