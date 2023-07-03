@@ -28,6 +28,7 @@ module tutorial_tutorial_mod
         procedure :: delete => class1_delete
         procedure :: receive_str => class1_receive_str
         procedure :: set_names => class1_set_names
+        procedure :: get_name => class1_get_name
         procedure :: test_struct => class1_test_struct
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
@@ -131,28 +132,48 @@ module tutorial_tutorial_mod
             type(str1), intent(INOUT) :: arg
         end subroutine c_class1_receive_str
 
-        subroutine c_class1_set_names(self, names, name_len) &
+        subroutine c_class1_set_names(self, t_names, name_len) &
                 bind(C, name="TUT_tutorial_Class1_set_names")
             use iso_c_binding, only : C_INT, C_PTR
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
-            type(C_PTR), intent(IN) :: names(*)
+            type(C_PTR), intent(IN) :: t_names(*)
             integer(C_INT), value, intent(IN) :: name_len
         end subroutine c_class1_set_names
 
-        subroutine c_class1_set_names_bufferify(self, names, Snames, &
-                Nnames, name_len) &
+        subroutine c_class1_set_names_bufferify(self, t_names, St_names, &
+                Nt_names, name_len) &
                 bind(C, name="TUT_tutorial_Class1_set_names_bufferify")
             use iso_c_binding, only : C_CHAR, C_INT, C_LONG
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
-            character(kind=C_CHAR), intent(IN) :: names(*)
-            integer(C_LONG), value, intent(IN) :: Snames
-            integer(C_INT), value, intent(IN) :: Nnames
+            character(kind=C_CHAR), intent(IN) :: t_names(*)
+            integer(C_LONG), value, intent(IN) :: St_names
+            integer(C_INT), value, intent(IN) :: Nt_names
             integer(C_INT), value, intent(IN) :: name_len
         end subroutine c_class1_set_names_bufferify
+
+        subroutine c_class1_get_name(self, name_list) &
+                bind(C, name="TUT_tutorial_Class1_get_name")
+            use iso_c_binding, only : C_CHAR
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            character(kind=C_CHAR), intent(OUT) :: name_list(*)
+        end subroutine c_class1_get_name
+
+        subroutine c_class1_get_name_bufferify(self, name_list, &
+                Nname_list) &
+                bind(C, name="TUT_tutorial_Class1_get_name_bufferify")
+            use iso_c_binding, only : C_CHAR, C_INT
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            character(kind=C_CHAR), intent(OUT) :: name_list(*)
+            integer(C_INT), value, intent(IN) :: Nname_list
+        end subroutine c_class1_get_name_bufferify
 
         subroutine c_class1_test_struct(self) &
                 bind(C, name="TUT_tutorial_Class1_test_struct")
@@ -263,16 +284,27 @@ contains
         ! splicer end namespace.tutorial.class.Class1.method.receive_str
     end subroutine class1_receive_str
 
-    subroutine class1_set_names(obj, names)
+    subroutine class1_set_names(obj, t_names)
         use iso_c_binding, only : C_INT, C_LONG
         class(class1) :: obj
-        character(len=*), intent(IN) :: names(:)
+        character(len=*), intent(IN) :: t_names(:)
         integer(C_INT) :: name_len
         ! splicer begin namespace.tutorial.class.Class1.method.set_names
-        call c_class1_set_names_bufferify(obj%cxxmem, names, &
-            size(names, kind=C_LONG), len(names, kind=C_INT), name_len)
+        call c_class1_set_names_bufferify(obj%cxxmem, t_names, &
+            size(t_names, kind=C_LONG), len(t_names, kind=C_INT), &
+            name_len)
         ! splicer end namespace.tutorial.class.Class1.method.set_names
     end subroutine class1_set_names
+
+    subroutine class1_get_name(obj, name_list)
+        use iso_c_binding, only : C_INT
+        class(class1) :: obj
+        character(len=*), intent(OUT) :: name_list
+        ! splicer begin namespace.tutorial.class.Class1.method.get_name
+        call c_class1_get_name_bufferify(obj%cxxmem, name_list, &
+            len(name_list, kind=C_INT))
+        ! splicer end namespace.tutorial.class.Class1.method.get_name
+    end subroutine class1_get_name
 
     subroutine class1_test_struct(obj)
         class(class1) :: obj

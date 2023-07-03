@@ -42,6 +42,10 @@ namespace tutorial {
         }
     }    
 
+    void Class1 :: get_name(string *name_list){
+        *name_list = s.names[1];
+    }
+
     void Class1 :: test_struct(){
         cout << "getting struct values:" << endl;
         cout << s.ifield << " and " << s.dfield << endl;

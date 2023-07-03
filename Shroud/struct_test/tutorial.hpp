@@ -2,6 +2,7 @@
 #define CLASS1_HPP
 // #include "struct.hpp"
 #include <iostream>
+#include<string.h>
 using namespace std;
 
 // struct str1{
@@ -30,11 +31,12 @@ namespace tutorial {
       ~Class1();
 
       void receive_str(str1 *arg);
-      void set_names(char** names, int size);
+      void set_names(char** names, int name_len);
 
       // Maybe here (https://github.com/LLNL/shroud/blob/develop/regression/input/strings.yaml) one 
       // can find a way to retrieve string *names on fortran side
       // Take a look on: acceptStringPointer
+      void get_name(string *name_list);
 
       void test_struct();
 

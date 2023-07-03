@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 #include "tutorial.hpp"
 
 // splicer begin namespace.tutorial.class.Class1.CXX_definitions
@@ -55,6 +56,22 @@ static void ShroudStrArrayFree(char **src, int nsrc)
        std::free(src[i]);
    }
    std::free(src);
+}
+
+// helper ShroudStrCopy
+// Copy src into dest, blank fill to ndest characters
+// Truncate if dest is too short.
+// dest will not be NULL terminated.
+static void ShroudStrCopy(char *dest, int ndest, const char *src, int nsrc)
+{
+   if (src == NULL) {
+     std::memset(dest,' ',ndest); // convert NULL pointer to blank filled string
+   } else {
+     if (nsrc < 0) nsrc = std::strlen(src);
+     int nm = nsrc < ndest ? nsrc : ndest;
+     std::memcpy(dest,src,nm);
+     if(ndest > nm) std::memset(dest+nm,' ',ndest-nm); // blank fill
+   }
 }
 // splicer begin namespace.tutorial.class.Class1.C_definitions
 // splicer end namespace.tutorial.class.Class1.C_definitions
@@ -131,25 +148,51 @@ void TUT_tutorial_Class1_receive_str(TUT_tutorial_Class1 * self,
 }
 
 void TUT_tutorial_Class1_set_names(TUT_tutorial_Class1 * self,
-    char **names, int name_len)
+    char **t_names, int name_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.set_names
-    SH_this->set_names(names, name_len);
+    SH_this->set_names(t_names, name_len);
     // splicer end namespace.tutorial.class.Class1.method.set_names
 }
 
 void TUT_tutorial_Class1_set_names_bufferify(TUT_tutorial_Class1 * self,
-    char *names, long Snames, int Nnames, int name_len)
+    char *t_names, long St_names, int Nt_names, int name_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.set_names_bufferify
-    char **SHCXX_names = ShroudStrArrayAlloc(names, Snames, Nnames);
-    SH_this->set_names(SHCXX_names, name_len);
-    ShroudStrArrayFree(SHCXX_names, Snames);
+    char **SHCXX_t_names = ShroudStrArrayAlloc(t_names, St_names,
+        Nt_names);
+    SH_this->set_names(SHCXX_t_names, name_len);
+    ShroudStrArrayFree(SHCXX_t_names, St_names);
     // splicer end namespace.tutorial.class.Class1.method.set_names_bufferify
+}
+
+void TUT_tutorial_Class1_get_name(TUT_tutorial_Class1 * self,
+    char * name_list)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_name
+    std::string SHCXX_name_list;
+    SH_this->get_name(&SHCXX_name_list);
+    strcpy(name_list, SHCXX_name_list.c_str());
+    // splicer end namespace.tutorial.class.Class1.method.get_name
+}
+
+void TUT_tutorial_Class1_get_name_bufferify(TUT_tutorial_Class1 * self,
+    char * name_list, int Nname_list)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_name_bufferify
+    std::string SHCXX_name_list;
+    SH_this->get_name(&SHCXX_name_list);
+    ShroudStrCopy(name_list, Nname_list, SHCXX_name_list.data(),
+        SHCXX_name_list.size());
+    // splicer end namespace.tutorial.class.Class1.method.get_name_bufferify
 }
 
 void TUT_tutorial_Class1_test_struct(TUT_tutorial_Class1 * self)

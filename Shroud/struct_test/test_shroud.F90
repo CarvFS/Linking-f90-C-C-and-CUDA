@@ -3,6 +3,8 @@ program test_shroud
     use tutorial_tutorial_mod
     type(class1) cptr
     integer, pointer :: my_ptr(:)
+    character(5) :: name
+    integer :: nlen
 
     type :: my_type
         integer :: ivalue
@@ -19,8 +21,8 @@ program test_shroud
 
     allocate(my_ptr(3),test%name_list(2))
 
-    test%name_list(1) = "Test"
-    test%name_list(2) = "T22t"
+    test%name_list(1) = "mark"
+    test%name_list(2) = "john"
     write(*,*) "In .F90: ", test%name_list(1), ", ",test%name_list(2)
 
     my_ptr(1)=1222
@@ -46,6 +48,9 @@ program test_shroud
     call class1_receive_str(cptr, my_str)
     call class1_set_names(cptr, test%name_list)
     call class1_test_struct(cptr)
+
+    call class1_get_name(cptr, name)
+    write(*,*) "String returned from C++: ", name
 
     !!!!! Delete object
     call cptr%delete()
