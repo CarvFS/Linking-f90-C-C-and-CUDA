@@ -7,7 +7,7 @@
 ! splicer begin namespace.tutorial.file_top
 ! splicer end namespace.tutorial.file_top
 module tutorial_tutorial_mod
-    use iso_c_binding, only : C_DOUBLE, C_INT, C_NULL_PTR, C_PTR
+    use iso_c_binding, only : C_BOOL, C_DOUBLE, C_INT, C_NULL_PTR, C_PTR
     ! splicer begin namespace.tutorial.module_use
     ! splicer end namespace.tutorial.module_use
     implicit none
@@ -44,6 +44,8 @@ module tutorial_tutorial_mod
         real(C_DOUBLE) :: dfield
         type(C_PTR) :: iptr
         type(C_PTR) :: names
+        logical :: ToF
+        type(C_PTR) :: arr_2d
     end type str1
     ! end derived-type str1
 

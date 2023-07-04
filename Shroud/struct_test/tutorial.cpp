@@ -52,6 +52,12 @@ namespace tutorial {
         cout << s.iptr[0] << ", " << s.iptr[1] << " and " << s.iptr[2] << endl;
         cout << "String is: " << s.names[0] << endl;
         cout << "String is: " << s.names[1] << endl;
+        cout << "Boolean is: " << s.ToF << endl;
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++){
+                cout << "arr_2d[" << i << ", " << j << "] = " << s.arr_2d[i*2+j] << endl;
+            }
+        }
     }
     
     Class1::~Class1(){

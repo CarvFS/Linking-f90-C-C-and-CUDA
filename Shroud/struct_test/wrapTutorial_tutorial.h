@@ -24,6 +24,8 @@ struct s_TUT_str1 {
     double dfield;
     int * iptr;
     const char * names;
+    bool ToF;
+    double * arr_2d;
 };
 typedef struct s_TUT_str1 TUT_str1;
 

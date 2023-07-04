@@ -21,6 +21,8 @@ namespace tutorial {
         double dfield;
         int *iptr;
         string *names;
+        bool ToF;
+        double *arr_2d;
     };
     typedef struct str1 str1;
 
