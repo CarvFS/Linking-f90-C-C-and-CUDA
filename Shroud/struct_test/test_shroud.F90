@@ -59,6 +59,13 @@ program test_shroud
 
     call class1_receive_str(cptr, my_str)
     call class1_set_names(cptr, test%name_list)
+
+    !!> Test: deallocating test%arr_2d_f will mess up the values printed on 
+    !!  test_struct function. This is because C++ is seeing just the address
+    !!  to this variable which was allocated on Fortran side.
+    
+    ! deallocate(test%arr_2d_f)
+
     call class1_test_struct(cptr)
 
     call class1_get_name(cptr, name)

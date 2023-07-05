@@ -18,8 +18,8 @@ namespace tutorial {
         cout << "o_test2 = " << o_test2 << endl;
         cout << "o_TorF = " << o_TorF << endl;
 
-        s.ifield = 123456;
-        s.dfield = 12.34;
+        s.ifield = 123456789;
+        s.dfield = 12.3456;
         cout << s.ifield << " and " << s.dfield << endl;
     }
 
