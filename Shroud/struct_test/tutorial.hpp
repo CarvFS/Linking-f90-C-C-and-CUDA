@@ -1,6 +1,7 @@
 #ifndef CLASS1_HPP
 #define CLASS1_HPP
 #include "struct.hpp"
+#include <bits/stdc++.h>
 #include <iostream>
 #include<string.h>
 using namespace std;

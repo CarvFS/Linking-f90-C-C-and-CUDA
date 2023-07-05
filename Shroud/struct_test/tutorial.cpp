@@ -27,17 +27,21 @@ namespace tutorial {
         cout << "========= Receiving struct data..." << endl;
         s = *arg;
 
-        // Allocating memory for pointers:
-        s.names = new string[2];
-        s.iptr = new int[3];
-        s.arr_2d = new double[4];
-
+        // Allocating memory for pointers...
         // Copy data from pointers on fortran side to C++ side
         // This way, one can deallocate the pointers on Fortran 
         // and still access the values getting them from C++ side
+        s.names = new string[2];
+        s.iptr = new int[2];
+
         for(int i = 0; i < 3; i++){
             s.iptr[i] = arg->iptr[i];
         }
+
+        // If the size of an array will be defined based on some value
+        // found in another array, one must copy the values first.
+        int value = *max_element(s.iptr, s.iptr + 2);
+        s.arr_2d = new double[value*value];
 
         for(int i = 0; i < 2; i++){
             for(int j = 0; j < 2; j++){
@@ -65,7 +69,7 @@ namespace tutorial {
     void Class1 :: test_struct(){
         cout << "getting struct values:" << endl;
         cout << s.ifield << " and " << s.dfield << endl;
-        cout << s.iptr[0] << ", " << s.iptr[1] << " and " << s.iptr[2] << endl;
+        cout << s.iptr[0] << ", " << s.iptr[1] << endl;
         cout << "String is: " << s.names[0] << endl;
         cout << "String is: " << s.names[1] << endl;
         cout << "Boolean is: " << s.ToF << endl;

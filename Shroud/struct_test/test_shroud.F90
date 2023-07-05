@@ -21,15 +21,14 @@ program test_shroud
     test%ivalue = 626262
     test%dvalue = 987.54d0
 
-    allocate(my_ptr(3),test%name_list(2),test%arr_2d_f(2,2))
+    allocate(my_ptr(2),test%name_list(2),test%arr_2d_f(2,2))
 
     test%name_list(1) = "mark"
     test%name_list(2) = "john"
     test%ToF_f = .true.
 
-    my_ptr(1)=1222
-    my_ptr(2)=2333
-    my_ptr(3)=3444
+    my_ptr(1)=2
+    my_ptr(2)=-11
 
     do i = 1,2
         do j = 1,2
