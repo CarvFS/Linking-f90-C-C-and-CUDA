@@ -4,10 +4,16 @@
 #include <iostream>
 using namespace std;
 
-struct str1{
-    int ivalue;
-    double dvalue;
-};
-typedef struct str1 str1;
+namespace tutorial{
+    struct str1{
+        int ifield;
+        double dfield;
+        int *iptr;
+        string *names;
+        bool ToF;
+        double *arr_2d;
+    };
+    typedef struct str1 str1;
+}
 
 #endif // struc_HPP
