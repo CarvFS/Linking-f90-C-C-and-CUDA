@@ -24,11 +24,27 @@ namespace tutorial {
     }
 
     void Class1 :: receive_str(str1 *arg){
-        cout << "So far, so good" << endl;
-        // cout << arg->ifield << " and " << arg->dfield << endl;
+        cout << "========= Receiving struct data..." << endl;
         s = *arg;
+
+        // Allocating memory for pointers:
         s.names = new string[2];
-        // cout << s.ifield << " and " << s.dfield << endl;
+        s.iptr = new int[3];
+        s.arr_2d = new double[4];
+
+        // Copy data from pointers on fortran side to C++ side
+        // This way, one can deallocate the pointers on Fortran 
+        // and still access the values getting them from C++ side
+        for(int i = 0; i < 3; i++){
+            s.iptr[i] = arg->iptr[i];
+        }
+
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++){
+                s.arr_2d[i*2+j] = arg -> arr_2d[i*2+j];
+            }
+        }
+
     }
 
     void Class1 :: set_names(char** names, int name_len){

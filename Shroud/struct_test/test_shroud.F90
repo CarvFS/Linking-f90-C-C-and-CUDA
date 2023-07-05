@@ -49,9 +49,9 @@ program test_shroud
 
     my_str%arr_2d = C_LOC(test%arr_2d_f)
 
-    write(*,*) "=============== Testing my type created in fortran ==============="
+    ! write(*,*) "=============== Testing my type created in fortran ==============="
     ! write(*,*) my_str%ifield, my_str%dfield
-    write(*,*) "=================================================================="
+    ! write(*,*) "=================================================================="
 
     !!!!! Create object
     cptr = Class1(123321,0.1234d0,.true.,123456,0.555d0,.false.) 
@@ -60,11 +60,8 @@ program test_shroud
     call class1_receive_str(cptr, my_str)
     call class1_set_names(cptr, test%name_list)
 
-    !!> Test: deallocating test%arr_2d_f will mess up the values printed on 
-    !!  test_struct function. This is because C++ is seeing just the address
-    !!  to this variable which was allocated on Fortran side.
-    
-    ! deallocate(test%arr_2d_f)
+    deallocate(test%arr_2d_f)
+    deallocate(test%intptr)
 
     call class1_test_struct(cptr)
 
