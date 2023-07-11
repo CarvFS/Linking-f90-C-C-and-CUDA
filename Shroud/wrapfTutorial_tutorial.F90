@@ -7,13 +7,36 @@
 ! splicer begin namespace.tutorial.file_top
 ! splicer end namespace.tutorial.file_top
 module tutorial_tutorial_mod
-    use iso_c_binding, only : C_INT, C_NULL_PTR, C_PTR
+    use iso_c_binding, only : C_INT, C_LONG, C_NULL_PTR, C_PTR, C_SIZE_T
     ! splicer begin namespace.tutorial.module_use
     ! splicer end namespace.tutorial.module_use
     implicit none
 
     ! splicer begin namespace.tutorial.module_top
     ! splicer end namespace.tutorial.module_top
+
+    ! helper capsule_data_helper
+    type, bind(C) :: SHROUD_capsule_data
+        type(C_PTR) :: addr = C_NULL_PTR  ! address of C++ memory
+        integer(C_INT) :: idtor = 0       ! index of destructor
+    end type SHROUD_capsule_data
+
+    ! helper array_context
+    type, bind(C) :: SHROUD_array
+        ! address of C++ memory
+        type(SHROUD_capsule_data) :: cxx
+        ! address of data in cxx
+        type(C_PTR) :: base_addr = C_NULL_PTR
+        ! type of element
+        integer(C_INT) :: type
+        ! bytes-per-item or character len of data in cxx
+        integer(C_SIZE_T) :: elem_len = 0_C_SIZE_T
+        ! size of data in cxx
+        integer(C_SIZE_T) :: size = 0_C_SIZE_T
+        ! number of dimensions
+        integer(C_INT) :: rank = -1
+        integer(C_LONG) :: shape(7) = 0
+    end type SHROUD_array
 
     type, bind(C) :: SHROUD_class1_capsule
         type(C_PTR) :: addr = C_NULL_PTR  ! address of C++ memory
@@ -27,6 +50,7 @@ module tutorial_tutorial_mod
     contains
         procedure :: get_test_ptr => class1_get_test_ptr
         procedure :: get__two_darray_ptr => class1_get__two_darray_ptr
+        procedure :: get_2d_new => class1_get_2d_new
         procedure :: set_test => class1_set_test
         procedure :: set__two_darray => class1_set__two_darray
         procedure :: delete => class1_delete
@@ -139,6 +163,31 @@ module tutorial_tutorial_mod
             integer(C_INT), intent(OUT) :: len2
             type(C_PTR) SHT_rv
         end function c_class1_get__two_darray_ptr
+
+        function c_class1_get_2d_new(self, N, M) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_get_2d_new")
+            use iso_c_binding, only : C_INT, C_PTR
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(OUT) :: N
+            integer(C_INT), intent(OUT) :: M
+            type(C_PTR) SHT_rv
+        end function c_class1_get_2d_new
+
+        function c_class1_get_2d_new_bufferify(self, DSHC_rv, N, M) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_get_2d_new_bufferify")
+            use iso_c_binding, only : C_INT, C_PTR
+            import :: SHROUD_array, SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            type(SHROUD_array), intent(INOUT) :: DSHC_rv
+            integer(C_INT), intent(OUT) :: N
+            integer(C_INT), intent(OUT) :: M
+            type(C_PTR) SHT_rv
+        end function c_class1_get_2d_new_bufferify
 
         subroutine c_class1_set_test(self, N) &
                 bind(C, name="TUT_tutorial_Class1_set_test")
@@ -410,6 +459,22 @@ contains
         call c_f_pointer(SHT_ptr, SHT_rv, [len1,len2])
         ! splicer end namespace.tutorial.class.Class1.method.get__two_darray_ptr
     end function class1_get__two_darray_ptr
+
+    function class1_get_2d_new(obj) &
+            result(SHT_rv)
+        use iso_c_binding, only : C_INT, C_PTR, c_f_pointer
+        class(class1) :: obj
+        type(SHROUD_array) :: DSHC_rv
+        integer(C_INT) :: N
+        integer(C_INT) :: M
+        integer(C_INT), pointer :: SHT_rv(:,:)
+        ! splicer begin namespace.tutorial.class.Class1.method.get_2d_new
+        type(C_PTR) :: SHT_ptr
+        SHT_ptr = c_class1_get_2d_new_bufferify(obj%cxxmem, DSHC_rv, N, &
+            M)
+        call c_f_pointer(SHT_ptr, SHT_rv, DSHC_rv%shape(1:2))
+        ! splicer end namespace.tutorial.class.Class1.method.get_2d_new
+    end function class1_get_2d_new
 
     subroutine class1_set_test(obj, N)
         use iso_c_binding, only : C_INT

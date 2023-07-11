@@ -44,6 +44,13 @@ int * TUT_tutorial_Class1_get_test_ptr(TUT_tutorial_Class1 * self,
 int * TUT_tutorial_Class1_get__two_darray_ptr(
     TUT_tutorial_Class1 * self, int * len1, int * len2);
 
+int * TUT_tutorial_Class1_get_2d_new(TUT_tutorial_Class1 * self,
+    int * N, int * M);
+
+int * TUT_tutorial_Class1_get_2d_new_bufferify(
+    TUT_tutorial_Class1 * self, TUT_SHROUD_array *DSHC_rv, int * N,
+    int * M);
+
 void TUT_tutorial_Class1_set_test(TUT_tutorial_Class1 * self, int N);
 
 void TUT_tutorial_Class1_set__two_darray(TUT_tutorial_Class1 * self,

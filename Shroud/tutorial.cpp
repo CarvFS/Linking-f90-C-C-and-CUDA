@@ -51,7 +51,7 @@ namespace tutorial {
         TwoDA_len2 = M;
         TwoDarray = new int [N*M];
 
-        int count = 0;
+        int count = 10;
         for(int i = 0; i < N; i++){
             for(int j = 0; j < M; j++){
                 count = count + 1;
@@ -74,6 +74,12 @@ namespace tutorial {
         *N = TwoDA_len1;
         *M = TwoDA_len2;
         cout << "So far, so good..." << endl;
+        return TwoDarray;
+    }
+
+    int* Class1 :: get_2d_new(int *N, int *M){
+        *N = TwoDA_len1;
+        *M = TwoDA_len2;
         return TwoDarray;
     }
 

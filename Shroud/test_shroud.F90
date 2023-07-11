@@ -38,7 +38,8 @@ program test_shroud
     
     f_1darray => cptr%get_test_ptr()
 
-    f_2darray => cptr%get__two_darray_ptr()
+    ! f_2darray => cptr%get__two_darray_ptr()
+    f_2darray => class1_get_2d_new(cptr)
 
     call cptr%accept_char_array_in(closure_list)
 

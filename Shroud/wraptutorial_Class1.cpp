@@ -165,6 +165,38 @@ int * TUT_tutorial_Class1_get__two_darray_ptr(
     // splicer end namespace.tutorial.class.Class1.method.get__two_darray_ptr
 }
 
+int * TUT_tutorial_Class1_get_2d_new(TUT_tutorial_Class1 * self,
+    int * N, int * M)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_2d_new
+    int * SHC_rv = SH_this->get_2d_new(N, M);
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.get_2d_new
+}
+
+int * TUT_tutorial_Class1_get_2d_new_bufferify(
+    TUT_tutorial_Class1 * self, TUT_SHROUD_array *DSHC_rv, int * N,
+    int * M)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_2d_new_bufferify
+    int * SHC_rv = SH_this->get_2d_new(N, M);
+    DSHC_rv->cxx.addr  = SHC_rv;
+    DSHC_rv->cxx.idtor = 0;
+    DSHC_rv->addr.base = SHC_rv;
+    DSHC_rv->type = SH_TYPE_INT;
+    DSHC_rv->elem_len = sizeof(int);
+    DSHC_rv->rank = 2;
+    DSHC_rv->shape[0] = *N;
+    DSHC_rv->shape[1] = *M;
+    DSHC_rv->size = DSHC_rv->shape[0]*DSHC_rv->shape[1];
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.get_2d_new_bufferify
+}
+
 void TUT_tutorial_Class1_set_test(TUT_tutorial_Class1 * self, int N)
 {
     tutorial::Class1 *SH_this =
