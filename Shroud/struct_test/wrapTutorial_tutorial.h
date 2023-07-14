@@ -23,7 +23,7 @@ struct s_TUT_str1 {
     int ifield;
     double dfield;
     int * iptr;
-    const char * names;
+    char * names;
     bool ToF;
     double * arr_2d;
 };

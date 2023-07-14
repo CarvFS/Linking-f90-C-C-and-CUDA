@@ -148,48 +148,79 @@ void TUT_tutorial_Class1_receive_str(TUT_tutorial_Class1 * self,
 }
 
 void TUT_tutorial_Class1_set_names(TUT_tutorial_Class1 * self,
-    char **t_names, int name_len)
+    char **names, int name_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.set_names
-    SH_this->set_names(t_names, name_len);
+    SH_this->set_names(names, name_len);
     // splicer end namespace.tutorial.class.Class1.method.set_names
 }
 
 void TUT_tutorial_Class1_set_names_bufferify(TUT_tutorial_Class1 * self,
-    char *t_names, long St_names, int Nt_names, int name_len)
+    char *names, long Snames, int Nnames, int name_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.set_names_bufferify
-    char **SHCXX_t_names = ShroudStrArrayAlloc(t_names, St_names,
-        Nt_names);
-    SH_this->set_names(SHCXX_t_names, name_len);
-    ShroudStrArrayFree(SHCXX_t_names, St_names);
+    char **SHCXX_names = ShroudStrArrayAlloc(names, Snames, Nnames);
+    SH_this->set_names(SHCXX_names, name_len);
+    ShroudStrArrayFree(SHCXX_names, Snames);
     // splicer end namespace.tutorial.class.Class1.method.set_names_bufferify
 }
 
+void TUT_tutorial_Class1_set_names2(TUT_tutorial_Class1 * self,
+    char **names, int name_len)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.set_names2
+    SH_this->set_names2(names, name_len);
+    // splicer end namespace.tutorial.class.Class1.method.set_names2
+}
+
+void TUT_tutorial_Class1_set_names2_bufferify(
+    TUT_tutorial_Class1 * self, char *names, long Snames, int Nnames,
+    int name_len)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.set_names2_bufferify
+    char **SHCXX_names = ShroudStrArrayAlloc(names, Snames, Nnames);
+    SH_this->set_names2(SHCXX_names, name_len);
+    ShroudStrArrayFree(SHCXX_names, Snames);
+    // splicer end namespace.tutorial.class.Class1.method.set_names2_bufferify
+}
+
+void TUT_tutorial_Class1_test_names2(TUT_tutorial_Class1 * self)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.test_names2
+    SH_this->test_names2();
+    // splicer end namespace.tutorial.class.Class1.method.test_names2
+}
+
 void TUT_tutorial_Class1_get_name(TUT_tutorial_Class1 * self,
-    char * name_list)
+    char * name_list, int idx)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.get_name
     std::string SHCXX_name_list;
-    SH_this->get_name(&SHCXX_name_list);
+    SH_this->get_name(&SHCXX_name_list, idx);
     strcpy(name_list, SHCXX_name_list.c_str());
     // splicer end namespace.tutorial.class.Class1.method.get_name
 }
 
 void TUT_tutorial_Class1_get_name_bufferify(TUT_tutorial_Class1 * self,
-    char * name_list, int Nname_list)
+    char * name_list, int Nname_list, int idx)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.get_name_bufferify
     std::string SHCXX_name_list;
-    SH_this->get_name(&SHCXX_name_list);
+    SH_this->get_name(&SHCXX_name_list, idx);
     ShroudStrCopy(name_list, Nname_list, SHCXX_name_list.data(),
         SHCXX_name_list.size());
     // splicer end namespace.tutorial.class.Class1.method.get_name_bufferify

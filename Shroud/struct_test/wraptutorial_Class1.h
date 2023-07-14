@@ -45,16 +45,25 @@ void TUT_tutorial_Class1_receive_str(TUT_tutorial_Class1 * self,
     TUT_str1 * arg);
 
 void TUT_tutorial_Class1_set_names(TUT_tutorial_Class1 * self,
-    char **t_names, int name_len);
+    char **names, int name_len);
 
 void TUT_tutorial_Class1_set_names_bufferify(TUT_tutorial_Class1 * self,
-    char *t_names, long St_names, int Nt_names, int name_len);
+    char *names, long Snames, int Nnames, int name_len);
+
+void TUT_tutorial_Class1_set_names2(TUT_tutorial_Class1 * self,
+    char **names, int name_len);
+
+void TUT_tutorial_Class1_set_names2_bufferify(
+    TUT_tutorial_Class1 * self, char *names, long Snames, int Nnames,
+    int name_len);
+
+void TUT_tutorial_Class1_test_names2(TUT_tutorial_Class1 * self);
 
 void TUT_tutorial_Class1_get_name(TUT_tutorial_Class1 * self,
-    char * name_list);
+    char * name_list, int idx);
 
 void TUT_tutorial_Class1_get_name_bufferify(TUT_tutorial_Class1 * self,
-    char * name_list, int Nname_list);
+    char * name_list, int Nname_list, int idx);
 
 void TUT_tutorial_Class1_test_struct(TUT_tutorial_Class1 * self);
 

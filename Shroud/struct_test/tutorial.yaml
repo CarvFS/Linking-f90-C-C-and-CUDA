@@ -21,20 +21,27 @@ declarations:
           int ifield;
           double dfield;
           int *iptr;
-          const string *names;
+          string *names;
+          bool ToF;
+          double *arr_2d;
         };
       options:
         literalinclude: True
     - decl: void receive_str(str1 *arg)
-    - decl: void set_names(char** t_names+intent(in), int name_len +hidden)
-    - decl: void get_name(std::string *name_list +intent(out))
+    - decl: void set_names(char** names+intent(in), int name_len +hidden)
+    - decl: void set_names2(char** names+intent(in), int name_len +hidden)
+    - decl: void test_names2()
+    - decl: void get_name(std::string *name_list +intent(out), int idx)
+    # - decl: void get_names2(char** names +intent(out), int name_len +hidden)
     - decl: void test_struct()
   - decl: |
       struct str1 {
         int ifield;
         double dfield;
         int *iptr;
-        const string *names;
+        string *names;
+        bool ToF;
+        double *arr_2d;
       };
     options:
       literalinclude: True

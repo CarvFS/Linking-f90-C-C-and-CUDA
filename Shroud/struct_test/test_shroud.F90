@@ -3,8 +3,9 @@ program test_shroud
     use tutorial_tutorial_mod
     type(class1) cptr
     integer, pointer :: my_ptr(:)
-    character(5) :: name
+    character(4) :: name
     integer :: nlen, i, j
+    character(len = 4), pointer :: names_from_c(:)
 
     type :: my_type
         integer :: ivalue
@@ -21,7 +22,7 @@ program test_shroud
     test%ivalue = 626262
     test%dvalue = 987.54d0
 
-    allocate(my_ptr(2),test%name_list(2),test%arr_2d_f(2,2))
+    allocate(my_ptr(2),test%name_list(2),test%arr_2d_f(2,2),names_from_c(2))
 
     test%name_list(1) = "mark"
     test%name_list(2) = "john"
@@ -57,15 +58,25 @@ program test_shroud
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     call class1_receive_str(cptr, my_str)
+    call class1_set_names2(cptr, test%name_list)
     call class1_set_names(cptr, test%name_list)
 
     deallocate(test%arr_2d_f)
     deallocate(test%intptr)
+    deallocate(test%name_list)
 
+    call class1_test_names2(cptr)
     call class1_test_struct(cptr)
 
-    call class1_get_name(cptr, name)
-    write(*,*) "String returned from C++: ", name
+    ! call class1_get_names2(cptr,test%name_list)
+    ! write(*,*) test%name_list, "..."
+    
+    do i=1,2
+        call class1_get_name(cptr, name, i-1)
+        names_from_c(i) = name
+    end do
+
+    write(*,*) "String returned from C++: ", names_from_c(1), ", ", names_from_c(2)
 
     !!!!! Delete object
     call cptr%delete()

@@ -32,6 +32,7 @@ namespace tutorial {
         // This way, one can deallocate the pointers on Fortran 
         // and still access the values getting them from C++ side
         s.names = new string[2];
+        names2 = new const char*[2];
         s.iptr = new int[2];
 
         for(int i = 0; i < 3; i++){
@@ -52,19 +53,47 @@ namespace tutorial {
     }
 
     void Class1 :: set_names(char** names, int name_len){
-        cout << "setting names..." << endl;
+        cout << "In set_names: setting names..." << endl;
         name_len = 2;
         // solv.atomName = new string[numAtomType];
 
         for(int i=0; i<name_len; i++){
-            cout << names[i] << "..." << endl;
+            // cout << "names2 = " << s.names2[i] << "..." << endl;
             s.names[i] = names[i];
         }
     }    
 
-    void Class1 :: get_name(string *name_list){
-        *name_list = s.names[1];
+    void Class1 :: set_names2(char** names, int name_len){
+        cout << "in set_names2: setting names..." << endl;
+        name_len = 2;
+        // solv.atomName = new string[numAtomType];
+
+        for(int i=0; i<name_len; i++){
+            // cout << names[i] << "..." << endl;
+            names2[i] = const_cast<char*>(s.names[i].c_str());
+            cout << names2[i] << "..." << endl;
+        }
+        names2[0] = const_cast<char*>("Ruth");
+    }    
+
+    void Class1 :: test_names2(){
+        cout << "In: test_names2" << endl;
+        for(int i=0; i<2; i++){
+            cout << names2[i] << "..." << endl;
+        }
     }
+
+    void Class1 :: get_name(string *name_list, int idx){
+        *name_list = s.names[idx];
+    }
+
+    // void Class1 :: get_names2(string *names){
+    //     cout << "get_names2" << endl;
+    //     cout << names[0] << " and " << names[1] << endl;
+    //     // names = const_cast<char**>(names2);
+    //     // cout << "In get_names2" << endl;
+    //     // cout << names[0] << endl;
+    // }
 
     void Class1 :: test_struct(){
         cout << "getting struct values:" << endl;
@@ -72,6 +101,8 @@ namespace tutorial {
         cout << s.iptr[0] << ", " << s.iptr[1] << endl;
         cout << "String is: " << s.names[0] << endl;
         cout << "String is: " << s.names[1] << endl;
+        cout << "Char** is: " << names2[0] << endl;
+        cout << "Char** is: " << names2[1] << endl;
         cout << "Boolean is: " << s.ToF << endl;
         for(int i = 0; i < 2; i++){
             for(int j = 0; j < 2; j++){
