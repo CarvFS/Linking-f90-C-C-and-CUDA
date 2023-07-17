@@ -44,16 +44,20 @@ program test_shroud
     call cptr%accept_char_array_in(closure_list)
 
     write(*,*) "1D array is: "
-    do i = 1,N
-        write(*,*) "1Darray(",i,") = ", f_1darray(i)
-    end do
+    write(*,*) cptr%get_test_ptr()
+    ! do i = 1,N
+    !     write(*,*) "1Darray(",i,") = ", f_1darray(i)
+    ! end do
 
     write(*,*) "2D array is: "
-    do i = 1,N 
-        do j = 1,M 
-            write(*,*) "2Darray(",i,",",j,") = ", f_2darray(i,j)
-        end do
-    end do
+    write(*,*) class1_get_2d_new(cptr)
+    call test_on_F(class1_get_2d_new(cptr),N,M)
+
+    ! do i = 1,N 
+    !     do j = 1,M 
+    !         write(*,*) "2Darray(",i,",",j,") = ", f_2darray(i,j)
+    !     end do
+    ! end do
 
     write(*,*) cptr%check(10)
 
@@ -80,3 +84,16 @@ program test_shroud
 
     call cptr%delete()
 end program test_shroud
+
+subroutine test_on_F(f_arr,N,M)
+    integer, intent(in) :: N
+    integer, intent(in) :: M
+    integer :: f_arr(N,M)
+    write(*,*) "========================== On test_on_F =========================="
+    do i = 1,N 
+        do j = 1,M 
+            write(*,*) "array(",i,",",j,") = ", f_arr(i,j)
+        end do
+    end do
+    write(*,*) "=================================================================="
+end subroutine test_on_F
