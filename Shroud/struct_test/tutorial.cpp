@@ -74,6 +74,7 @@ namespace tutorial {
             cout << names2[i] << "..." << endl;
         }
         names2[0] = const_cast<char*>("Ruth");
+        names2[1] = const_cast<char*>("Beth");
     }    
 
     void Class1 :: test_names2(){
@@ -90,17 +91,17 @@ namespace tutorial {
     void Class1 :: get_name2(char** names, int name_len){
         name_len = 2;
         cout << "In get_name2: " << name_len << endl;
-        cout << names[0] << endl;
+        cout << **names << endl;
         char buf[name_len*4];
         for(int i = 0; i < name_len; i++){
             if(i == 0){
-                strcpy(buf,const_cast<char*>(names2[i]));
+                strcpy(buf,const_cast<char*>(s.names[i].c_str()));
             }
             else{
-                strcat(buf,const_cast<char*>(names2[i]));
+                strcat(buf,const_cast<char*>(s.names[i].c_str()));
             }
         }
-        names[0] = buf;
+        *names = buf;
     }
 
     // void Class1 :: get_names2(string *names){
