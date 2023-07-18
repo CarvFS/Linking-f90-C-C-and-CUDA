@@ -31,6 +31,7 @@ module tutorial_tutorial_mod
         procedure :: set_names2 => class1_set_names2
         procedure :: test_names2 => class1_test_names2
         procedure :: get_name => class1_get_name
+        procedure :: get_name2 => class1_get_name2
         procedure :: test_struct => class1_test_struct
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
@@ -211,6 +212,26 @@ module tutorial_tutorial_mod
             integer(C_INT), value, intent(IN) :: idx
         end subroutine c_class1_get_name_bufferify
 
+        subroutine c_class1_get_name2(self, names, name_len) &
+                bind(C, name="TUT_tutorial_Class1_get_name2")
+            use iso_c_binding, only : C_INT, C_PTR
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            type(C_PTR), intent(INOUT) :: names
+            integer(C_INT), value, intent(IN) :: name_len
+        end subroutine c_class1_get_name2
+
+        subroutine c_class1_get_name2_bufferify(self, names, name_len) &
+                bind(C, name="TUT_tutorial_Class1_get_name2_bufferify")
+            use iso_c_binding, only : C_INT, C_PTR
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            type(C_PTR), intent(INOUT) :: names
+            integer(C_INT), value, intent(IN) :: name_len
+        end subroutine c_class1_get_name2_bufferify
+
         subroutine c_class1_test_struct(self) &
                 bind(C, name="TUT_tutorial_Class1_test_struct")
             import :: SHROUD_class1_capsule
@@ -359,6 +380,19 @@ contains
             len(name_list, kind=C_INT), idx)
         ! splicer end namespace.tutorial.class.Class1.method.get_name
     end subroutine class1_get_name
+
+    subroutine class1_get_name2(obj, names)
+        use iso_c_binding, only : C_F_POINTER, C_INT, C_LOC
+        class(class1) :: obj
+        character(len=*), intent(INOUT), pointer :: names(:)
+        integer(C_INT) :: name_len
+        ! splicer begin namespace.tutorial.class.Class1.method.get_name2
+        type(C_PTR) names_Cptr
+        names_Cptr = C_LOC(names)
+        call c_class1_get_name2_bufferify(obj%cxxmem, names_Cptr, name_len)
+        call C_F_POINTER(names_Cptr,names,[name_len])
+        ! splicer end namespace.tutorial.class.Class1.method.get_name2
+    end subroutine class1_get_name2
 
     subroutine class1_test_struct(obj)
         class(class1) :: obj

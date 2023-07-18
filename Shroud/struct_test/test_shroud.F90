@@ -6,6 +6,7 @@ program test_shroud
     character(4) :: name
     integer :: nlen, i, j
     character(len = 4), pointer :: names_from_c(:)
+    character(len = 4), pointer :: names_from_c2(:)
 
     type :: my_type
         integer :: ivalue
@@ -22,10 +23,11 @@ program test_shroud
     test%ivalue = 626262
     test%dvalue = 987.54d0
 
-    allocate(my_ptr(2),test%name_list(2),test%arr_2d_f(2,2),names_from_c(2))
+    allocate(my_ptr(2),test%name_list(2),test%arr_2d_f(2,2),names_from_c(2),&
+             )
 
-    test%name_list(1) = "mark"
-    test%name_list(2) = "john"
+    test%name_list(1) = "Mark"
+    test%name_list(2) = "John"
     test%ToF_f = .true.
 
     my_ptr(1)=2
@@ -63,6 +65,7 @@ program test_shroud
 
     deallocate(test%arr_2d_f)
     deallocate(test%intptr)
+    ! names_from_c2 = test%name_list
     deallocate(test%name_list)
 
     call class1_test_names2(cptr)
@@ -78,7 +81,16 @@ program test_shroud
 
     write(*,*) "String returned from C++: ", names_from_c(1), ", ", names_from_c(2)
 
+    call class1_get_name2(cptr, names_from_c2)
+    call test_receive_str(names_from_c2,2)
+
     !!!!! Delete object
     call cptr%delete()
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 end program test_shroud
+
+subroutine test_receive_str(names, names_size)
+    integer :: names_size
+    character(len = 4) :: names(names_size)
+    write(*,*) "String returned from C++: ", names(1), ", ", names(2)
+end subroutine test_receive_str

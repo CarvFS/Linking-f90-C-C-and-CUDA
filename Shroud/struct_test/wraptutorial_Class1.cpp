@@ -226,6 +226,26 @@ void TUT_tutorial_Class1_get_name_bufferify(TUT_tutorial_Class1 * self,
     // splicer end namespace.tutorial.class.Class1.method.get_name_bufferify
 }
 
+void TUT_tutorial_Class1_get_name2(TUT_tutorial_Class1 * self,
+    char * * names, int name_len)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_name2
+    SH_this->get_name2(names, name_len);
+    // splicer end namespace.tutorial.class.Class1.method.get_name2
+}
+
+void TUT_tutorial_Class1_get_name2_bufferify(TUT_tutorial_Class1 * self,
+    char * * names, int name_len)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_name2_bufferify
+    SH_this->get_name2(names, name_len);
+    // splicer end namespace.tutorial.class.Class1.method.get_name2_bufferify
+}
+
 void TUT_tutorial_Class1_test_struct(TUT_tutorial_Class1 * self)
 {
     tutorial::Class1 *SH_this =

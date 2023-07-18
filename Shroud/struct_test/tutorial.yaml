@@ -4,8 +4,8 @@ format:
 cxx_header: tutorial.hpp
 
 splicer:
-  # f:
-  # -  fsplicer.f
+  f:
+  -  fsplicer.f
   c:
   - csplicer.c
 
@@ -32,6 +32,11 @@ declarations:
     - decl: void set_names2(char** names+intent(in), int name_len +hidden)
     - decl: void test_names2()
     - decl: void get_name(std::string *name_list +intent(out), int idx)
+    - decl: void get_name2(char** names +deref(pointer), int name_len +hidden)
+      fstatements:
+        f:
+          f_module: 
+            iso_c_binding: ["C_LOC","C_F_POINTER"]
     # - decl: void get_names2(char** names +intent(out), int name_len +hidden)
     - decl: void test_struct()
   - decl: |

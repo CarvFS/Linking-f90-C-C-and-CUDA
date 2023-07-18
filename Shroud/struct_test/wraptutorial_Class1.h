@@ -65,6 +65,12 @@ void TUT_tutorial_Class1_get_name(TUT_tutorial_Class1 * self,
 void TUT_tutorial_Class1_get_name_bufferify(TUT_tutorial_Class1 * self,
     char * name_list, int Nname_list, int idx);
 
+void TUT_tutorial_Class1_get_name2(TUT_tutorial_Class1 * self,
+    char * * names, int name_len);
+
+void TUT_tutorial_Class1_get_name2_bufferify(TUT_tutorial_Class1 * self,
+    char * * names, int name_len);
+
 void TUT_tutorial_Class1_test_struct(TUT_tutorial_Class1 * self);
 
 #ifdef __cplusplus

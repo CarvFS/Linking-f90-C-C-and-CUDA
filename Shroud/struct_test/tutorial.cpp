@@ -87,6 +87,22 @@ namespace tutorial {
         *name_list = s.names[idx];
     }
 
+    void Class1 :: get_name2(char** names, int name_len){
+        name_len = 2;
+        cout << "In get_name2: " << name_len << endl;
+        cout << names[0] << endl;
+        char buf[name_len*4];
+        for(int i = 0; i < name_len; i++){
+            if(i == 0){
+                strcpy(buf,const_cast<char*>(names2[i]));
+            }
+            else{
+                strcat(buf,const_cast<char*>(names2[i]));
+            }
+        }
+        names[0] = buf;
+    }
+
     // void Class1 :: get_names2(string *names){
     //     cout << "get_names2" << endl;
     //     cout << names[0] << " and " << names[1] << endl;
