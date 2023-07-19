@@ -60,6 +60,8 @@ namespace tutorial {
         for(int i=0; i<name_len; i++){
             // cout << "names2 = " << s.names2[i] << "..." << endl;
             s.names[i] = names[i];
+            // cout << "String len:" << s.names[i].size() << endl;
+            s.names[i].insert(s.names[i].end(), 4 - s.names[i].size(), ' ');
         }
     }    
 
@@ -96,9 +98,11 @@ namespace tutorial {
         for(int i = 0; i < name_len; i++){
             if(i == 0){
                 strcpy(buf,const_cast<char*>(s.names[i].c_str()));
+                // strcpy(buf,const_cast<char*>("Le\0"));
             }
             else{
                 strcat(buf,const_cast<char*>(s.names[i].c_str()));
+                // strcat(buf,const_cast<char*>("Mark"));
             }
         }
         *names = buf;

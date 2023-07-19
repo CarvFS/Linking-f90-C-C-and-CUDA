@@ -26,7 +26,7 @@ program test_shroud
     allocate(my_ptr(2),test%name_list(2),test%arr_2d_f(2,2),names_from_c(2),&
              )
 
-    test%name_list(1) = "Mark"
+    test%name_list(1) = "Li"
     test%name_list(2) = "John"
     test%ToF_f = .true.
 
@@ -92,5 +92,5 @@ end program test_shroud
 subroutine test_receive_str(names, names_size)
     integer :: names_size
     character(len = 4) :: names(names_size)
-    write(*,*) "String returned from C++: ", names(1), ", ", names(2)
+    write(*,*) "String returned from C++: ", trim(names(1)), ", ", trim(names(2))
 end subroutine test_receive_str
