@@ -1,0 +1,20 @@
+library: Tutorial
+format:
+  F_filename_suffix: F90
+cxx_header: tutorial.hpp
+
+declarations:
+- decl: namespace tutorial
+  declarations:
+  - decl: class Class1  
+    declarations:
+    - decl: Class1() +name(new)
+    - decl: void set_strings()
+    - decl: void printvalues()
+    - decl: int* get_int_ptr(int *len +intent(out)+hidden) +deref(pointer) +dimension(len)
+
+    ####################### Modify here #######################
+    - decl: void get_strs(char** strs, int* name_len);
+    ###########################################################
+    
+    - decl: ~Class1() +name(delete)
