@@ -124,7 +124,7 @@ module tutorial_tutorial_mod
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
             type(C_PTR), intent(INOUT) :: strs
-            integer(C_INT), value, intent(IN) :: name_len
+            integer(C_INT), intent(INOUT) :: name_len
         end subroutine c_class1_get_strs
 
         subroutine c_class1_get_strs_bufferify(self, strs, name_len) &
@@ -134,7 +134,7 @@ module tutorial_tutorial_mod
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
             type(C_PTR), intent(INOUT) :: strs
-            integer(C_INT), value, intent(IN) :: name_len
+            integer(C_INT), intent(INOUT) :: name_len
         end subroutine c_class1_get_strs_bufferify
 
         subroutine c_class1_delete(self) &
@@ -205,8 +205,7 @@ contains
         type(C_PTR) cstr
         cstr = C_LOC(strs)
         call c_class1_get_strs_bufferify(obj%cxxmem, cstr, name_len)
-        call C_F_POINTER(cstr,strs,[2])
-        print*,strs(1),strs(2),name_len
+        call C_F_POINTER(cstr,strs,[name_len])
         ! splicer end namespace.tutorial.class.Class1.method.get_strs
     end subroutine class1_get_strs
 

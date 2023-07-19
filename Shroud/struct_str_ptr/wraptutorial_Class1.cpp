@@ -72,7 +72,7 @@ int * TUT_tutorial_Class1_get_int_ptr_bufferify(
 }
 
 void TUT_tutorial_Class1_get_strs(TUT_tutorial_Class1 * self,
-    char * * strs, int name_len)
+    char * * strs, int * name_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
@@ -82,7 +82,7 @@ void TUT_tutorial_Class1_get_strs(TUT_tutorial_Class1 * self,
 }
 
 void TUT_tutorial_Class1_get_strs_bufferify(TUT_tutorial_Class1 * self,
-    char * * strs, int name_len)
+    char * * strs, int * name_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);

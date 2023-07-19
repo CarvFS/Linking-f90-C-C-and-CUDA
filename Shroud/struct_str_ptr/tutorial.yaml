@@ -3,6 +3,10 @@ format:
   F_filename_suffix: F90
 cxx_header: tutorial.hpp
 
+splicer:
+  f:
+  - fsplicer.f
+
 declarations:
 - decl: namespace tutorial
   declarations:
@@ -14,7 +18,11 @@ declarations:
     - decl: int* get_int_ptr(int *len +intent(out)+hidden) +deref(pointer) +dimension(len)
 
     ####################### Modify here #######################
-    - decl: void get_strs(char** strs, int* name_len);
+    - decl: void get_strs(char** strs +deref(pointer), int* name_len +hidden);
+      fstatements:
+        f:
+          f_module: 
+            iso_c_binding: ["C_LOC","C_F_POINTER"]
     ###########################################################
     
     - decl: ~Class1() +name(delete)

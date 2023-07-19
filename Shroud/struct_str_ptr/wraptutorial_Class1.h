@@ -35,10 +35,10 @@ int * TUT_tutorial_Class1_get_int_ptr_bufferify(
     TUT_tutorial_Class1 * self, TUT_SHROUD_array *DSHC_rv, int * len);
 
 void TUT_tutorial_Class1_get_strs(TUT_tutorial_Class1 * self,
-    char * * strs, int name_len);
+    char * * strs, int * name_len);
 
 void TUT_tutorial_Class1_get_strs_bufferify(TUT_tutorial_Class1 * self,
-    char * * strs, int name_len);
+    char * * strs, int * name_len);
 
 void TUT_tutorial_Class1_delete(TUT_tutorial_Class1 * self);
 

@@ -3,25 +3,25 @@ program test_shroud
     use tutorial_tutorial_mod
     type(class1) cptr
     character(len = 4), pointer :: names(:)
-    allocate(names(2))
 
     !!!!! Create object
     cptr = Class1() 
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     call class1_set_strings(cptr)
     call class1_printvalues(cptr)
 
     !!> Getting int* data from C++
-    !!> Print
-    ! write(*,*) class1_get_int_ptr(cptr)
+        !!> Print 1D array
+    write(*,*) class1_get_int_ptr(cptr)
 
+        !!> Get array of strings
     call class1_get_strs(cptr,names)
-    write(*,*) "String returned from C++: ", names(1), ", ", names(2)
-    ! call test_receive_str(names,2)
+
+        !!> Verify the values retrieved from C++
+    call test_receive_str(names,4)
 
     !!!!! Delete object
     call cptr%delete()
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 end program test_shroud
 
 subroutine test_receive_str(fstrs, names_size)

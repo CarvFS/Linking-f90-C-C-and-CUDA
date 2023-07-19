@@ -9,7 +9,7 @@ namespace tutorial {
     Class1 :: Class1(){
         cout << "Object is being created!" << endl;   
         s.iptr_size = 4;
-        s.str_size = 2;
+        s.str_size = 4;
 
         s.iptr = new int[s.iptr_size];
         
@@ -23,6 +23,13 @@ namespace tutorial {
         s.names = new string[s.str_size];
         s.names[0] = "Lucy";
         s.names[1] = "Mina";
+        s.names[2] = "Jo";
+        s.names[3] = "Ruth";
+
+        // Fill names with less than 4 characters with spaces
+        for(int i = 0; i < s.str_size; i++){
+            s.names[i].insert(s.names[i].end(), 4 - s.names[i].size(), ' ');
+        }
     }
 
     void Class1 :: printvalues(){
@@ -42,18 +49,16 @@ namespace tutorial {
     }
 
     //////////////// Modify here ////////////////
-    void Class1 :: get_strs(char** strs, int name_len){
+    void Class1 :: get_strs(char** strs, int* name_len){
         cout << "====== In: get_strs =======" << endl;
-        name_len = s.str_size;
+        *name_len = s.str_size;
         char *buf = new char[s.str_size*4];
-        for(int i = 0; i < name_len; i++){
+        for(int i = 0; i < *name_len; i++){
             if(i == 0){
                 strcpy(buf,const_cast<char*>(s.names[i].c_str()));
-                // strcpy(buf,const_cast<char*>("test"));
             }
             else{
                 strcat(buf,const_cast<char*>(s.names[i].c_str()));
-                // strcat(buf,const_cast<char*>("tset"));
             }
         }
         *strs = buf;
