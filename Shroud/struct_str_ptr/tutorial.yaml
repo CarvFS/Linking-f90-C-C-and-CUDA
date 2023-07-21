@@ -13,12 +13,12 @@ declarations:
   - decl: class Class1  
     declarations:
     - decl: Class1() +name(new)
-    - decl: void set_strings()
+    - decl: void set_strings(int char_len)
     - decl: void printvalues()
     - decl: int* get_int_ptr(int *len +intent(out)+hidden) +deref(pointer) +dimension(len)
 
     ####################### Modify here #######################
-    - decl: void get_strs(char** strs +deref(pointer), int* name_len +hidden);
+    - decl: void get_strs(char** strs +deref(pointer), int* name_len +hidden, int char_len)
       fstatements:
         f:
           f_module: 

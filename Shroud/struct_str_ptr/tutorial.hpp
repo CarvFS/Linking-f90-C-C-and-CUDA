@@ -19,7 +19,7 @@ namespace tutorial {
     public:
       Class1();
 
-      void set_strings();
+      void set_strings(int char_len);
 
       void printvalues();
 
@@ -27,7 +27,7 @@ namespace tutorial {
 
       //////////////// Modify here ////////////////
       // const string* get_str_ptr();
-      void get_strs(char** strs, int* name_len);
+      void get_strs(char** strs, int* name_len, int char_len);
       ////////////////////////////////////////////
 
       ~Class1();

@@ -3,11 +3,13 @@ program test_shroud
     use tutorial_tutorial_mod
     type(class1) cptr
     character(len = 4), pointer :: names(:)
+    integer :: char_len
 
     !!!!! Create object
     cptr = Class1() 
 
-    call class1_set_strings(cptr)
+    char_len = len(names)
+    call class1_set_strings(cptr, char_len)
     call class1_printvalues(cptr)
 
     !!> Getting int* data from C++
@@ -15,10 +17,11 @@ program test_shroud
     write(*,*) class1_get_int_ptr(cptr)
 
         !!> Get array of strings
-    call class1_get_strs(cptr,names)
+
+    call class1_get_strs(cptr,names,char_len)
 
         !!> Verify the values retrieved from C++
-    call test_receive_str(names,4)
+    call test_receive_str(names,char_len)
 
     !!!!! Delete object
     call cptr%delete()

@@ -23,12 +23,13 @@ TUT_tutorial_Class1 * TUT_tutorial_Class1_new(
     // splicer end namespace.tutorial.class.Class1.method.new
 }
 
-void TUT_tutorial_Class1_set_strings(TUT_tutorial_Class1 * self)
+void TUT_tutorial_Class1_set_strings(TUT_tutorial_Class1 * self,
+    int char_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.set_strings
-    SH_this->set_strings();
+    SH_this->set_strings(char_len);
     // splicer end namespace.tutorial.class.Class1.method.set_strings
 }
 
@@ -72,22 +73,22 @@ int * TUT_tutorial_Class1_get_int_ptr_bufferify(
 }
 
 void TUT_tutorial_Class1_get_strs(TUT_tutorial_Class1 * self,
-    char * * strs, int * name_len)
+    char * * strs, int * name_len, int char_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.get_strs
-    SH_this->get_strs(strs, name_len);
+    SH_this->get_strs(strs, name_len, char_len);
     // splicer end namespace.tutorial.class.Class1.method.get_strs
 }
 
 void TUT_tutorial_Class1_get_strs_bufferify(TUT_tutorial_Class1 * self,
-    char * * strs, int * name_len)
+    char * * strs, int * name_len, int char_len)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.get_strs_bufferify
-    SH_this->get_strs(strs, name_len);
+    SH_this->get_strs(strs, name_len, char_len);
     // splicer end namespace.tutorial.class.Class1.method.get_strs_bufferify
 }
 

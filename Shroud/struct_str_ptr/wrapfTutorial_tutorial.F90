@@ -80,11 +80,13 @@ module tutorial_tutorial_mod
             type(C_PTR) SHT_rv
         end function c_class1_new
 
-        subroutine c_class1_set_strings(self) &
+        subroutine c_class1_set_strings(self, char_len) &
                 bind(C, name="TUT_tutorial_Class1_set_strings")
+            use iso_c_binding, only : C_INT
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), value, intent(IN) :: char_len
         end subroutine c_class1_set_strings
 
         subroutine c_class1_printvalues(self) &
@@ -117,7 +119,7 @@ module tutorial_tutorial_mod
             type(C_PTR) SHT_rv
         end function c_class1_get_int_ptr_bufferify
 
-        subroutine c_class1_get_strs(self, strs, name_len) &
+        subroutine c_class1_get_strs(self, strs, name_len, char_len) &
                 bind(C, name="TUT_tutorial_Class1_get_strs")
             use iso_c_binding, only : C_INT, C_PTR
             import :: SHROUD_class1_capsule
@@ -125,9 +127,11 @@ module tutorial_tutorial_mod
             type(SHROUD_class1_capsule), intent(IN) :: self
             type(C_PTR), intent(INOUT) :: strs
             integer(C_INT), intent(INOUT) :: name_len
+            integer(C_INT), value, intent(IN) :: char_len
         end subroutine c_class1_get_strs
 
-        subroutine c_class1_get_strs_bufferify(self, strs, name_len) &
+        subroutine c_class1_get_strs_bufferify(self, strs, name_len, &
+                char_len) &
                 bind(C, name="TUT_tutorial_Class1_get_strs_bufferify")
             use iso_c_binding, only : C_INT, C_PTR
             import :: SHROUD_class1_capsule
@@ -135,6 +139,7 @@ module tutorial_tutorial_mod
             type(SHROUD_class1_capsule), intent(IN) :: self
             type(C_PTR), intent(INOUT) :: strs
             integer(C_INT), intent(INOUT) :: name_len
+            integer(C_INT), value, intent(IN) :: char_len
         end subroutine c_class1_get_strs_bufferify
 
         subroutine c_class1_delete(self) &
@@ -167,10 +172,12 @@ contains
         ! splicer end namespace.tutorial.class.Class1.method.new
     end function class1_new
 
-    subroutine class1_set_strings(obj)
+    subroutine class1_set_strings(obj, char_len)
+        use iso_c_binding, only : C_INT
         class(class1) :: obj
+        integer(C_INT), value, intent(IN) :: char_len
         ! splicer begin namespace.tutorial.class.Class1.method.set_strings
-        call c_class1_set_strings(obj%cxxmem)
+        call c_class1_set_strings(obj%cxxmem, char_len)
         ! splicer end namespace.tutorial.class.Class1.method.set_strings
     end subroutine class1_set_strings
 
@@ -196,16 +203,18 @@ contains
         ! splicer end namespace.tutorial.class.Class1.method.get_int_ptr
     end function class1_get_int_ptr
 
-    subroutine class1_get_strs(obj, strs)
+    subroutine class1_get_strs(obj, strs, char_len)
         use iso_c_binding, only : C_F_POINTER, C_INT, C_LOC
         class(class1) :: obj
         character(len=*), intent(INOUT), pointer :: strs(:)
         integer(C_INT) :: name_len
+        integer(C_INT), value, intent(IN) :: char_len
         ! splicer begin namespace.tutorial.class.Class1.method.get_strs
         type(C_PTR) cstr
         cstr = C_LOC(strs)
-        call c_class1_get_strs_bufferify(obj%cxxmem, cstr, name_len)
-        call C_F_POINTER(cstr,strs,[name_len])
+        call c_class1_get_strs_bufferify(obj%cxxmem, cstr, name_len, &
+                    char_len)
+        call C_F_POINTER(cstr,strs,[2])
         ! splicer end namespace.tutorial.class.Class1.method.get_strs
     end subroutine class1_get_strs
 

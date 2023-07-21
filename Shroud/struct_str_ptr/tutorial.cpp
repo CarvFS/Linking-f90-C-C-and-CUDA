@@ -19,16 +19,16 @@ namespace tutorial {
 
     }
 
-    void Class1 :: set_strings(){
+    void Class1 :: set_strings(int char_len){
         s.names = new string[s.str_size];
         s.names[0] = "Lucy";
-        s.names[1] = "Mina";
-        s.names[2] = "Jo";
-        s.names[3] = "Ruth";
+        s.names[1] = "Fe";
+        s.names[2] = "Mih";
+        s.names[3] = "Mina";
 
         // Fill names with less than 4 characters with spaces
         for(int i = 0; i < s.str_size; i++){
-            s.names[i].insert(s.names[i].end(), 4 - s.names[i].size(), ' ');
+            s.names[i].insert(s.names[i].end(), char_len - s.names[i].size(), ' ');
         }
     }
 
@@ -49,10 +49,10 @@ namespace tutorial {
     }
 
     //////////////// Modify here ////////////////
-    void Class1 :: get_strs(char** strs, int* name_len){
+    void Class1 :: get_strs(char** strs, int* name_len, int char_len){
         cout << "====== In: get_strs =======" << endl;
         *name_len = s.str_size;
-        char *buf = new char[s.str_size*4];
+        char *buf = new char[s.str_size*char_len];
         for(int i = 0; i < *name_len; i++){
             if(i == 0){
                 strcpy(buf,const_cast<char*>(s.names[i].c_str()));
