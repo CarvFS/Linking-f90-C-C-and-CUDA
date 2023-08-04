@@ -74,7 +74,7 @@ program test_shroud
     ! call cptr%method1(vec2d, 2)
     ! call cptr%method1(vec2d, 2, val_ptr)
     ! call cptr%method1(vec2d, 2, val_ptr, word)
-    call rism3d_method1(cptr, vec2d, 2, val_ptr, word, .false.)
+    call class1_method1(cptr, vec2d, 2, val_ptr, word, .false.)
     
     write(*,*) "::::::::::::::::::::::::::::::::::::::::::::::::::"
     ! dk2 = class1_get_dk(cptr) !! also works this way
