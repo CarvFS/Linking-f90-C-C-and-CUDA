@@ -360,6 +360,14 @@ module tutorial_tutorial_mod
         module procedure class1_new_3
     end interface class1
 
+    interface rism3d_method1
+        module procedure class1_method1_0
+        module procedure class1_method1_1
+        module procedure class1_method1_2
+        module procedure class1_method1_3
+        module procedure class1_method1_4
+    end interface rism3d_method1
+
 contains
 
     function class1_new_0(test1, test2, TorF) &
