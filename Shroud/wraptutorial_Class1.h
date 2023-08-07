@@ -92,6 +92,8 @@ bool TUT_tutorial_Class1_check(TUT_tutorial_Class1 * self, int N);
 
 double TUT_tutorial_Class1_get_dk(TUT_tutorial_Class1 * self);
 
+const int TUT_tutorial_Class1_get_intvalue(TUT_tutorial_Class1 * self);
+
 #ifdef __cplusplus
 }
 #endif

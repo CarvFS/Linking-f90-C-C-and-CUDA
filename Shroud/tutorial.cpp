@@ -137,5 +137,9 @@ namespace tutorial {
         return obj1.dk;
     }
 
+    int Class1 :: get_intvalue(){
+        return 12;
+    }
+
 
 }

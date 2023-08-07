@@ -45,6 +45,8 @@ namespace tutorial {
 
       double get_dk();
 
+      int get_intvalue();
+
     };
 
 }

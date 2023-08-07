@@ -1,6 +1,7 @@
 program test_shroud
     use iso_c_binding
     use tutorial_tutorial_mod
+    ! implicit none
     type(class1) cptr
     integer, pointer :: f_1darray(:), val_ptr(:)
     integer, pointer :: f_2darray(:,:), vec2d(:,:)
@@ -73,8 +74,8 @@ program test_shroud
     ! call cptr%method1(vec2d)
     ! call cptr%method1(vec2d, 2)
     ! call cptr%method1(vec2d, 2, val_ptr)
-    ! call cptr%method1(vec2d, 2, val_ptr, word)
-    call class1_method1(cptr, vec2d, 2, val_ptr, word, .false.)
+    call cptr%method1(vec2d, 2, val_ptr, word)
+    ! call class1_method1(cptr, vec2d, 2, val_ptr, word, .false.)
     
     write(*,*) "::::::::::::::::::::::::::::::::::::::::::::::::::"
     ! dk2 = class1_get_dk(cptr) !! also works this way
@@ -82,18 +83,33 @@ program test_shroud
 
     write(*,*) "In test_shroud.F90: Retrieving dk from NewClass... dk = ", dk2
 
-    call cptr%delete()
-end program test_shroud
+    write(*,*) "In test_shroud.F90: Retrieving intValue: ", class1_get_intvalue(cptr)
 
-subroutine test_on_F(f_arr,N,M)
-    integer, intent(in) :: N
-    integer, intent(in) :: M
-    integer :: f_arr(N,M)
-    write(*,*) "========================== On test_on_F =========================="
-    do i = 1,N 
-        do j = 1,M 
-            write(*,*) "array(",i,",",j,") = ", f_arr(i,j)
-        end do
-    end do
-    write(*,*) "=================================================================="
-end subroutine test_on_F
+    write(*,*) "test pure", test_pure(cptr)
+
+    call cptr%delete()
+
+    contains 
+        subroutine test_on_F(f_arr,N,M)
+            integer, intent(in) :: N
+            integer, intent(in) :: M
+            integer :: f_arr(N,M)
+            write(*,*) "========================== On test_on_F =========================="
+            do i = 1,N 
+                do j = 1,M 
+                    write(*,*) "array(",i,",",j,") = ", f_arr(i,j)
+                end do
+            end do
+            write(*,*) "=================================================================="
+        end subroutine test_on_F
+
+        function test_pure(obj) result(array)
+            type(class1) :: obj
+            ! integer, intent(in) :: value
+            integer :: array(obj%get_intvalue()),i
+            
+            do i=1,obj%get_intvalue()
+                array(i) = 1+i
+            end do
+        end function test_pure
+end program test_shroud

@@ -30,7 +30,7 @@ namespace tutorial {
       // Take a look on: acceptStringPointer
       void get_name(string *name_list, int idx);
 
-      void get_name2(char** names, int name_len);
+      void get_name2(char** strs, int name_len);
 
       // void get_names2(string *names);
 

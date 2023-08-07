@@ -84,6 +84,8 @@ program test_shroud
     call class1_get_name2(cptr, names_from_c2)
     call test_receive_str(names_from_c2,2)
 
+    call test_receive_obj(cptr)
+
     !!!!! Delete object
     call cptr%delete()
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -94,3 +96,11 @@ subroutine test_receive_str(names, names_size)
     character(len = 4) :: names(names_size)
     write(*,*) "String returned from C++: ", trim(names(1)), ", ", trim(names(2))
 end subroutine test_receive_str
+
+subroutine test_receive_obj(this)
+    use tutorial_tutorial_mod
+    type(class1) this
+    print*,"====================================================="
+    print*, "On subroutine test_receive_obj"
+    call class1_test_struct(this)
+end subroutine test_receive_obj

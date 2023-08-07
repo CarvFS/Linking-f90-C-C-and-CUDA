@@ -347,4 +347,14 @@ double TUT_tutorial_Class1_get_dk(TUT_tutorial_Class1 * self)
     // splicer end namespace.tutorial.class.Class1.method.get_dk
 }
 
+const int TUT_tutorial_Class1_get_intvalue(TUT_tutorial_Class1 * self)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_intvalue
+    const int SHC_rv = SH_this->get_intvalue();
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.get_intvalue
+}
+
 }  // extern "C"

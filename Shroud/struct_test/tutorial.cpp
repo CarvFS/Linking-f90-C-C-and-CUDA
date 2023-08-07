@@ -93,8 +93,7 @@ namespace tutorial {
     void Class1 :: get_name2(char** names, int name_len){
         name_len = 2;
         cout << "In get_name2: " << name_len << endl;
-        cout << **names << endl;
-        char buf[name_len*4];
+        char *buf = new char[name_len*4];
         for(int i = 0; i < name_len; i++){
             if(i == 0){
                 strcpy(buf,const_cast<char*>(s.names[i].c_str()));

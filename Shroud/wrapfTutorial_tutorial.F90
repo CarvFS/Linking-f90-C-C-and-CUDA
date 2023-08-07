@@ -62,6 +62,7 @@ module tutorial_tutorial_mod
         procedure :: accept_char_array_in => class1_accept_char_array_in
         procedure :: check => class1_check
         procedure :: get_dk => class1_get_dk
+        procedure :: get_intvalue => class1_get_intvalue
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
         procedure :: associated => class1_associated
@@ -346,6 +347,16 @@ module tutorial_tutorial_mod
             real(C_DOUBLE) :: SHT_rv
         end function c_class1_get_dk
 
+        pure function c_class1_get_intvalue(self) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_get_intvalue")
+            use iso_c_binding, only : C_INT
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT) :: SHT_rv
+        end function c_class1_get_intvalue
+
         ! splicer begin namespace.tutorial.class.Class1.additional_interfaces
         ! splicer end namespace.tutorial.class.Class1.additional_interfaces
 
@@ -359,14 +370,6 @@ module tutorial_tutorial_mod
         module procedure class1_new_2
         module procedure class1_new_3
     end interface class1
-
-    interface class1_method1
-        module procedure class1_method1_0
-        module procedure class1_method1_1
-        module procedure class1_method1_2
-        module procedure class1_method1_3
-        module procedure class1_method1_4
-    end interface class1_method1
 
 contains
 
@@ -604,6 +607,16 @@ contains
         SHT_rv = c_class1_get_dk(obj%cxxmem)
         ! splicer end namespace.tutorial.class.Class1.method.get_dk
     end function class1_get_dk
+
+    pure function class1_get_intvalue(obj) &
+            result(SHT_rv)
+        use iso_c_binding, only : C_INT
+        class(class1), intent(in) :: obj
+        integer(C_INT) :: SHT_rv
+        ! splicer begin namespace.tutorial.class.Class1.method.get_intvalue
+        SHT_rv = c_class1_get_intvalue(obj%cxxmem)
+        ! splicer end namespace.tutorial.class.Class1.method.get_intvalue
+    end function class1_get_intvalue
 
     ! Return pointer to C++ memory.
     function class1_get_instance(obj) result (cxxptr)
