@@ -165,25 +165,25 @@ int * TUT_tutorial_Class1_get__two_darray_ptr(
     // splicer end namespace.tutorial.class.Class1.method.get__two_darray_ptr
 }
 
-int * TUT_tutorial_Class1_get_2d_new(TUT_tutorial_Class1 * self,
-    int * N, int * M)
+int * TUT_tutorial_Class1_get_2d_new_0(TUT_tutorial_Class1 * self,
+    int * N, int * M, int arg1, int arg2)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
-    // splicer begin namespace.tutorial.class.Class1.method.get_2d_new
-    int * SHC_rv = SH_this->get_2d_new(N, M);
+    // splicer begin namespace.tutorial.class.Class1.method.get_2d_new_0
+    int * SHC_rv = SH_this->get_2d_new(N, M, arg1, arg2);
     return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.get_2d_new
+    // splicer end namespace.tutorial.class.Class1.method.get_2d_new_0
 }
 
-int * TUT_tutorial_Class1_get_2d_new_bufferify(
+int * TUT_tutorial_Class1_get_2d_new_0_bufferify(
     TUT_tutorial_Class1 * self, TUT_SHROUD_array *DSHC_rv, int * N,
-    int * M)
+    int * M, int arg1, int arg2)
 {
     tutorial::Class1 *SH_this =
         static_cast<tutorial::Class1 *>(self->addr);
-    // splicer begin namespace.tutorial.class.Class1.method.get_2d_new_bufferify
-    int * SHC_rv = SH_this->get_2d_new(N, M);
+    // splicer begin namespace.tutorial.class.Class1.method.get_2d_new_0_bufferify
+    int * SHC_rv = SH_this->get_2d_new(N, M, arg1, arg2);
     DSHC_rv->cxx.addr  = SHC_rv;
     DSHC_rv->cxx.idtor = 0;
     DSHC_rv->addr.base = SHC_rv;
@@ -194,7 +194,39 @@ int * TUT_tutorial_Class1_get_2d_new_bufferify(
     DSHC_rv->shape[1] = *M;
     DSHC_rv->size = DSHC_rv->shape[0]*DSHC_rv->shape[1];
     return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.get_2d_new_bufferify
+    // splicer end namespace.tutorial.class.Class1.method.get_2d_new_0_bufferify
+}
+
+int * TUT_tutorial_Class1_get_2d_new_1(TUT_tutorial_Class1 * self,
+    int * N, int * M, int arg)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_2d_new_1
+    int * SHC_rv = SH_this->get_2d_new(N, M, arg);
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.get_2d_new_1
+}
+
+int * TUT_tutorial_Class1_get_2d_new_1_bufferify(
+    TUT_tutorial_Class1 * self, TUT_SHROUD_array *DSHC_rv, int * N,
+    int * M, int arg)
+{
+    tutorial::Class1 *SH_this =
+        static_cast<tutorial::Class1 *>(self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.get_2d_new_1_bufferify
+    int * SHC_rv = SH_this->get_2d_new(N, M, arg);
+    DSHC_rv->cxx.addr  = SHC_rv;
+    DSHC_rv->cxx.idtor = 0;
+    DSHC_rv->addr.base = SHC_rv;
+    DSHC_rv->type = SH_TYPE_INT;
+    DSHC_rv->elem_len = sizeof(int);
+    DSHC_rv->rank = 2;
+    DSHC_rv->shape[0] = *N;
+    DSHC_rv->shape[1] = *M;
+    DSHC_rv->size = DSHC_rv->shape[0]*DSHC_rv->shape[1];
+    return SHC_rv;
+    // splicer end namespace.tutorial.class.Class1.method.get_2d_new_1_bufferify
 }
 
 void TUT_tutorial_Class1_set_test(TUT_tutorial_Class1 * self, int N)
@@ -345,16 +377,6 @@ double TUT_tutorial_Class1_get_dk(TUT_tutorial_Class1 * self)
     double SHC_rv = SH_this->get_dk();
     return SHC_rv;
     // splicer end namespace.tutorial.class.Class1.method.get_dk
-}
-
-const int TUT_tutorial_Class1_get_intvalue(TUT_tutorial_Class1 * self)
-{
-    tutorial::Class1 *SH_this =
-        static_cast<tutorial::Class1 *>(self->addr);
-    // splicer begin namespace.tutorial.class.Class1.method.get_intvalue
-    const int SHC_rv = SH_this->get_intvalue();
-    return SHC_rv;
-    // splicer end namespace.tutorial.class.Class1.method.get_intvalue
 }
 
 }  // extern "C"

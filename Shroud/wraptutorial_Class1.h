@@ -44,12 +44,19 @@ int * TUT_tutorial_Class1_get_test_ptr(TUT_tutorial_Class1 * self,
 int * TUT_tutorial_Class1_get__two_darray_ptr(
     TUT_tutorial_Class1 * self, int * len1, int * len2);
 
-int * TUT_tutorial_Class1_get_2d_new(TUT_tutorial_Class1 * self,
-    int * N, int * M);
+int * TUT_tutorial_Class1_get_2d_new_0(TUT_tutorial_Class1 * self,
+    int * N, int * M, int arg1, int arg2);
 
-int * TUT_tutorial_Class1_get_2d_new_bufferify(
+int * TUT_tutorial_Class1_get_2d_new_0_bufferify(
     TUT_tutorial_Class1 * self, TUT_SHROUD_array *DSHC_rv, int * N,
-    int * M);
+    int * M, int arg1, int arg2);
+
+int * TUT_tutorial_Class1_get_2d_new_1(TUT_tutorial_Class1 * self,
+    int * N, int * M, int arg);
+
+int * TUT_tutorial_Class1_get_2d_new_1_bufferify(
+    TUT_tutorial_Class1 * self, TUT_SHROUD_array *DSHC_rv, int * N,
+    int * M, int arg);
 
 void TUT_tutorial_Class1_set_test(TUT_tutorial_Class1 * self, int N);
 
@@ -91,8 +98,6 @@ void TUT_tutorial_Class1_accept_char_array_in_bufferify(
 bool TUT_tutorial_Class1_check(TUT_tutorial_Class1 * self, int N);
 
 double TUT_tutorial_Class1_get_dk(TUT_tutorial_Class1 * self);
-
-const int TUT_tutorial_Class1_get_intvalue(TUT_tutorial_Class1 * self);
 
 #ifdef __cplusplus
 }

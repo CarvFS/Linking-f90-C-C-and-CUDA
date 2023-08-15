@@ -36,7 +36,8 @@ namespace tutorial {
       int *get_test_ptr(int *N); // Get 1D array
       int *get_TwoDarray_ptr(int *N, int *M); // Get 2D array
 
-      int* get_2d_new(int *N, int *M);
+      int* get_2d_new(int *N, int *M, int arg1, int arg2);
+      int* get_2d_new(int *N, int *M, int arg);
       
       void set_test(int N); // Set 1D array
       void set_TwoDarray(int N, int M); // Set 2D array
@@ -45,7 +46,7 @@ namespace tutorial {
 
       double get_dk();
 
-      int get_intvalue();
+      // int get_intvalue();
 
     };
 

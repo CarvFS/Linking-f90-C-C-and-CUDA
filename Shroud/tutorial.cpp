@@ -58,6 +58,7 @@ namespace tutorial {
                 /* Fortran is column major, so here we must asign values as to the transpose
                 of the matrix we want to get on fortran side */
                 TwoDarray[N*j + i] = count;
+                cout << "2D = [" << i << ", " << j << "] = " << TwoDarray[N*j + i] << endl;
             }
         }
 
@@ -77,10 +78,27 @@ namespace tutorial {
         return TwoDarray;
     }
 
-    int* Class1 :: get_2d_new(int *N, int *M){
+    int* Class1 :: get_2d_new(int *N, int *M, int arg1, int arg2){
+        *N = 1;
+        *M = 1;
+        int *temp = new int [1];
+        arg1 = arg1 - 1;
+        arg2 = arg2 - 1;
+        *temp = TwoDarray[TwoDA_len1*arg2 + arg1];
+        return temp;
+    }
+
+    int* Class1 :: get_2d_new(int *N, int *M, int arg){
         *N = TwoDA_len1;
-        *M = TwoDA_len2;
-        return TwoDarray;
+        *M = 1;
+        arg = arg - 1;
+        int *temp = new int [TwoDA_len1];
+
+        for(int i = 0; i < TwoDA_len1; i++){
+            temp[i] = TwoDarray[TwoDA_len1*arg + i];
+        }
+        
+        return temp;
     }
 
     void Class1 :: Method1(int* vec2d, int o_test, int* value, char* word2, bool o_bool){
@@ -137,9 +155,9 @@ namespace tutorial {
         return obj1.dk;
     }
 
-    int Class1 :: get_intvalue(){
-        return 12;
-    }
+    // int Class1 :: get_intvalue(){
+    //     return 12;
+    // }
 
 
 }

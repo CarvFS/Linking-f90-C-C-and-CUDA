@@ -40,7 +40,7 @@ program test_shroud
     f_1darray => cptr%get_test_ptr()
 
     ! f_2darray => cptr%get__two_darray_ptr()
-    f_2darray => class1_get_2d_new(cptr)
+    ! f_2darray => class1_get_2d_new(cptr)
 
     call cptr%accept_char_array_in(closure_list)
 
@@ -50,9 +50,13 @@ program test_shroud
     !     write(*,*) "1Darray(",i,") = ", f_1darray(i)
     ! end do
 
-    write(*,*) "2D array is: "
-    write(*,*) class1_get_2d_new(cptr)
-    call test_on_F(class1_get_2d_new(cptr),N,M)
+    write(*,*) "2D array (:,arg) is: "
+    write(*,*) cptr%get_2d_new(2)
+
+    write(*,*) "2D array (arg1,arg2) is: "
+    write(*,*) cptr%get_2d_new(1,2)
+
+    ! call test_on_F(class1_get_2d_new(cptr),N,M)
 
     ! do i = 1,N 
     !     do j = 1,M 
@@ -83,9 +87,9 @@ program test_shroud
 
     write(*,*) "In test_shroud.F90: Retrieving dk from NewClass... dk = ", dk2
 
-    write(*,*) "In test_shroud.F90: Retrieving intValue: ", class1_get_intvalue(cptr)
+    ! write(*,*) "In test_shroud.F90: Retrieving intValue: ", class1_get_intvalue(cptr)
 
-    write(*,*) "test pure", test_pure(cptr)
+    ! write(*,*) "test pure", test_pure(cptr)
 
     call cptr%delete()
 
@@ -103,13 +107,13 @@ program test_shroud
             write(*,*) "=================================================================="
         end subroutine test_on_F
 
-        function test_pure(obj) result(array)
-            type(class1) :: obj
-            ! integer, intent(in) :: value
-            integer :: array(obj%get_intvalue()),i
+        ! function test_pure(obj) result(array)
+        !     type(class1) :: obj
+        !     ! integer, intent(in) :: value
+        !     integer :: array(obj%get_intvalue()),i
             
-            do i=1,obj%get_intvalue()
-                array(i) = 1+i
-            end do
-        end function test_pure
+        !     do i=1,obj%get_intvalue()
+        !         array(i) = 1+i
+        !     end do
+        ! end function test_pure
 end program test_shroud

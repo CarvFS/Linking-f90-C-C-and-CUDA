@@ -23,7 +23,12 @@ declarations:
         - "type(C_PTR) :: SHT_ptr"
         - "SHT_ptr = c_class1_get__two_darray_ptr(obj%cxxmem, len1, len2)"
         - "call c_f_pointer(SHT_ptr, SHT_rv, [len1,len2])"
-    - decl: int* get_2d_new(int *N +intent(out)+hidden, int *M +intent(out)+hidden)  +deref(pointer) +dimension(N,M)
+    
+    #####################################################################################################################################
+    - decl: int* get_2d_new(int *N +intent(out)+hidden, int *M +intent(out)+hidden, int arg1, int arg2)  +deref(pointer) +dimension(N,M)
+    - decl: int* get_2d_new(int *N +intent(out)+hidden, int *M +intent(out)+hidden, int arg)  +deref(pointer) +dimension(N,M)
+    #####################################################################################################################################
+    
     - decl: void set_test(int N)
     - decl: void set_TwoDarray(int N, int M)
     - decl: ~Class1() +name(delete)
@@ -36,4 +41,4 @@ declarations:
         - "size(names, kind=C_LONG), len(names, kind=C_INT), clsize)"
     - decl: bool check(int N)
     - decl: double get_dk()
-    - decl: int get_intvalue() +pure
+    # - decl: int get_intvalue() +pure

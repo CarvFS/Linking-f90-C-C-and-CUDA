@@ -50,7 +50,8 @@ module tutorial_tutorial_mod
     contains
         procedure :: get_test_ptr => class1_get_test_ptr
         procedure :: get__two_darray_ptr => class1_get__two_darray_ptr
-        procedure :: get_2d_new => class1_get_2d_new
+        procedure :: get_2d_new_0 => class1_get_2d_new_0
+        procedure :: get_2d_new_1 => class1_get_2d_new_1
         procedure :: set_test => class1_set_test
         procedure :: set__two_darray => class1_set__two_darray
         procedure :: delete => class1_delete
@@ -62,10 +63,10 @@ module tutorial_tutorial_mod
         procedure :: accept_char_array_in => class1_accept_char_array_in
         procedure :: check => class1_check
         procedure :: get_dk => class1_get_dk
-        procedure :: get_intvalue => class1_get_intvalue
         procedure :: get_instance => class1_get_instance
         procedure :: set_instance => class1_set_instance
         procedure :: associated => class1_associated
+        generic :: get_2d_new => get_2d_new_0, get_2d_new_1
         generic :: method1 => method1_0, method1_1, method1_2, method1_3 &
             , method1_4
         ! splicer begin namespace.tutorial.class.Class1.type_bound_procedure_part
@@ -165,21 +166,24 @@ module tutorial_tutorial_mod
             type(C_PTR) SHT_rv
         end function c_class1_get__two_darray_ptr
 
-        function c_class1_get_2d_new(self, N, M) &
+        function c_class1_get_2d_new_0(self, N, M, arg1, arg2) &
                 result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_get_2d_new")
+                bind(C, name="TUT_tutorial_Class1_get_2d_new_0")
             use iso_c_binding, only : C_INT, C_PTR
             import :: SHROUD_class1_capsule
             implicit none
             type(SHROUD_class1_capsule), intent(IN) :: self
             integer(C_INT), intent(OUT) :: N
             integer(C_INT), intent(OUT) :: M
+            integer(C_INT), value, intent(IN) :: arg1
+            integer(C_INT), value, intent(IN) :: arg2
             type(C_PTR) SHT_rv
-        end function c_class1_get_2d_new
+        end function c_class1_get_2d_new_0
 
-        function c_class1_get_2d_new_bufferify(self, DSHC_rv, N, M) &
+        function c_class1_get_2d_new_0_bufferify(self, DSHC_rv, N, M, &
+                arg1, arg2) &
                 result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_get_2d_new_bufferify")
+                bind(C, name="TUT_tutorial_Class1_get_2d_new_0_bufferify")
             use iso_c_binding, only : C_INT, C_PTR
             import :: SHROUD_array, SHROUD_class1_capsule
             implicit none
@@ -187,8 +191,38 @@ module tutorial_tutorial_mod
             type(SHROUD_array), intent(INOUT) :: DSHC_rv
             integer(C_INT), intent(OUT) :: N
             integer(C_INT), intent(OUT) :: M
+            integer(C_INT), value, intent(IN) :: arg1
+            integer(C_INT), value, intent(IN) :: arg2
             type(C_PTR) SHT_rv
-        end function c_class1_get_2d_new_bufferify
+        end function c_class1_get_2d_new_0_bufferify
+
+        function c_class1_get_2d_new_1(self, N, M, arg) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_get_2d_new_1")
+            use iso_c_binding, only : C_INT, C_PTR
+            import :: SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            integer(C_INT), intent(OUT) :: N
+            integer(C_INT), intent(OUT) :: M
+            integer(C_INT), value, intent(IN) :: arg
+            type(C_PTR) SHT_rv
+        end function c_class1_get_2d_new_1
+
+        function c_class1_get_2d_new_1_bufferify(self, DSHC_rv, N, M, &
+                arg) &
+                result(SHT_rv) &
+                bind(C, name="TUT_tutorial_Class1_get_2d_new_1_bufferify")
+            use iso_c_binding, only : C_INT, C_PTR
+            import :: SHROUD_array, SHROUD_class1_capsule
+            implicit none
+            type(SHROUD_class1_capsule), intent(IN) :: self
+            type(SHROUD_array), intent(INOUT) :: DSHC_rv
+            integer(C_INT), intent(OUT) :: N
+            integer(C_INT), intent(OUT) :: M
+            integer(C_INT), value, intent(IN) :: arg
+            type(C_PTR) SHT_rv
+        end function c_class1_get_2d_new_1_bufferify
 
         subroutine c_class1_set_test(self, N) &
                 bind(C, name="TUT_tutorial_Class1_set_test")
@@ -347,16 +381,6 @@ module tutorial_tutorial_mod
             real(C_DOUBLE) :: SHT_rv
         end function c_class1_get_dk
 
-        pure function c_class1_get_intvalue(self) &
-                result(SHT_rv) &
-                bind(C, name="TUT_tutorial_Class1_get_intvalue")
-            use iso_c_binding, only : C_INT
-            import :: SHROUD_class1_capsule
-            implicit none
-            type(SHROUD_class1_capsule), intent(IN) :: self
-            integer(C_INT) :: SHT_rv
-        end function c_class1_get_intvalue
-
         ! splicer begin namespace.tutorial.class.Class1.additional_interfaces
         ! splicer end namespace.tutorial.class.Class1.additional_interfaces
 
@@ -471,21 +495,40 @@ contains
         ! splicer end namespace.tutorial.class.Class1.method.get__two_darray_ptr
     end function class1_get__two_darray_ptr
 
-    function class1_get_2d_new(obj) &
+    function class1_get_2d_new_0(obj, arg1, arg2) &
             result(SHT_rv)
         use iso_c_binding, only : C_INT, C_PTR, c_f_pointer
         class(class1) :: obj
         type(SHROUD_array) :: DSHC_rv
         integer(C_INT) :: N
         integer(C_INT) :: M
+        integer(C_INT), value, intent(IN) :: arg1
+        integer(C_INT), value, intent(IN) :: arg2
         integer(C_INT), pointer :: SHT_rv(:,:)
-        ! splicer begin namespace.tutorial.class.Class1.method.get_2d_new
+        ! splicer begin namespace.tutorial.class.Class1.method.get_2d_new_0
         type(C_PTR) :: SHT_ptr
-        SHT_ptr = c_class1_get_2d_new_bufferify(obj%cxxmem, DSHC_rv, N, &
-            M)
+        SHT_ptr = c_class1_get_2d_new_0_bufferify(obj%cxxmem, DSHC_rv, &
+            N, M, arg1, arg2)
         call c_f_pointer(SHT_ptr, SHT_rv, DSHC_rv%shape(1:2))
-        ! splicer end namespace.tutorial.class.Class1.method.get_2d_new
-    end function class1_get_2d_new
+        ! splicer end namespace.tutorial.class.Class1.method.get_2d_new_0
+    end function class1_get_2d_new_0
+
+    function class1_get_2d_new_1(obj, arg) &
+            result(SHT_rv)
+        use iso_c_binding, only : C_INT, C_PTR, c_f_pointer
+        class(class1) :: obj
+        type(SHROUD_array) :: DSHC_rv
+        integer(C_INT) :: N
+        integer(C_INT) :: M
+        integer(C_INT), value, intent(IN) :: arg
+        integer(C_INT), pointer :: SHT_rv(:,:)
+        ! splicer begin namespace.tutorial.class.Class1.method.get_2d_new_1
+        type(C_PTR) :: SHT_ptr
+        SHT_ptr = c_class1_get_2d_new_1_bufferify(obj%cxxmem, DSHC_rv, &
+            N, M, arg)
+        call c_f_pointer(SHT_ptr, SHT_rv, DSHC_rv%shape(1:2))
+        ! splicer end namespace.tutorial.class.Class1.method.get_2d_new_1
+    end function class1_get_2d_new_1
 
     subroutine class1_set_test(obj, N)
         use iso_c_binding, only : C_INT
@@ -607,16 +650,6 @@ contains
         SHT_rv = c_class1_get_dk(obj%cxxmem)
         ! splicer end namespace.tutorial.class.Class1.method.get_dk
     end function class1_get_dk
-
-    pure function class1_get_intvalue(obj) &
-            result(SHT_rv)
-        use iso_c_binding, only : C_INT
-        class(class1), intent(in) :: obj
-        integer(C_INT) :: SHT_rv
-        ! splicer begin namespace.tutorial.class.Class1.method.get_intvalue
-        SHT_rv = c_class1_get_intvalue(obj%cxxmem)
-        ! splicer end namespace.tutorial.class.Class1.method.get_intvalue
-    end function class1_get_intvalue
 
     ! Return pointer to C++ memory.
     function class1_get_instance(obj) result (cxxptr)
