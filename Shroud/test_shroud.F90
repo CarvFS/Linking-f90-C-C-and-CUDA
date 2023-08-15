@@ -54,7 +54,7 @@ program test_shroud
     write(*,*) cptr%get_2d_new(2)
 
     write(*,*) "2D array (arg1,arg2) is: "
-    write(*,*) cptr%get_2d_new(1,2)
+    write(*,*) cptr%get_2d_new(3,2)
 
     ! call test_on_F(class1_get_2d_new(cptr),N,M)
 

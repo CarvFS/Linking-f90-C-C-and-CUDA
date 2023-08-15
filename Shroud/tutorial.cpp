@@ -81,11 +81,9 @@ namespace tutorial {
     int* Class1 :: get_2d_new(int *N, int *M, int arg1, int arg2){
         *N = 1;
         *M = 1;
-        int *temp = new int [1];
         arg1 = arg1 - 1;
         arg2 = arg2 - 1;
-        *temp = TwoDarray[TwoDA_len1*arg2 + arg1];
-        return temp;
+        return &TwoDarray[TwoDA_len1*arg2 + arg1];
     }
 
     int* Class1 :: get_2d_new(int *N, int *M, int arg){
