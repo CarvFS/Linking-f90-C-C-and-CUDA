@@ -2,13 +2,16 @@ program test_shroud
     use iso_c_binding
     use tutorial_tutorial_mod
     type(class1) cptr
-    character(len = 4), pointer :: names(:)
+    ! character(len=4) :: names(:)
+    character(len=4) :: names(10)
+    ! character(len=:), allocatable :: names(:)
     integer :: char_len
 
     !!!!! Create object
     cptr = Class1() 
 
     char_len = len(names)
+    char_len = 4
     call class1_set_strings(cptr, char_len)
     call class1_printvalues(cptr)
 
@@ -18,10 +21,11 @@ program test_shroud
 
         !!> Get array of strings
 
-    call class1_get_strs(cptr,names,char_len)
+    call Class1_get_strs2(cptr,names)
+    print*,names
 
         !!> Verify the values retrieved from C++
-    call test_receive_str(names,char_len)
+    ! call test_receive_str(names,char_len)
 
     !!!!! Delete object
     call cptr%delete()

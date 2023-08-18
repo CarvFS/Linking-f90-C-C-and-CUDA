@@ -27,7 +27,8 @@ namespace tutorial {
 
       //////////////// Modify here ////////////////
       // const string* get_str_ptr();
-      void get_strs(char** strs, int* name_len, int char_len);
+      // void get_strs(char** strs, int* name_len, int char_len);
+      void get_strs2(string **strs, int* name_len);
       ////////////////////////////////////////////
 
       ~Class1();

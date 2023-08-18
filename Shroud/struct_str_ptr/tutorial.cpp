@@ -49,20 +49,27 @@ namespace tutorial {
     }
 
     //////////////// Modify here ////////////////
-    void Class1 :: get_strs(char** strs, int* name_len, int char_len){
-        cout << "====== In: get_strs =======" << endl;
+    // void Class1 :: get_strs(char** strs, int* name_len, int char_len){
+    //     cout << "====== In: get_strs =======" << endl;
+    //     *name_len = s.str_size;
+    //     char *buf = new char[s.str_size*char_len];
+    //     for(int i = 0; i < *name_len; i++){
+    //         if(i == 0){
+    //             strcpy(buf,const_cast<char*>(s.names[i].c_str()));
+    //         }
+    //         else{
+    //             strcat(buf,const_cast<char*>(s.names[i].c_str()));
+    //         }
+    //     }
+    //     *strs = buf;
+    //     cout << "====== Out: get_strs =======" << endl;
+    // }
+
+    void Class1 :: get_strs2(string **strs, int* name_len){
+        cout << "====== In: get_strs2 =======" << endl;
         *name_len = s.str_size;
-        char *buf = new char[s.str_size*char_len];
-        for(int i = 0; i < *name_len; i++){
-            if(i == 0){
-                strcpy(buf,const_cast<char*>(s.names[i].c_str()));
-            }
-            else{
-                strcat(buf,const_cast<char*>(s.names[i].c_str()));
-            }
-        }
-        *strs = buf;
-        cout << "====== Out: get_strs =======" << endl;
+        *strs = s.names;
+        cout << "====== Out: get_strs2 =======" << endl;
     }
     ////////////////////////////////////////////
 
