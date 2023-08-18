@@ -108,14 +108,26 @@ module tutorial_tutorial_mod
             type(C_PTR) SHT_prv
         end function c_class1_new
 
-        subroutine c_class1_set_strings(self, char_len) &
+        subroutine c_class1_set_strings(self, names) &
                 bind(C, name="TUT_tutorial_Class1_set_strings")
-            use iso_c_binding, only : C_INT
+            use iso_c_binding, only : C_PTR
             import :: TUT_SHROUD_capsule_data
             implicit none
             type(TUT_SHROUD_capsule_data), intent(IN) :: self
-            integer(C_INT), value, intent(IN) :: char_len
+            type(C_PTR), intent(IN) :: names(*)
         end subroutine c_class1_set_strings
+
+        subroutine c_class1_set_strings_bufferify(self, names, &
+                SHT_names_size, SHT_names_len) &
+                bind(C, name="TUT_tutorial_Class1_set_strings_bufferify")
+            use iso_c_binding, only : C_CHAR, C_INT, C_SIZE_T
+            import :: TUT_SHROUD_capsule_data
+            implicit none
+            type(TUT_SHROUD_capsule_data), intent(IN) :: self
+            character(kind=C_CHAR), intent(IN) :: names(*)
+            integer(C_SIZE_T), intent(IN), value :: SHT_names_size
+            integer(C_INT), intent(IN), value :: SHT_names_len
+        end subroutine c_class1_set_strings_bufferify
 
         subroutine c_class1_printvalues(self) &
                 bind(C, name="TUT_tutorial_Class1_printvalues")
@@ -191,12 +203,13 @@ contains
         ! splicer end namespace.tutorial.class.Class1.method.new
     end function class1_new
 
-    subroutine class1_set_strings(obj, char_len)
-        use iso_c_binding, only : C_INT
+    subroutine class1_set_strings(obj, names)
+        use iso_c_binding, only : C_INT, C_SIZE_T
         class(class1) :: obj
-        integer(C_INT), value, intent(IN) :: char_len
+        character(len=*), intent(IN) :: names(:)
         ! splicer begin namespace.tutorial.class.Class1.method.set_strings
-        call c_class1_set_strings(obj%cxxmem, char_len)
+        call c_class1_set_strings_bufferify(obj%cxxmem, names, &
+            size(names, kind=C_SIZE_T), len(names, kind=C_INT))
         ! splicer end namespace.tutorial.class.Class1.method.set_strings
     end subroutine class1_set_strings
 

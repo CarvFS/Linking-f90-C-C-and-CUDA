@@ -2,7 +2,7 @@ program test_shroud
     use iso_c_binding
     use tutorial_tutorial_mod
     type(class1) cptr
-    ! character(len=4) :: names(:)
+    character(len=4), pointer :: str(:)
     character(len=4) :: names(10)
     ! character(len=:), allocatable :: names(:)
     integer :: char_len
@@ -10,16 +10,22 @@ program test_shroud
     !!!!! Create object
     cptr = Class1() 
 
-    char_len = len(names)
-    char_len = 4
-    call class1_set_strings(cptr, char_len)
-    call class1_printvalues(cptr)
+    ! char_len = len(names)
+    ! char_len = 4
 
-    !!> Getting int* data from C++
-        !!> Print 1D array
-    write(*,*) class1_get_int_ptr(cptr)
+    allocate(str(3))
+    str(1) = "Na+"
+    str(2) = "K+"
+    str(3) = "Cl-"
 
-        !!> Get array of strings
+    call class1_set_strings(cptr,str)
+    ! call class1_printvalues(cptr)
+
+    ! !!> Getting int* data from C++
+    !     !!> Print 1D array
+    ! write(*,*) class1_get_int_ptr(cptr)
+
+    !     !!> Get array of strings
 
     call Class1_get_strs2(cptr,names)
     print*,names

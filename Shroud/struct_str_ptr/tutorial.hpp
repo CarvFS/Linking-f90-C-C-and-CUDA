@@ -19,7 +19,8 @@ namespace tutorial {
     public:
       Class1();
 
-      void set_strings(int char_len);
+      // void set_strings(int char_len);
+      void set_strings(char **names);
 
       void printvalues();
 

@@ -25,7 +25,11 @@ TUT_tutorial_Class1 * TUT_tutorial_Class1_new(
     TUT_tutorial_Class1 * SHC_rv);
 
 void TUT_tutorial_Class1_set_strings(TUT_tutorial_Class1 * self,
-    int char_len);
+    char **names);
+
+void TUT_tutorial_Class1_set_strings_bufferify(
+    TUT_tutorial_Class1 * self, const char *names,
+    size_t SHT_names_size, int SHT_names_len);
 
 void TUT_tutorial_Class1_printvalues(TUT_tutorial_Class1 * self);
 

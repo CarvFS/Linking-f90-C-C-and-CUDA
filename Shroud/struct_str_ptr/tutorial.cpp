@@ -19,16 +19,25 @@ namespace tutorial {
 
     }
 
-    void Class1 :: set_strings(int char_len){
-        s.names = new string[s.str_size];
-        s.names[0] = "Lucy";
-        s.names[1] = "Fe";
-        s.names[2] = "Mih";
-        s.names[3] = "Mina";
+    // void Class1 :: set_strings(int char_len){
+    //     s.names = new string[s.str_size];
+    //     s.names[0] = "Lucy";
+    //     s.names[1] = "Fe";
+    //     s.names[2] = "Mih";
+    //     s.names[3] = "Mina";
 
-        // Fill names with less than 4 characters with spaces
-        for(int i = 0; i < s.str_size; i++){
-            s.names[i].insert(s.names[i].end(), char_len - s.names[i].size(), ' ');
+    //     // Fill names with less than 4 characters with spaces
+    //     for(int i = 0; i < s.str_size; i++){
+    //         s.names[i].insert(s.names[i].end(), char_len - s.names[i].size(), ' ');
+    //     }
+    // }
+
+    void Class1 :: set_strings(char **names){
+        cout << "So far, so good" << endl;
+        s.names = new string[3];
+        for(int i = 0; i < 3; i++){
+            cout << names[i] << endl;
+            s.names[i] = names[i];
         }
     }
 

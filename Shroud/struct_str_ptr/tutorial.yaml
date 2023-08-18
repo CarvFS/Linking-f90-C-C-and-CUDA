@@ -13,7 +13,12 @@ declarations:
   - decl: class Class1  
     declarations:
     - decl: Class1() +name(new)
-    - decl: void set_strings(int char_len)
+    
+    
+    # - decl: void set_strings(int char_len)
+    - decl: void set_strings(char **names+intent(in));
+
+
     - decl: void printvalues()
     - decl: int* get_int_ptr(int *len +intent(out)+hidden) +deref(pointer) +dimension(len)
 

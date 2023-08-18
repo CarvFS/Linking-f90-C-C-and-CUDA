@@ -4,6 +4,8 @@
 #include "tutorial.hpp"
 #include <string>
 #include <cstddef>
+#include <cstdlib>
+#include <cstring>
 #include "wraptutorial_Class1.h"
 
 // splicer begin namespace.tutorial.class.Class1.CXX_definitions
@@ -11,6 +13,51 @@
 
 extern "C" {
 
+
+// helper ShroudLenTrim
+// Returns the length of character string src with length nsrc,
+// ignoring any trailing blanks.
+static int ShroudLenTrim(const char *src, int nsrc) {
+    int i;
+
+    for (i = nsrc - 1; i >= 0; i--) {
+        if (src[i] != ' ') {
+            break;
+        }
+    }
+
+    return i + 1;
+}
+
+
+// helper ShroudStrArrayAlloc
+// Copy src into new memory and null terminate.
+// char **src +size(nsrc) +len(len)
+// CHARACTER(len) src(nsrc)
+static char **ShroudStrArrayAlloc(const char *src, int nsrc, int len)
+{
+   char **rv = static_cast<char **>(std::malloc(sizeof(char *) * nsrc));
+   const char *src0 = src;
+   for(int i=0; i < nsrc; ++i) {
+      int ntrim = ShroudLenTrim(src0, len);
+      char *tgt = static_cast<char *>(std::malloc(ntrim+1));
+      std::memcpy(tgt, src0, ntrim);
+      tgt[ntrim] = '\0';
+      rv[i] = tgt;
+      src0 += len;
+   }
+   return rv;
+}
+
+// helper ShroudStrArrayFree
+// Release memory allocated by ShroudStrArrayAlloc
+static void ShroudStrArrayFree(char **src, int nsrc)
+{
+   for(int i=0; i < nsrc; ++i) {
+       std::free(src[i]);
+   }
+   std::free(src);
+}
 // splicer begin namespace.tutorial.class.Class1.C_definitions
 // splicer end namespace.tutorial.class.Class1.C_definitions
 
@@ -26,13 +73,27 @@ TUT_tutorial_Class1 * TUT_tutorial_Class1_new(
 }
 
 void TUT_tutorial_Class1_set_strings(TUT_tutorial_Class1 * self,
-    int char_len)
+    char **names)
 {
     tutorial::Class1 *SH_this = static_cast<tutorial::Class1 *>
         (self->addr);
     // splicer begin namespace.tutorial.class.Class1.method.set_strings
-    SH_this->set_strings(char_len);
+    SH_this->set_strings(names);
     // splicer end namespace.tutorial.class.Class1.method.set_strings
+}
+
+void TUT_tutorial_Class1_set_strings_bufferify(
+    TUT_tutorial_Class1 * self, const char *names,
+    size_t SHT_names_size, int SHT_names_len)
+{
+    tutorial::Class1 *SH_this = static_cast<tutorial::Class1 *>
+        (self->addr);
+    // splicer begin namespace.tutorial.class.Class1.method.set_strings_bufferify
+    char **SHCXX_names = ShroudStrArrayAlloc(names, SHT_names_size,
+        SHT_names_len);
+    SH_this->set_strings(SHCXX_names);
+    ShroudStrArrayFree(SHCXX_names, SHT_names_size);
+    // splicer end namespace.tutorial.class.Class1.method.set_strings_bufferify
 }
 
 void TUT_tutorial_Class1_printvalues(TUT_tutorial_Class1 * self)
