@@ -1,0 +1,26 @@
+library: Tutorial
+format:
+  F_filename_suffix: F90
+cxx_header: tutorial.hpp
+
+splicer:
+  # f:
+  # -  fsplicer.f
+  c:
+  - csplicer.c
+
+declarations:
+- decl: |
+    struct str1 {
+      int ifield;
+      double dfield;
+      bool ToF;
+    };
+  options:
+    literalinclude: True
+- decl: class Class1  
+  declarations:
+  - decl: Class1(int test1, double test2, bool TorF, int o_test = 1, double o_test2 = 0.5, bool o_TorF = true) +name(new)
+  - decl: ~Class1() +name(delete)
+  - decl: void receive_struct(str1 *arg)  
+  - decl: void test_struct()
