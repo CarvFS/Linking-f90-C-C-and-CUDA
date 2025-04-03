@@ -2,6 +2,7 @@
 #define CLASS1_HPP
 #include <iostream>
 #include<string.h>
+#include "vartype.hpp"
 using namespace std;
 
 namespace tutorial {
@@ -15,13 +16,13 @@ namespace tutorial {
       
       ~Class1();
 
-      double *data;
+      vartype *data;
 
       void test(float *val1, double *val2);
 
-      void print_data(double* data);
+      void print_data(vartype* data);
 
-      double* get_data(int start_index, int* len);
+      vartype* get_data(int start_index, int* len);
 
     };
 

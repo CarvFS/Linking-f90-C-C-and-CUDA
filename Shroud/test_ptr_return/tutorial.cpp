@@ -6,9 +6,9 @@ using namespace std;
 namespace tutorial {
 
     Class1 :: Class1(){
-        data = new double[6];
+        data = new vartype[6];
         for (int i = 0; i < 6; i++) {
-            data[i] = static_cast<double>(i);
+            data[i] = static_cast<vartype>(i);
         }
     }
 
@@ -23,16 +23,21 @@ namespace tutorial {
         // for (int i = 0; i < 6-start_index; i++) {
         //     cout << local_data[i] << endl;
         // }
+#ifdef PRECISION_DOUBLE
+        cout << "using double" << endl;
+#else
+        cout << "using single" << endl;
+#endif
     }
 
-    void Class1 :: print_data(double* data){
+    void Class1 :: print_data(vartype* data){
         cout << "In cpp:" << endl;
         for (int i = 0; i < 3; i++) {
             cout << data[i] << endl;
         }
     }
 
-    double* Class1 ::  get_data(int start_index, int* len){
+    vartype* Class1 ::  get_data(int start_index, int* len){
         *len = 3;
         return data + (start_index - 1)*3;
     }

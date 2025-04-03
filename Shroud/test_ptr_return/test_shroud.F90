@@ -22,10 +22,10 @@ program test_shroud
     call class1_test(cptr,f_val1,f_val2)
 
     do index=1,2
-        !! Testing get_data function on fortran side
-        data => class1_get_data(cptr, index)
-        print*, "In Fortran: Extracted data for index ", index
-        print*, data 
+        ! !! Testing get_data function on fortran side
+        ! data => class1_get_data(cptr, index)
+        ! print*, "In Fortran: Extracted data for index ", index
+        ! print*, data 
 
         !! Calling print data while passing class1_get_data as argument
         call class1_print_data(cptr, class1_get_data(cptr, index))
