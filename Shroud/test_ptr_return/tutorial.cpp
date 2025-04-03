@@ -6,6 +6,13 @@ using namespace std;
 namespace tutorial {
 
     Class1 :: Class1(){
+
+#ifdef PRECISION_DOUBLE
+        cout << "using double" << endl;
+#else
+        cout << "using single" << endl;
+#endif
+
         data = new vartype[6];
         for (int i = 0; i < 6; i++) {
             data[i] = static_cast<vartype>(i);
@@ -14,20 +21,6 @@ namespace tutorial {
 
     Class1 :: ~Class1(){
         
-    }
-
-    void Class1 :: test(float *val1, double *val2){
-        // int start_index = 2;
-
-        // double* local_data = get_data(start_index);
-        // for (int i = 0; i < 6-start_index; i++) {
-        //     cout << local_data[i] << endl;
-        // }
-#ifdef PRECISION_DOUBLE
-        cout << "using double" << endl;
-#else
-        cout << "using single" << endl;
-#endif
     }
 
     void Class1 :: print_data(vartype* data){

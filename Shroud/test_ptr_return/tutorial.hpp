@@ -1,7 +1,6 @@
 #ifndef CLASS1_HPP
 #define CLASS1_HPP
 #include <iostream>
-#include<string.h>
 #include "vartype.hpp"
 using namespace std;
 
@@ -17,8 +16,6 @@ namespace tutorial {
       ~Class1();
 
       vartype *data;
-
-      void test(float *val1, double *val2);
 
       void print_data(vartype* data);
 

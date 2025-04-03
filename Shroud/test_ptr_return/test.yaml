@@ -10,9 +10,7 @@ declarations:
     declarations:
     - decl: Class1() +name(new)
     - decl: ~Class1() +name(delete)
-    - decl: void test(float *val1+intent(in), double *val2+intent(in));
 
-    # - decl: double* get_data(int start_index, int* len +hidden) +deref(pointer) +dimension(len)
     - decl: double* get_data(int start_index, int* len +hidden) +deref(pointer) +dimension(len)
       format:
         function_suffix: _db
@@ -22,7 +20,6 @@ declarations:
         function_suffix: _single
       cpp_if: ifndef PRECISION_DOUBLE
     
-    # - decl: void print_data(double* data +intent(in) +rank(1))
     - decl: void print_data(double* data +intent(in) +rank(1))
       format:
         function_suffix: _db
