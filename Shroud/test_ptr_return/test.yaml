@@ -1,0 +1,15 @@
+library: Tutorial
+format:
+  F_filename_suffix: F90
+cxx_header: tutorial.hpp
+
+declarations:
+- decl: namespace tutorial
+  declarations:
+  - decl: class Class1  
+    declarations:
+    - decl: Class1() +name(new)
+    - decl: ~Class1() +name(delete)
+    - decl: void test(float *val1+intent(in), double *val2+intent(in));
+    - decl: double* get_data(int start_index, int* len +hidden) +deref(pointer) +dimension(len)
+    - decl: void print_data(double* data +intent(in) +rank(1))
